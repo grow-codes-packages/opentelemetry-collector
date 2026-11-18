@@ -1,0 +1,89 @@
+# Test configuration for the SDK fixture (otel/opentelemetry-collector-contrib:0.165.0).
+#
+# Same receivers/ports as the image's stock config (see stock-config.reference.yaml, used by Grow
+# stacks unchanged), plus everything a test needs to read telemetry back:
+#   - file exporters      -> /capture/{traces,logs,metrics}.jsonl (OTLP JSON, one export request per line),
+#                            served read-only over HTTP by the `capture` sidecar
+#   - otlp_grpc/jaeger    -> traces forwarded to the Jaeger sidecar (query API on jaeger:16686)
+#   - prometheus exporter -> received metrics re-exposed on :8889/metrics (text exposition)
+#   - health_check bound to 0.0.0.0 (stock binds localhost only), zpages, pprof, internal telemetry :8888
+#   - a second OTLP receiver `otlp/auth` on 4319 (gRPC) / 4320 (HTTP) guarded by bearertokenauth (test-only
+#     token from OTELCOL_TEST_BEARER_TOKEN) with a 64 KiB HTTP body limit, for 401/16/413 error mapping tests
+extensions:
+  bearertokenauth:
+    token: ${env:OTELCOL_TEST_BEARER_TOKEN}
+  health_check:
+    endpoint: 0.0.0.0:13133
+  pprof:
+    endpoint: 0.0.0.0:1777
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+  otlp/auth:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4319
+        auth:
+          authenticator: bearertokenauth
+      http:
+        endpoint: 0.0.0.0:4320
+        max_request_body_size: 65536
+        auth:
+          authenticator: bearertokenauth
+
+processors:
+  batch:
+    timeout: 200ms
+
+exporters:
+  file/traces:
+    path: /capture/traces.jsonl
+    flush_interval: 100ms
+  file/logs:
+    path: /capture/logs.jsonl
+    flush_interval: 100ms
+  file/metrics:
+    path: /capture/metrics.jsonl
+    flush_interval: 100ms
+  otlp_grpc/jaeger:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
+  prometheus:
+    endpoint: 0.0.0.0:8889
+    resource_to_telemetry_conversion:
+      enabled: true
+
+service:
+  telemetry:
+    logs:
+      level: info
+    metrics:
+      level: detailed
+      readers:
+        - pull:
+            exporter:
+              prometheus:
+                host: 0.0.0.0
+                port: 8888
+  extensions: [health_check, pprof, zpages, bearertokenauth]
+  pipelines:
+    traces:
+      receivers: [otlp, otlp/auth]
+      processors: [batch]
+      exporters: [file/traces, otlp_grpc/jaeger]
+    logs:
+      receivers: [otlp, otlp/auth]
+      processors: [batch]
+      exporters: [file/logs]
+    metrics:
+      receivers: [otlp, otlp/auth]
+      processors: [batch]
+      exporters: [file/metrics, prometheus]

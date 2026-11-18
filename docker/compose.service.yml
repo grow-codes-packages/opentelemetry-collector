@@ -1,0 +1,134 @@
+# OpenTelemetry Collector real-service fixture for grow-codes-packages/opentelemetry-collector (GRO-1382).
+#
+# The collector has no query API, so the fixture exports everything it receives to places a test can read:
+#
+# - `opentelemetry-collector`       : service under test, image = stack catalog tag, config ./config/collector.yaml
+#                                     (stock receivers + file/Jaeger/Prometheus exporters, health on 0.0.0.0).
+#                                     Ports on the compose network:
+#                                       4317 OTLP gRPC   4318 OTLP HTTP (/v1/traces, /v1/logs, /v1/metrics)
+#                                      13133 health_check (GET /)   55679 zpages (/debug/servicez ...)
+#                                       1777 pprof   8888 internal telemetry (/metrics)   8889 received metrics (/metrics)
+#                                       4319/4320 OTLP gRPC/HTTP behind bearertokenauth (test token), 64 KiB body limit
+# - `opentelemetry-collector-stock` : same image with its BUILT-IN config, exactly as Grow stacks run it
+#                                     (debug exporter only, health_check bound to localhost). Used to prove the
+#                                     SDK's export path against an unmodified collector and to document that
+#                                     :13133 is NOT reachable from other containers on a stock stack.
+# - `jaeger`                        : trace sidecar (same tag as the stack catalog Jaeger entry); the collector
+#                                     forwards traces to it, tests read them back on jaeger:16686 (/api/v3/traces/{id}).
+# - `capture`                       : busybox httpd serving the file exporter output read-only:
+#                                     http://capture:8080/{traces,logs,metrics}.jsonl
+# - `volume-init`                   : one-shot; owns the `capture` dir for the collector uid (10001) and copies a
+#                                     static busybox into `tools` so the scratch collector image can be health-checked.
+# - `bootstrap`                     : one-shot; waits for everything, sends a canary trace/log/metric over OTLP HTTP,
+#                                     proves each read-back path and writes KEY=value lines to /bootstrap/env.
+#
+# The only credential is a throwaway bearer token for the auth-test receiver (no real secrets).
+# No host ports are published. Test containers need only
+#   GROW_OPENTELEMETRY_COLLECTOR_URL=http://opentelemetry-collector:4318  and  /bootstrap/env (volume `bootstrap`, ro).
+# Optional: mount volume `capture` read-only at /capture (files are 0644, owner uid 10001, readable by any uid),
+# or read them over HTTP from the `capture` service.
+
+x-tools-health: &tools-health
+  interval: 2s
+  timeout: 3s
+  retries: 30
+  start_period: 2s
+
+services:
+  volume-init:
+    image: busybox:1.37.0-musl
+    restart: "no"
+    user: "0:0"
+    network_mode: none
+    volumes:
+      - capture:/capture
+      - tools:/tools
+    entrypoint:
+      - sh
+      - -ec
+      - |
+        cp /bin/busybox /tools/busybox.tmp && chmod 0755 /tools/busybox.tmp && mv -f /tools/busybox.tmp /tools/busybox
+        chown 10001:10001 /capture && chmod 0755 /capture
+        echo ok > /capture/ready.txt && chown 10001:10001 /capture/ready.txt && chmod 0644 /capture/ready.txt
+
+  service:   # service under test (harness contract); reachable as `opentelemetry-collector`
+    networks:
+      default:
+        aliases: [opentelemetry-collector]
+    image: otel/opentelemetry-collector-contrib:0.165.0
+    restart: "no"
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    environment:
+      # test-only bearer token for the `otlp/auth` receiver (4319/4320); verify.sh passes a random one per run
+      OTELCOL_TEST_BEARER_TOKEN: ${OTELCOL_TEST_BEARER_TOKEN:-grow-fixture-test-token}
+    volumes:
+      - ./config/collector.yaml:/etc/otelcol-contrib/config.yaml:ro
+      - capture:/capture
+      - tools:/tools:ro
+    depends_on:
+      volume-init:
+        condition: service_completed_successfully
+      jaeger:
+        condition: service_healthy
+    healthcheck:
+      <<: *tools-health
+      test: ["CMD", "/tools/busybox", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:13133/"]
+
+  opentelemetry-collector-stock:
+    image: otel/opentelemetry-collector-contrib:0.165.0
+    restart: "no"
+    volumes:
+      - tools:/tools:ro
+    depends_on:
+      volume-init:
+        condition: service_completed_successfully
+    healthcheck:
+      <<: *tools-health
+      # stock health_check listens on localhost:13133 only -> probe from inside the container
+      test: ["CMD", "/tools/busybox", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:13133/"]
+
+  jaeger:
+    image: jaegertracing/jaeger:2.23.0
+    restart: "no"
+    healthcheck:
+      <<: *tools-health
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:13133/status && wget -q -O /dev/null http://127.0.0.1:16686/api/v3/services || exit 1"]
+
+  capture:
+    image: busybox:1.37.0-musl
+    restart: "no"
+    user: "10001:10001"
+    volumes:
+      - capture:/capture:ro
+    depends_on:
+      volume-init:
+        condition: service_completed_successfully
+    entrypoint: ["busybox", "httpd", "-f", "-v", "-p", "8080", "-h", "/capture"]
+    healthcheck:
+      <<: *tools-health
+      test: ["CMD", "busybox", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/ready.txt"]
+
+  bootstrap:
+    image: curlimages/curl:8.23.0
+    restart: "no"
+    user: "0:0"
+    depends_on:
+      service:
+        condition: service_healthy
+      opentelemetry-collector-stock:
+        condition: service_healthy
+      capture:
+        condition: service_healthy
+      jaeger:
+        condition: service_healthy
+    environment:
+      OTELCOL_TEST_BEARER_TOKEN: ${OTELCOL_TEST_BEARER_TOKEN:-grow-fixture-test-token}
+    volumes:
+      - ./bootstrap:/scripts:ro
+      - bootstrap:/bootstrap
+    entrypoint: ["sh", "/scripts/bootstrap.sh"]
+
+volumes:
+  bootstrap:
+  capture:
+  tools:
