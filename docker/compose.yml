@@ -30,7 +30,7 @@ x-test: &test
   volumes:
     - bootstrap:/bootstrap:ro
   environment:
-    GROW_OPENTELEMETRY_COLLECTOR_URL: ${GROW_OPENTELEMETRY_COLLECTOR_URL:-http://service:4318}
+    GROW_OPENTELEMETRY_COLLECTOR_URL: ${GROW_OPENTELEMETRY_COLLECTOR_URL:-http://opentelemetry-collector:4318}
     GROW_BOOTSTRAP_ENV: /bootstrap/env
     GROW_TEST_RUN_ID: ${GROW_TEST_RUN_ID:-local}
   init: true
