@@ -372,10 +372,16 @@ impl GrpcPing {
         endpoint = endpoint
             .user_agent(ua)
             .map_err(|_| Error::config("user agent is not a valid header value"))?;
-        if let Some(tls) = tonic_tls(&target, config.common().tls())? {
-            endpoint = endpoint
-                .tls_config(tls)
-                .map_err(|e| Error::config("invalid gRPC TLS settings").with_source(e))?;
+        match tonic_tls(&target, config.common().tls())? {
+            #[cfg(feature = "otlp-tls")]
+            Some(tls) => {
+                endpoint = endpoint
+                    .tls_config(tls)
+                    .map_err(|e| Error::config("invalid gRPC TLS settings").with_source(e))?;
+            }
+            #[cfg(not(feature = "otlp-tls"))]
+            Some(tls) => match tls {},
+            None => {}
         }
         tokio::runtime::Handle::try_current()
             .map_err(|_| Error::config("a gRPC client must be created inside a tokio runtime"))?;

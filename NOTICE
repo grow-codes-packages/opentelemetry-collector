@@ -28,10 +28,10 @@ Trademarks
 -------------------------------------------------------------------------------
 
 This project is an independent, community-maintained client library. It is not
-affiliated with, endorsed or sponsored by The Linux Foundation (OpenTelemetry is a CNCF project).
-OpenTelemetry Collector is a trademark of The Linux Foundation (OpenTelemetry is a CNCF project). All other product names, logos and
-brands are the property of their respective owners and are used for
-identification purposes only.
+affiliated with, endorsed or sponsored by the owner of OpenTelemetry Collector
+(The Linux Foundation (OpenTelemetry is a CNCF project)). OpenTelemetry Collector is a trademark of its owner (The Linux Foundation (OpenTelemetry is a CNCF project));
+all other product names, logos and brands are the property of their respective
+owners and are used for identification purposes only.
 
 The OpenTelemetry Collector server itself is licensed separately by its owner:
 Apache-2.0.

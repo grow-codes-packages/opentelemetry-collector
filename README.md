@@ -408,7 +408,7 @@ Licensed under the [Apache License, Version 2.0](LICENSE). See [NOTICE](NOTICE) 
 ## Trademarks and disclaimer
 
 This is an independent, community-maintained project. It is **not affiliated with, endorsed or
-sponsored by The Linux Foundation (OpenTelemetry is a CNCF project)**. OpenTelemetry Collector is a trademark of The Linux Foundation (OpenTelemetry is a CNCF project); it is used here only to name the
+sponsored by its owner (The Linux Foundation (OpenTelemetry is a CNCF project))**. OpenTelemetry Collector is a trademark of The Linux Foundation (OpenTelemetry is a CNCF project); it is used here only to name the
 service this SDK connects to. The OpenTelemetry Collector server is licensed separately by its owner
 (Apache-2.0).
 

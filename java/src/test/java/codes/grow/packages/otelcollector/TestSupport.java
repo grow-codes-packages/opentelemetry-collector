@@ -22,6 +22,10 @@ import okio.Buffer;
 
 /** Fixtures and mock helpers shared by the service tests. */
 final class TestSupport {
+  // JUL keeps loggers weakly: hold a strong reference or the OFF level is lost after a GC.
+  private static final java.util.logging.Logger OTEL_JUL =
+      java.util.logging.Logger.getLogger("io.opentelemetry");
+
   private TestSupport() {}
 
   static final RetryPolicy FAST_RETRY =
@@ -36,7 +40,7 @@ final class TestSupport {
    * (TZ=UTC) the first JUL record written from an OkHttp thread can fail to initialise.
    */
   static void quietOtelLogs() {
-    java.util.logging.Logger.getLogger("io.opentelemetry").setLevel(java.util.logging.Level.OFF);
+    OTEL_JUL.setLevel(java.util.logging.Level.OFF);
   }
 
   /** A recorded fixture from {@code src/test/resources/fixtures}. */

@@ -57,6 +57,10 @@ import org.junit.jupiter.api.Test;
  * Jaeger sidecar or the collector's own endpoints.
  */
 class CollectorTest {
+  // JUL keeps loggers weakly: hold a strong reference or the OFF level is lost after a GC.
+  private static final java.util.logging.Logger OTEL_JUL =
+      java.util.logging.Logger.getLogger("io.opentelemetry");
+
   private static Map<String, String> env;
 
   @BeforeAll
@@ -66,7 +70,7 @@ class CollectorTest {
         env.containsKey(EnvReader.DEFAULT_PREFIX + "URL"),
         "GROW_OPENTELEMETRY_COLLECTOR_URL is not set; run through docker/compose.yml");
     // expected export failures below are logged by the SDK through JUL from OkHttp threads
-    java.util.logging.Logger.getLogger("io.opentelemetry").setLevel(java.util.logging.Level.OFF);
+    OTEL_JUL.setLevel(java.util.logging.Level.OFF);
   }
 
   private static String run() {

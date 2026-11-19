@@ -11,7 +11,8 @@ use async_trait::async_trait;
 use bytes::Bytes;
 use opentelemetry_http::{HttpClient, HttpError, Request, Response};
 use opentelemetry_otlp::tonic_types::metadata::MetadataMap;
-use opentelemetry_otlp::tonic_types::transport::{Certificate, ClientTlsConfig, Identity};
+#[cfg(feature = "otlp-tls")]
+use opentelemetry_otlp::tonic_types::transport::{Certificate, Identity};
 
 use crate::core::redact::{redact_text, truncate};
 use crate::core::retry::parse_retry_after;
@@ -360,10 +361,19 @@ pub(crate) fn reqwest_client(s: &ClientSettings) -> Result<reqwest::Client> {
         .map_err(|e| Error::config("cannot build the HTTP client").with_source(e))
 }
 
+/// tonic TLS settings (`ClientTlsConfig`); uninhabited without the `otlp-tls` feature.
+#[cfg(feature = "otlp-tls")]
+pub(crate) use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig as TonicTls;
+
+/// tonic TLS settings; uninhabited because the crate is built without the `otlp-tls` feature.
+#[cfg(not(feature = "otlp-tls"))]
+#[derive(Debug, Clone)]
+pub(crate) enum TonicTls {}
+
 /// The tonic TLS settings for an endpoint: `Some` for `https://` endpoints or when a CA or a
 /// client certificate is configured. `insecure_skip_verify` is `CONFIG` (tonic cannot skip
-/// verification; use `http/protobuf`).
-pub(crate) fn tonic_tls(endpoint: &str, tls: &TlsConfig) -> Result<Option<ClientTlsConfig>> {
+/// verification; use `http/protobuf`), and so is any TLS need without the `otlp-tls` feature.
+pub(crate) fn tonic_tls(endpoint: &str, tls: &TlsConfig) -> Result<Option<TonicTls>> {
     if tls.insecure_skip_verify {
         return Err(Error::config(
             "insecureSkipVerify is not supported with OTLP gRPC in Rust; use http/protobuf",
@@ -374,7 +384,16 @@ pub(crate) fn tonic_tls(endpoint: &str, tls: &TlsConfig) -> Result<Option<Client
     if !endpoint.starts_with("https:") && ca.is_none() && identity.is_none() {
         return Ok(None);
     }
-    let mut t = ClientTlsConfig::new().with_native_roots();
+    build_tonic_tls(endpoint, ca, identity)
+}
+
+#[cfg(feature = "otlp-tls")]
+fn build_tonic_tls(
+    endpoint: &str,
+    ca: Option<Vec<u8>>,
+    identity: Option<(Vec<u8>, Vec<u8>)>,
+) -> Result<Option<TonicTls>> {
+    let mut t = TonicTls::new().with_native_roots();
     if let Some(ca) = ca {
         t = t.ca_certificate(Certificate::from_pem(ca));
     }
@@ -388,6 +407,31 @@ pub(crate) fn tonic_tls(endpoint: &str, tls: &TlsConfig) -> Result<Option<Client
         t = t.domain_name(host);
     }
     Ok(Some(t))
+}
+
+#[cfg(not(feature = "otlp-tls"))]
+fn build_tonic_tls(
+    _endpoint: &str,
+    _ca: Option<Vec<u8>>,
+    _identity: Option<(Vec<u8>, Vec<u8>)>,
+) -> Result<Option<TonicTls>> {
+    Err(Error::config(
+        "OTLP gRPC over TLS (https endpoint, CA or client certificate) needs the crate feature `otlp-tls`",
+    ))
+}
+
+/// Applies the tonic TLS settings (if any) to an official OTLP exporter builder.
+pub(crate) fn with_tonic_tls<B: opentelemetry_otlp::WithTonicConfig>(
+    b: B,
+    tls: Option<TonicTls>,
+) -> B {
+    match tls {
+        #[cfg(feature = "otlp-tls")]
+        Some(t) => b.with_tls_config(t),
+        #[cfg(not(feature = "otlp-tls"))]
+        Some(t) => match t {},
+        None => b,
+    }
 }
 
 /// gRPC metadata from headers (names lower-cased; invalid names or values are `CONFIG`).
@@ -679,16 +723,23 @@ mod tests {
         assert!(tonic_tls("http://h:4317", &TlsConfig::default())
             .unwrap()
             .is_none());
-        assert!(tonic_tls("https://h:4317", &TlsConfig::default())
-            .unwrap()
-            .is_some());
         let pem = std::fs::read_to_string(format!("{dir}/ca.pem")).unwrap();
         let t = TlsConfig {
             ca_cert_pem: Some(pem.clone()),
             ..Default::default()
         };
-        assert!(tonic_tls("http://h:4317", &t).unwrap().is_some());
-        assert!(tonic_tls("not a url", &t).unwrap().is_some());
+        if cfg!(feature = "otlp-tls") {
+            assert!(tonic_tls("https://h:4317", &TlsConfig::default())
+                .unwrap()
+                .is_some());
+            assert!(tonic_tls("http://h:4317", &t).unwrap().is_some());
+            assert!(tonic_tls("not a url", &t).unwrap().is_some());
+        } else {
+            let err = tonic_tls("https://h:4317", &TlsConfig::default()).unwrap_err();
+            assert_eq!(err.code(), ErrorCode::Config);
+            assert!(err.message().contains("otlp-tls"), "{err}");
+            assert!(tonic_tls("http://h:4317", &t).is_err());
+        }
         let s = ClientSettings {
             tls: t,
             proxy: Some("::bad::".into()),

@@ -9,7 +9,7 @@ use opentelemetry_otlp::{SpanExporter, WithExportConfig, WithHttpConfig, WithTon
 
 use crate::config::{native_error, OtelCollectorConfig};
 use crate::core::{EnvReader, Error, Result, TlsConfig};
-use crate::otlp::{grpc_metadata, reqwest_client, tonic_tls, ClientSettings};
+use crate::otlp::{grpc_metadata, reqwest_client, tonic_tls, with_tonic_tls, ClientSettings};
 use crate::resource::detect_resource_attributes;
 use crate::tracing::{
     init_tracing_with, Compression, PropagatorKind, Protocol, SamplerKind, TraceBatchConfig,
@@ -184,9 +184,7 @@ pub fn collector_exporter(config: &TracingConfig) -> Result<SpanExporter> {
             if gzip {
                 b = b.with_compression(opentelemetry_otlp::Compression::Gzip);
             }
-            if let Some(t) = tonic_tls(&endpoint, &tls)? {
-                b = b.with_tls_config(t);
-            }
+            b = with_tonic_tls(b, tonic_tls(&endpoint, &tls)?);
             b.build()
         }
     };
