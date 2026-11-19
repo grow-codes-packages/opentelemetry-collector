@@ -1,0 +1,66 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4318/v1/metrics",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "resourceMetrics": [
+        {
+          "resource": {
+            "attributes": [
+              {
+                "key": "service.name",
+                "value": {
+                  "stringValue": "grow-verify-json"
+                }
+              }
+            ]
+          },
+          "scopeMetrics": [
+            {
+              "scope": {
+                "name": "grow-verify"
+              },
+              "metrics": [
+                {
+                  "name": "grow_verify_json_gauge",
+                  "gauge": {
+                    "dataPoints": [
+                      {
+                        "timeUnixNano": "1795035213598486028",
+                        "asDouble": 1.5,
+                        "attributes": [
+                          {
+                            "key": "grow.run",
+                            "value": {
+                              "stringValue": "verify-abc5abcf-json"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Content-Length": "21",
+      "Connection": "close"
+    },
+    "body": {
+      "json": {
+        "partialSuccess": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://opentelemetry-collector-stock:13133/"
+  },
+  "response": {
+    "error": "ECONNREFUSED (stock config binds localhost:13133)"
+  },
+  "expectedHealthStatus": {
+    "healthy": false,
+    "status": "unreachable",
+    "details": {}
+  }
+}

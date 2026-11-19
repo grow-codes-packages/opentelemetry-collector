@@ -1,0 +1,174 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://jaeger:16686/api/v3/traces/42f20505df25f6862caac8882c1576bc",
+    "headers": {},
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Content-Length": "1628",
+      "Connection": "close"
+    },
+    "body": {
+      "json": {
+        "result": {
+          "resourceSpans": [
+            {
+              "resource": {
+                "attributes": [
+                  {
+                    "key": "deployment.environment.name",
+                    "value": {
+                      "stringValue": "test"
+                    }
+                  },
+                  {
+                    "key": "grow.run",
+                    "value": {
+                      "stringValue": "verify-abc5abcf-http"
+                    }
+                  },
+                  {
+                    "key": "service.name",
+                    "value": {
+                      "stringValue": "grow-verify-http"
+                    }
+                  },
+                  {
+                    "key": "service.version",
+                    "value": {
+                      "stringValue": "1.2.3"
+                    }
+                  }
+                ]
+              },
+              "scopeSpans": [
+                {
+                  "scope": {
+                    "name": "grow-verify"
+                  },
+                  "spans": [
+                    {
+                      "traceId": "42f20505df25f6862caac8882c1576bc",
+                      "spanId": "b874846a570fdb75",
+                      "name": "verify-root",
+                      "kind": 2,
+                      "startTimeUnixNano": "1795035211672719107",
+                      "endTimeUnixNano": "1795035211677719107",
+                      "attributes": [
+                        {
+                          "key": "grow.run",
+                          "value": {
+                            "stringValue": "verify-abc5abcf-http"
+                          }
+                        },
+                        {
+                          "key": "http.request.method",
+                          "value": {
+                            "stringValue": "GET"
+                          }
+                        },
+                        {
+                          "key": "n",
+                          "value": {
+                            "intValue": "7"
+                          }
+                        },
+                        {
+                          "key": "ok",
+                          "value": {
+                            "boolValue": true
+                          }
+                        },
+                        {
+                          "key": "ratio",
+                          "value": {
+                            "doubleValue": 0.5
+                          }
+                        },
+                        {
+                          "key": "tags",
+                          "value": {
+                            "arrayValue": {
+                              "values": [
+                                {
+                                  "stringValue": "a"
+                                },
+                                {
+                                  "stringValue": "b"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ],
+                      "status": {}
+                    },
+                    {
+                      "traceId": "42f20505df25f6862caac8882c1576bc",
+                      "spanId": "c5aa57929bf7104a",
+                      "parentSpanId": "b874846a570fdb75",
+                      "name": "verify-child",
+                      "kind": 3,
+                      "startTimeUnixNano": "1795035211673719107",
+                      "endTimeUnixNano": "1795035211676719107",
+                      "attributes": [
+                        {
+                          "key": "grow.run",
+                          "value": {
+                            "stringValue": "verify-abc5abcf-http"
+                          }
+                        }
+                      ],
+                      "events": [
+                        {
+                          "timeUnixNano": "1795035211674719107",
+                          "name": "exception",
+                          "attributes": [
+                            {
+                              "key": "exception.message",
+                              "value": {
+                                "stringValue": "boom"
+                              }
+                            },
+                            {
+                              "key": "exception.type",
+                              "value": {
+                                "stringValue": "ValueError"
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "links": [
+                        {
+                          "traceId": "fa18e5446ab86619aa80368f59601fe0",
+                          "spanId": "886386a7ef5305a5",
+                          "attributes": [
+                            {
+                              "key": "link.kind",
+                              "value": {
+                                "stringValue": "follows"
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "status": {
+                        "message": "boom",
+                        "code": 2
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

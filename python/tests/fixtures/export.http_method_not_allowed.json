@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://opentelemetry-collector:4318/v1/traces",
+    "headers": {},
+    "body": null
+  },
+  "response": {
+    "status": 405,
+    "headers": {
+      "Content-Type": "text/plain",
+      "Content-Length": "41",
+      "Connection": "close"
+    },
+    "body": {
+      "text": "405 method not allowed, supported: [POST]"
+    }
+  }
+}

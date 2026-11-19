@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4318/v1/logs",
+    "headers": {
+      "Content-Type": "application/x-protobuf"
+    },
+    "body": "garbage-not-proto"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/x-protobuf",
+      "Content-Length": "29",
+      "Connection": "close"
+    },
+    "body": {
+      "base64": "CAMSGXByb3RvOiBpbGxlZ2FsIHdpcmVUeXBlIDc=",
+      "hex": "0803121970726f746f3a20696c6c6567616c2077697265547970652037"
+    }
+  },
+  "decoded": {
+    "googleRpcStatus": {
+      "code": 3,
+      "message": "proto: illegal wireType 7"
+    }
+  }
+}

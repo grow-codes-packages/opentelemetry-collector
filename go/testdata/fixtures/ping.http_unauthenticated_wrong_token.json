@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4320/v1/traces",
+    "headers": {
+      "Content-Type": "application/x-protobuf",
+      "Authorization": "Bearer wrong-token"
+    },
+    "body": "empty body"
+  },
+  "response": {
+    "status": 401,
+    "headers": {
+      "Content-Type": "application/x-protobuf",
+      "Content-Length": "66",
+      "Connection": "close"
+    },
+    "body": {
+      "base64": "CBASPnByb3ZpZGVkIGF1dGhvcml6YXRpb24gZG9lcyBub3QgbWF0Y2ggZXhwZWN0ZWQgc2NoZW1lIG9yIHRva2Vu",
+      "hex": "0810123e70726f766964656420617574686f72697a6174696f6e20646f6573206e6f74206d6174636820657870656374656420736368656d65206f7220746f6b656e"
+    }
+  },
+  "decoded": {
+    "googleRpcStatus": {
+      "code": 16,
+      "message": "provided authorization does not match expected scheme or token"
+    }
+  }
+}

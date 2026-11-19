@@ -1,0 +1,62 @@
+{
+  "source": "http://capture:8080/metrics.jsonl",
+  "metrics": {
+    "grow_verify_requests": {
+      "type": "sum",
+      "dataPoint": {
+        "attributes": [
+          {
+            "key": "grow.run",
+            "value": {
+              "stringValue": "verify-abc5abcf-http"
+            }
+          }
+        ],
+        "startTimeUnixNano": "1795035210672719107",
+        "timeUnixNano": "1795035211672719107",
+        "asInt": "3"
+      }
+    },
+    "grow_verify_temperature": {
+      "type": "gauge",
+      "dataPoint": {
+        "attributes": [
+          {
+            "key": "grow.run",
+            "value": {
+              "stringValue": "verify-abc5abcf-http"
+            }
+          }
+        ],
+        "timeUnixNano": "1795035211672719107",
+        "asDouble": 42.5
+      }
+    },
+    "grow_verify_latency": {
+      "type": "histogram",
+      "dataPoint": {
+        "attributes": [
+          {
+            "key": "grow.run",
+            "value": {
+              "stringValue": "verify-abc5abcf-http"
+            }
+          }
+        ],
+        "startTimeUnixNano": "1795035210672719107",
+        "timeUnixNano": "1795035211672719107",
+        "count": "3",
+        "sum": 150,
+        "bucketCounts": [
+          "1",
+          "2",
+          "0"
+        ],
+        "explicitBounds": [
+          10,
+          100
+        ]
+      }
+    }
+  }
+}

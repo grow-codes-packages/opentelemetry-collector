@@ -37,3 +37,9 @@ def env() -> dict[str, str]:
 def client(env: dict[str, str]) -> Iterator[sdk.OtelCollectorClient]:
     with core_client(env) as c:
         yield c
+
+
+@pytest.fixture(scope="session")
+def run_id(env: dict[str, str]) -> str:
+    """Unique id of this run (set by the compose harness)."""
+    return env.get("GROW_TEST_RUN_ID", "local")

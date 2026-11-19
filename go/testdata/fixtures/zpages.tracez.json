@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://opentelemetry-collector:55679/debug/tracez",
+    "headers": {},
+    "body": null
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "text/plain; charset=utf-8",
+      "X-Content-Type-Options": "nosniff",
+      "Content-Length": "19",
+      "Connection": "close"
+    },
+    "body": {
+      "text": "404 page not found\n"
+    }
+  }
+}

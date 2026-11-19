@@ -1,278 +1,452 @@
-"""Skeleton client (sync + async), health, close and polling helpers."""
+"""OtelCollectorClient / AsyncOtelCollectorClient: health (health_check + zpages fallback), ping
+over HTTP and gRPC, server_version, owned resources, close and the unsupported query clients.
+HTTP replies replay the recorded collector 0.165.0 fixtures."""
 
 from __future__ import annotations
 
 import asyncio
+import threading
 import time
 from typing import Any
 
+import grpc
 import pytest
 
 import grow_opentelemetry_collector as sdk
-from _support import MockServer, Reply, closed_port_url, make_config, spawn_capturing
+from _grpc import GrpcReply, GrpcServer
+from _support import MockServer, Reply, closed_port_url, fixture_reply, make_config
 
 TOKEN = "client-token-789"
 
 
-def client(url: str, **kw: Any) -> sdk.OtelCollectorClient:
-    return sdk.OtelCollectorClient(make_config(url, **kw))
+def config(server: MockServer, **kw: Any) -> sdk.OtelCollectorConfig:
+    kw.setdefault("health_url", server.url + "/")
+    kw.setdefault("zpages_url", server.url)
+    return make_config(server.url, **kw)
 
 
-def aclient(url: str, **kw: Any) -> sdk.AsyncOtelCollectorClient:
-    return sdk.AsyncOtelCollectorClient(make_config(url, **kw))
+def client(server: MockServer, **kw: Any) -> sdk.OtelCollectorClient:
+    return sdk.OtelCollectorClient(config(server, **kw))
 
 
-# --------------------------------------------------------------------------- sync
+def aclient(server: MockServer, **kw: Any) -> sdk.AsyncOtelCollectorClient:
+    return sdk.AsyncOtelCollectorClient(config(server, **kw))
 
 
-def test_health_ping_version(server: MockServer) -> None:
-    server.enqueue("/health", Reply(200, {"status": "ok", "build": 7, "nested": {"x": 1}}))
-    server.enqueue("/version", Reply(200, {"version": "1.2.3"}))
-    with client(server.url, token=TOKEN) as c:
-        health = c.health()
-        assert health == sdk.HealthStatus(True, "ok", {"build": "7"})
-        latency = c.ping()
-        assert isinstance(latency, float) and latency >= 0
-        assert c.server_version() == "1.2.3"
-        assert "client-token" not in repr(c)
-    ping = next(s for s in server.seen if s.path == "/v1/ping")
-    assert ping.headers["Authorization"] == f"Bearer {TOKEN}"
-    health_req = next(s for s in server.seen if s.path == "/health")
-    assert "Authorization" not in health_req.headers
+HEALTH_OK = sdk.HealthStatus(
+    True,
+    "ok",
+    {
+        "source": "health_check",
+        "vendorStatus": "Server available",
+        "upSince": "2026-11-18T20:53:24.720766521Z",
+        "uptime": "8.849963868s",
+    },
+)
 
 
-def test_health_variants(server: MockServer) -> None:
-    c = client(server.url)
-    server.enqueue("/health", Reply(503, {"status": "degraded"}))
-    assert c.health() == sdk.HealthStatus(False, "degraded", {"httpStatus": "503"})
-    server.enqueue("/health", Reply(500, "boom"))
-    assert c.health() == sdk.HealthStatus(False, "unhealthy", {"httpStatus": "500"})
-    server.enqueue("/health", Reply(200, "OK"))
-    assert c.health() == sdk.HealthStatus(True, "ok", {})
-    server.enqueue("/health", Reply(200, [1, 2]))
-    assert c.health().healthy
-    assert len([s for s in server.seen if s.path == "/health"]) == 4  # health never retries
+# --------------------------------------------------------------------------- health
+
+
+def test_health_ok_without_credentials(server: MockServer) -> None:
+    server.enqueue("/", fixture_reply("health.ok"))
+    with client(server, token=TOKEN) as c:
+        assert c.health() == HEALTH_OK
+        assert isinstance(c.health_client, sdk.CollectorHealthClient)
+        assert TOKEN not in repr(c)
+    assert "Authorization" not in server.seen[0].headers
+
+
+def test_health_unhealthy_and_plain_bodies(server: MockServer) -> None:
+    c = client(server)
+    server.enqueue("/", Reply(503, {"status": "Server not available", "upSince": "x"}))
+    assert c.health() == sdk.HealthStatus(
+        False,
+        "unhealthy",
+        {
+            "source": "health_check",
+            "vendorStatus": "Server not available",
+            "upSince": "x",
+            "httpStatus": "503",
+        },
+    )
+    server.enqueue("/", Reply(200, "OK"))
+    assert c.health() == sdk.HealthStatus(True, "ok", {"source": "health_check"})
+    server.enqueue("/", Reply(500, [1]))
+    assert c.health().status == "unhealthy"
+    assert len(server.seen) == 3  # health never retries
+    c.close()
+
+
+def test_health_falls_back_to_zpages(server: MockServer) -> None:
+    """Stock stacks bind health_check to localhost: health() answers from zpages."""
+    server.enqueue("/debug/servicez", fixture_reply("serverVersion.zpages_stock"))
+    c = sdk.OtelCollectorClient(
+        make_config(server.url, health_url=closed_port_url() + "/", zpages_url=server.url)
+    )
+    assert c.health() == sdk.HealthStatus(True, "ok", {"source": "zpages"})
+    server.enqueue("/debug/servicez", Reply(404, "404 page not found"))
+    status = c.health()
+    assert (status.healthy, status.status) == (False, "unreachable")
+    assert "connection failed" in status.details["error"]
+    c.close()
 
 
 def test_core_health_unreachable() -> None:
     """core.health.unreachable"""
-    c = client(closed_port_url())
+    c = sdk.OtelCollectorClient(make_config(closed_port_url()))
     status = c.health()
-    assert status.healthy is False
-    assert status.status == "unreachable"
-    assert "error" in status.details
-
-
-def test_health_timeout_is_unreachable(server: MockServer) -> None:
-    server.enqueue("/health", Reply(200, delay=1.0))
-    c = client(server.url, request_timeout=0.1)
-    assert c.health().status == "unreachable"
-
-
-def test_health_raises_only_cancelled_and_config(server: MockServer) -> None:
-    c = client(server.url)
+    assert not status.healthy and status.status == "unreachable"
     c.close()
-    with pytest.raises(sdk.CancelledError):
-        c.health()
+
+
+def test_health_raises_cancelled(server: MockServer) -> None:
     token = sdk.CancelToken()
     token.cancel()
+    with client(server) as c, pytest.raises(sdk.CancelledError):
+        c.health(cancel=token)
+
+
+def test_default_health_and_zpages_urls() -> None:
+    cfg = sdk.OtelCollectorConfig(url="https://collector.example:4318")
+    assert cfg.health_url == "https://collector.example:13133/"
+    assert cfg.zpages_url == "https://collector.example:55679"
+    assert cfg.grpc_url == "https://collector.example:4317"
+    v6 = sdk.OtelCollectorConfig(url="http://[::1]:4318")
+    assert v6.grpc_url == "http://[::1]:4317"
+
+
+def test_wait_until_ready(server: MockServer) -> None:
+    server.enqueue("/", Reply(503, {"status": "Server not available"}), fixture_reply("health.ok"))
+    with client(server) as c:
+        assert c.wait_until_ready(5, interval_s=0.01) == HEALTH_OK
+        server.defaults["/"] = Reply(503, {})
+        with pytest.raises(sdk.TimeoutError):
+            c.wait_until_ready(0.05, interval_s=0.01)
+        token = sdk.CancelToken()
+        threading.Timer(0.05, token.cancel).start()
+        started = time.monotonic()
+        with pytest.raises(sdk.CancelledError):
+            c.wait_until_ready(10, interval_s=5, cancel=token)
+        assert time.monotonic() - started < 3
+    h = sdk.CollectorHealthClient(config(server))
+    with pytest.raises(sdk.TimeoutError):
+        h.wait_until_ready(0.02, interval_s=0.01)
+    h.close()
+
+
+# --------------------------------------------------------------------------- ping
+
+
+def test_ping_http_empty_export(server: MockServer) -> None:
+    server.enqueue("/v1/traces", fixture_reply("ping.http_empty_export"))
+    with client(server, token=TOKEN, traces_headers={"X-Tenant": "t1"}) as c:
+        latency = c.ping()
+        assert isinstance(latency, float) and latency >= 0
+    seen = server.seen[0]
+    assert (seen.method, seen.path, seen.body) == ("POST", "/v1/traces", b"")
+    assert seen.headers["Content-Type"] == "application/x-protobuf"
+    assert seen.headers["Authorization"] == f"Bearer {TOKEN}"
+    assert seen.headers["X-Tenant"] == "t1"
+    assert seen.headers["User-Agent"].startswith("grow-codes-opentelemetry-collector/")
+
+
+def test_ping_explicit_traces_url(server: MockServer) -> None:
+    server.enqueue("/custom/path", Reply(200, b"\n\x00"))
+    with client(server, traces_url=server.url + "/custom/path") as c:
+        c.ping()
+    assert server.seen[0].path == "/custom/path"
+
+
+def test_ping_errors(server: MockServer) -> None:
+    server.enqueue("/v1/traces", fixture_reply("ping.http_unauthenticated_wrong_token"))
+    with client(server, token=TOKEN) as c:
+        with pytest.raises(sdk.AuthenticationError) as info:
+            c.ping()
+        assert "provided authorization does not match" in info.value.message
+        assert TOKEN not in str(info.value)
+        assert info.value.http_status == 401
+        server.enqueue("/v1/traces", fixture_reply("export.http_not_found"))
+        with pytest.raises(sdk.NotFoundError) as nf:
+            c.ping()
+        assert "404 page not found" in nf.value.message
+        server.enqueue("/v1/traces", Reply(403, b""))
+        with pytest.raises(sdk.PermissionDeniedError):
+            c.ping()
+        server.enqueue("/v1/traces", Reply(503, b""), Reply(200, b"\n\x00"))
+        c.ping()  # the empty export is idempotent: retried
+
+
+def test_ping_grpc(grpc_server: GrpcServer, server: MockServer) -> None:
+    with client(server, protocol="grpc", grpc_url=grpc_server.url, token=TOKEN) as c:
+        assert c.ping() >= 0
+        assert c.ping() >= 0  # channel reused
+        seen = grpc_server.seen[0]
+        assert (seen.method, seen.body) == ("traces", b"")
+        assert seen.metadata["authorization"] == f"Bearer {TOKEN}"
+        assert "grow-codes-opentelemetry-collector" in seen.metadata["user-agent"]
+        grpc_server.enqueue(
+            "traces",
+            GrpcReply(code=grpc.StatusCode.UNAUTHENTICATED, details=f"bad token {TOKEN}"),
+        )
+        with pytest.raises(sdk.AuthenticationError) as info:
+            c.ping()
+        assert "UNAUTHENTICATED" in info.value.message and TOKEN not in info.value.message
+        grpc_server.enqueue("traces", GrpcReply(code=grpc.StatusCode.UNAVAILABLE), GrpcReply())
+        c.ping()
+        grpc_server.enqueue("traces", GrpcReply(code=grpc.StatusCode.UNIMPLEMENTED, details="no"))
+        with pytest.raises(sdk.NotFoundError):
+            c.ping()
+
+
+def test_ping_grpc_timeout_and_cancel(grpc_server: GrpcServer, server: MockServer) -> None:
+    with client(server, protocol="grpc", grpc_url=grpc_server.url, request_timeout=0.2) as c:
+        grpc_server.enqueue("traces", GrpcReply(delay=1.0))
+        with pytest.raises(sdk.TimeoutError):
+            c.ping()
+        grpc_server.enqueue("traces", GrpcReply(delay=2.0))
+        token = sdk.CancelToken()
+        threading.Timer(0.05, token.cancel).start()
+        with pytest.raises(sdk.CancelledError):
+            c.ping(cancel=token)
+        with pytest.raises(sdk.CancelledError):
+            c.ping(cancel=token)  # already cancelled
+
+
+def test_ping_grpc_cancel_during_backoff(grpc_server: GrpcServer, server: MockServer) -> None:
+    retry = sdk.RetryPolicy(initial_backoff=5, max_backoff=5, random=lambda: 1.0)
+    with client(server, protocol="grpc", grpc_url=grpc_server.url, retry=retry) as c:
+        grpc_server.enqueue("traces", GrpcReply(code=grpc.StatusCode.UNAVAILABLE))
+        token = sdk.CancelToken()
+        threading.Timer(0.2, token.cancel).start()
+        started = time.monotonic()
+        with pytest.raises(sdk.CancelledError):
+            c.ping(cancel=token)
+        assert time.monotonic() - started < 3
+
+
+# --------------------------------------------------------------------------- server version
+
+
+def test_server_version_from_zpages(server: MockServer) -> None:
+    server.enqueue("/debug/servicez", fixture_reply("serverVersion.zpages"))
+    with client(server) as c:
+        assert c.server_version() == "0.165.0"
+
+
+def test_server_version_falls_back_to_target_info(server: MockServer) -> None:
+    server.enqueue("/debug/servicez", Reply(404, "404 page not found"))
+    server.enqueue("/metrics", fixture_reply("serverVersion.telemetry_target_info"))
+    with client(server, telemetry_url=server.url + "/metrics") as c:
+        assert c.server_version() == "0.165.0"
+        server.enqueue("/debug/servicez", Reply(200, "<html>no version</html>"))
+        server.enqueue("/metrics", Reply(200, "# nothing here"))
+        with pytest.raises(sdk.UnsupportedError):
+            c.server_version()
+        server.enqueue("/debug/servicez", Reply(404, ""))
+        server.enqueue("/metrics", Reply(404, ""))
+        with pytest.raises(sdk.UnsupportedError) as info:
+            c.server_version()
+        assert isinstance(info.value.cause, sdk.NotFoundError)
+        server.enqueue("/debug/servicez", Reply(404, ""))
+        server.enqueue("/metrics", Reply(401, ""))
+        with pytest.raises(sdk.AuthenticationError):
+            c.server_version()
+
+
+def test_server_version_unsupported_and_fatal(server: MockServer) -> None:
+    with client(server) as c:
+        server.enqueue("/debug/servicez", Reply(404, ""))
+        with pytest.raises(sdk.UnsupportedError):
+            c.server_version()
+        server.enqueue("/debug/servicez", Reply(403, ""))
+        with pytest.raises(sdk.PermissionDeniedError):
+            c.server_version()
+
+
+def test_parsers() -> None:
+    assert sdk.parse_servicez_version("<b>Version</b></td>\n<td>:</td><td x>v1.2.3</td>") == "1.2.3"
+    assert sdk.parse_servicez_version("nothing") is None
+    assert sdk.parse_target_info_version('target_info{service_version="v0.1.0"} 1') == "0.1.0"
+    assert sdk.parse_target_info_version("up 1") is None
+
+
+# --------------------------------------------------------------------------- lifecycle
+
+
+def test_close_owned_resources_and_closed_client(server: MockServer) -> None:
+    c = client(server, service_name="svc", metric_export_interval=60)
+    handle = c.init_telemetry(set_global=False, traces=False, metrics=False)
+    tracing = c.init_tracing(set_global=False)
+    logs = c.log_client()
+    exporter = c.log_exporter()
+    assert isinstance(tracing, sdk.CollectorTracingHandle)
+    c.close()
+    c.close()
+    assert handle.is_shut_down and tracing.is_shut_down
+    assert logs.stats().queued == 0
+    assert exporter.export([sdk.LogRecord("x")]).error is not None
+    for call in (c.health, c.ping, c.server_version, c.wait_until_ready):
+        with pytest.raises(sdk.CancelledError):
+            call()
     with pytest.raises(sdk.CancelledError):
-        client(server.url).health(cancel=token)
-    bad = sdk.OtelCollectorClient.__new__(sdk.OtelCollectorClient)
-    bad.config = sdk.OtelCollectorConfig(url="ftp://svc")
-    bad._transport = sdk.HttpTransport(bad.config)
-    with pytest.raises(sdk.ConfigError):
-        bad.health()
+        c.log_exporter()
+    with pytest.raises(sdk.CancelledError):
+        c.request(sdk.Request("GET", "/"))
 
 
-def test_ping_bad_credentials(server: MockServer) -> None:
-    server.enqueue("/v1/ping", Reply(401, {"error": "unauthorized"}))
-    with pytest.raises(sdk.AuthenticationError):
-        client(server.url).ping()
-
-
-def test_server_version_errors(server: MockServer) -> None:
-    c = client(server.url)
-    server.enqueue("/version", Reply(404))
-    with pytest.raises(sdk.UnsupportedError) as info:
-        c.server_version()
-    assert info.value.http_status == 404
-    server.enqueue("/version", Reply(200, {"nope": 1}))
-    with pytest.raises(sdk.ValidationError):
-        c.server_version()
-    server.enqueue("/version", Reply(403))
-    with pytest.raises(sdk.PermissionDeniedError):
-        c.server_version()
-
-
-def test_core_close_idempotent(server: MockServer) -> None:
-    """core.close.idempotent"""
-    c = client(server.url)
-    stopped: list[int] = []
-
-    class Res:
-        def stop(self) -> None:
-            stopped.append(1)
-
-    c.resources.register(Res())
-    c.close()
-    c.close()
-    assert stopped == [1]
-    c.resources.register(Res())  # registering after close stops immediately
-    assert stopped == [1, 1]
-
-
-def test_from_env_and_raw_request(server: MockServer, monkeypatch: pytest.MonkeyPatch) -> None:
-    env = {sdk.ENV_PREFIX + "URL": server.url, sdk.ENV_PREFIX + "TOKEN": TOKEN}
+def test_request_and_from_env(server: MockServer) -> None:
+    server.enqueue("/raw", Reply(200, {"ok": True}))
+    env = {"GROW_OPENTELEMETRY_COLLECTOR_URL": server.url}
     with sdk.OtelCollectorClient.from_env(env) as c:
+        assert c.request(sdk.Request("GET", "/raw")).json() == {"ok": True}
         assert c.config.url == server.url
-        resp = c.request(sdk.Request("GET", "/anything"))
-        assert resp.status == 200
-    monkeypatch.setenv(sdk.ENV_PREFIX + "URL", server.url)
-    with sdk.OtelCollectorClient() as c2:
-        assert c2.config.url == server.url
-    with pytest.raises(sdk.ConfigError):
-        sdk.OtelCollectorClient.from_env({sdk.ENV_PREFIX + "URL": "nope://x"})
+
+
+def test_query_clients_are_unsupported(server: MockServer) -> None:
+    with client(server) as c:
+        tq, lq = c.trace_query(), c.log_query()
+        calls = [
+            lambda: tq.get_trace("0" * 32),
+            tq.search_traces,
+            tq.list_services,
+            lambda: tq.list_operations("svc"),
+            tq.get_dependencies,
+            lambda: tq.wait_for_trace("0" * 32),
+            lambda: lq.search("x"),
+            lambda: lq.tail("x", print),
+            lq.list_streams,
+            lq.list_labels,
+            lambda: lq.wait_for_log("x"),
+        ]
+        for call in calls:
+            with pytest.raises(sdk.UnsupportedError) as info:
+                call()
+            assert "no query API" in info.value.message
 
 
 # --------------------------------------------------------------------------- async
 
 
-async def test_async_client(server: MockServer, monkeypatch: pytest.MonkeyPatch) -> None:
-    server.enqueue("/health", Reply(200, {"status": "ok"}))
-    server.enqueue("/version", Reply(200, {"version": "9.9.9"}))
-    async with aclient(server.url, token=TOKEN) as c:
-        assert (await c.health()).healthy
+async def test_async_client_surface(server: MockServer, grpc_server: GrpcServer) -> None:
+    server.enqueue("/", fixture_reply("health.ok"))
+    server.enqueue("/v1/traces", fixture_reply("ping.http_empty_export"))
+    server.enqueue("/debug/servicez", fixture_reply("serverVersion.zpages"))
+    server.enqueue("/raw", Reply(200, {"ok": 1}))
+    async with aclient(server, token=TOKEN) as c:
+        assert await c.health() == HEALTH_OK
         assert await c.ping() >= 0
-        assert await c.server_version() == "9.9.9"
-        assert (await c.request(sdk.Request("GET", "/raw"))).status == 200
-        assert "client-token" not in repr(c)
-        assert c.resources is not None
-    await c.close()
-    with pytest.raises(sdk.CancelledError):
-        await c.health()
-    env = {sdk.ENV_PREFIX + "URL": server.url}
-    c2 = sdk.AsyncOtelCollectorClient.from_env(env)
-    server.enqueue("/version", Reply(501))
-    with pytest.raises(sdk.UnsupportedError):
-        await c2.server_version()
-    server.enqueue("/version", Reply(404))
-    with pytest.raises(sdk.UnsupportedError):
-        await c2.server_version()
-    await c2.aclose()
-    monkeypatch.setenv(sdk.ENV_PREFIX + "URL", server.url)
-    c3 = sdk.AsyncOtelCollectorClient()
-    assert c3.config.url == server.url
-    await c3.aclose()
+        assert await c.server_version() == "0.165.0"
+        assert (await c.request(sdk.Request("GET", "/raw"))).json() == {"ok": 1}
+        assert isinstance(c.health_client, sdk.AsyncCollectorHealthClient)
+        server.enqueue("/", fixture_reply("health.ok"))
+        assert (await c.wait_until_ready(5, interval_s=0.01)).healthy
+        server.enqueue("/v1/traces", fixture_reply("ping.http_unauthenticated_missing_token"))
+        with pytest.raises(sdk.AuthenticationError):
+            await c.ping()
+    async with aclient(server, protocol="grpc", grpc_url=grpc_server.url) as g:
+        assert await g.ping() >= 0
+        assert await g.ping() >= 0
+        grpc_server.enqueue("traces", GrpcReply(code=grpc.StatusCode.PERMISSION_DENIED))
+        with pytest.raises(sdk.PermissionDeniedError):
+            await g.ping()
+        grpc_server.enqueue("traces", GrpcReply(code=grpc.StatusCode.UNAVAILABLE), GrpcReply())
+        await g.ping()
 
 
-async def test_async_health_unreachable() -> None:
-    """core.health.unreachable (async)"""
-    c = aclient(closed_port_url())
-    status = await c.health()
-    assert (status.healthy, status.status) == (False, "unreachable")
-    await c.aclose()
+async def test_async_health_fallback_and_version(server: MockServer) -> None:
+    cfg = make_config(
+        server.url,
+        health_url=closed_port_url() + "/",
+        zpages_url=server.url,
+        telemetry_url=server.url + "/metrics",
+    )
+    async with sdk.AsyncOtelCollectorClient(cfg) as c:
+        server.enqueue("/debug/servicez", Reply(200, "<html></html>"))
+        assert await c.health() == sdk.HealthStatus(True, "ok", {"source": "zpages"})
+        server.enqueue("/debug/servicez", Reply(500, ""))
+        assert (await c.health()).status == "unreachable"
+        server.enqueue("/debug/servicez", Reply(404, ""))
+        server.enqueue("/metrics", fixture_reply("serverVersion.telemetry_target_info"))
+        assert await c.server_version() == "0.165.0"
+        server.enqueue("/debug/servicez", Reply(404, ""))
+        server.enqueue("/metrics", Reply(404, ""))
+        with pytest.raises(sdk.UnsupportedError):
+            await c.server_version()
+        server.enqueue("/debug/servicez", Reply(200, "nothing"))
+        server.enqueue("/metrics", Reply(200, "nothing"))
+        with pytest.raises(sdk.UnsupportedError):
+            await c.server_version()
+        server.enqueue("/debug/servicez", Reply(401, ""))
+        with pytest.raises(sdk.AuthenticationError):
+            await c.server_version()
+        server.enqueue("/debug/servicez", Reply(404, ""))
+        server.enqueue("/metrics", Reply(403, ""))
+        with pytest.raises(sdk.PermissionDeniedError):
+            await c.server_version()
+        server.defaults["/debug/servicez"] = Reply(500, "")
+        with pytest.raises(sdk.TimeoutError):
+            await c.wait_until_ready(0.05, interval_s=0.01)
 
 
-async def test_async_health_cancel(server: MockServer) -> None:
-    server.enqueue("/health", Reply(200, delay=2.0))
-    c = aclient(server.url)
-    errors: list[BaseException] = []
-    task = spawn_capturing(c.health(), errors)
+async def test_async_health_unhealthy_and_cancel(server: MockServer) -> None:
+    h = sdk.AsyncCollectorHealthClient.from_env(
+        {
+            "GROW_OPENTELEMETRY_COLLECTOR_URL": server.url,
+            "GROW_OPENTELEMETRY_COLLECTOR_HEALTH_URL": server.url + "/",
+        }
+    )
+    server.enqueue("/", Reply(503, {"status": "Server not available"}))
+    assert (await h.health()).status == "unhealthy"
+    server.enqueue("/", Reply(200, {}, delay=2))
+    task = asyncio.ensure_future(h.health())
     await asyncio.sleep(0.1)
     task.cancel()
     with pytest.raises(asyncio.CancelledError):
         await task
-    assert isinstance(errors[0], sdk.CancelledError)
+    await h.aclose()
+    assert "AsyncCollectorHealthClient(" in repr(h)
+
+
+async def test_async_owned_resources_and_close(server: MockServer) -> None:
+    c = aclient(server, service_name="svc")
+    handle = c.init_telemetry(set_global=False, traces=False, metrics=False)
+    tracing = c.init_tracing(set_global=False)
+    logs = c.log_client()
+    exporter = c.log_exporter()
+    tq, lq = c.trace_query(), c.log_query()
+    for call in (
+        lambda: tq.get_trace("x"),
+        tq.search_traces,
+        tq.list_services,
+        lambda: tq.list_operations("s"),
+        tq.get_dependencies,
+        lambda: tq.wait_for_trace("x"),
+        lambda: lq.search("x"),
+        lambda: lq.tail("x", print),
+        lq.list_streams,
+        lq.list_labels,
+        lambda: lq.wait_for_log("x"),
+    ):
+        with pytest.raises(sdk.UnsupportedError):
+            await call()
     await c.aclose()
+    await c.close()
+    assert handle.is_shut_down and tracing.is_shut_down
+    assert logs.stats().queued == 0
+    assert (await exporter.export([sdk.LogRecord("x")])).error is not None
+    for factory in (c.init_telemetry, c.init_tracing, c.log_client, c.log_exporter):
+        with pytest.raises(sdk.CancelledError):
+            factory()
+    with pytest.raises(sdk.CancelledError):
+        await c.ping()
+    assert "AsyncOtelCollectorClient(" in repr(c)
+    assert sdk.AsyncOtelCollectorClient.from_env({}).config.url == sdk.DEFAULT_URL
 
 
-# --------------------------------------------------------------------------- polling
-
-
-def test_poll_until() -> None:
-    values = iter([None, [], [1]])
-    assert sdk.poll_until(lambda: next(values), interval_s=0.001) == [1]
-    attempts = iter([0, 1, 2, 3])
-    assert sdk.poll_until(lambda: next(attempts), predicate=lambda v: v >= 2, interval_s=0) == 2
-    errors = iter([sdk.UnavailableError("flaky"), "ok"])
-
-    def flaky() -> str:
-        item = next(errors)
-        if isinstance(item, Exception):
-            raise item
-        return item
-
-    assert sdk.poll_until(flaky, interval_s=0) == "ok"
-    with pytest.raises(sdk.NotFoundError):
-        sdk.poll_until(lambda: (_ for _ in ()).throw(sdk.NotFoundError("gone")))
-    started = time.monotonic()
-    with pytest.raises(sdk.TimeoutError, match=r"wait\.thing") as info:
-        sdk.poll_until(
-            lambda: (_ for _ in ()).throw(sdk.UnavailableError("down")),
-            timeout_s=0.05,
-            interval_s=0.01,
-            operation="wait.thing",
-        )
-    assert isinstance(info.value.cause, sdk.UnavailableError)
-    assert time.monotonic() - started < 1.0
-    with pytest.raises(sdk.TimeoutError):
-        sdk.poll_until(lambda: None, timeout_s=0.02, interval_s=0.005)
-
-
-async def test_apoll_until() -> None:
-    values = iter([None, "", "done"])
-
-    async def fetch() -> str | None:
-        return next(values)
-
-    assert await sdk.apoll_until(fetch, interval_s=0.001) == "done"
-
-    async def failing() -> str:
-        raise sdk.UnavailableError("down")
-
-    with pytest.raises(sdk.TimeoutError):
-        await sdk.apoll_until(failing, timeout_s=0.03, interval_s=0.01)
-
-    async def fatal() -> str:
-        raise sdk.AuthenticationError("no")
-
-    with pytest.raises(sdk.AuthenticationError):
-        await sdk.apoll_until(fatal)
-
-    async def numbers() -> int:
-        return 5
-
-    assert await sdk.apoll_until(numbers, predicate=lambda n: n == 5) == 5
-
-
-def test_resource_registry() -> None:
-    reg = sdk.ResourceRegistry()
-    calls: list[str] = []
-
-    class Good:
-        def stop(self) -> None:
-            calls.append("good")
-
-    class Bad:
-        def stop(self) -> None:
-            raise RuntimeError("ignored")
-
-    good, bad = Good(), Bad()
-    reg.register(bad)
-    reg.register(good)
-    reg.unregister(good)
-    reg.unregister(good)
-    reg.register(good)
-    assert isinstance(good, sdk.Stoppable)
-    assert not reg.closed
-    reg.stop_all()
-    reg.stop_all()
-    assert reg.closed and calls == ["good"]
-    reg.register(bad)  # stopped immediately, error ignored
-
-
-def test_get_logger_is_silent() -> None:
-    logger = sdk.get_logger()
-    assert logger.name == sdk.LOGGER_NAME == "grow_opentelemetry_collector"
-    assert any(type(h).__name__ == "NullHandler" for h in logger.handlers)
+def test_health_client_from_env_and_repr() -> None:
+    h = sdk.CollectorHealthClient.from_env({"GROW_OTEL_URL": "http://alias:4318"})
+    assert h.config.url == "http://alias:4318"
+    assert "CollectorHealthClient(" in repr(h)
+    with h:
+        pass

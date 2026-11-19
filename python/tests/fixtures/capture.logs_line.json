@@ -1,0 +1,30 @@
+{
+  "source": "http://capture:8080/logs.jsonl",
+  "logRecords": [
+    {
+      "timeUnixNano": "1795035211675719107",
+      "observedTimeUnixNano": "1795035211675719107",
+      "severityNumber": 17,
+      "severityText": "ERROR",
+      "body": {
+        "stringValue": "verify log verify-abc5abcf-http"
+      },
+      "attributes": [
+        {
+          "key": "grow.run",
+          "value": {
+            "stringValue": "verify-abc5abcf-http"
+          }
+        },
+        {
+          "key": "user.id",
+          "value": {
+            "intValue": "42"
+          }
+        }
+      ],
+      "traceId": "42f20505df25f6862caac8882c1576bc",
+      "spanId": "c5aa57929bf7104a"
+    }
+  ]
+}

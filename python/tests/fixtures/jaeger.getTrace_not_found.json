@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://jaeger:16686/api/v3/traces/0123456789abcdef0123456789abcdef",
+    "headers": {},
+    "body": null
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "text/plain; charset=utf-8",
+      "X-Content-Type-Options": "nosniff",
+      "Content-Length": "55",
+      "Connection": "close"
+    },
+    "body": {
+      "text": "{\"error\":{\"httpCode\":404,\"message\":\"No traces found\"}}\n"
+    }
+  }
+}

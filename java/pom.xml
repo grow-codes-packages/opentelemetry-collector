@@ -11,7 +11,7 @@
   <packaging>jar</packaging>
 
   <name>Grow Codes SDK for OpenTelemetry Collector</name>
-  <description>Java client for OpenTelemetry Collector by Grow Codes: typed API, retries, timeouts, redaction and a conformance suite.</description>
+  <description>Java client for OpenTelemetry Collector by Grow Codes: one-call OTLP telemetry bootstrap (traces, logs, metrics), collector health, retries, timeouts, redaction and a conformance suite.</description>
   <url>https://grow-codes-packages.github.io/opentelemetry-collector/</url>
   <inceptionYear>2026</inceptionYear>
 
@@ -199,6 +199,13 @@
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-sdk-testing</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- h2c + gRPC trailers mock server for the OTLP/gRPC ping and exporter tests -->
+    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>mockwebserver3</artifactId>
+      <version>${okhttp.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

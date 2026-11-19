@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4318/v1/traces",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\"resourceSpans\":[{\"scopeSpans\":[{\"spans\":[{\"traceId\":\"xyz\",\"spanId\":\"0102030405060708\",\"name\":\"a\"}]}]}]}"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json",
+      "Content-Length": "261",
+      "Connection": "close"
+    },
+    "body": {
+      "json": {
+        "code": 3,
+        "message": "ID.UnmarshalJSONIter: length mismatch, error found in #10 byte of ...|eId\":\"xyz\",\"spanId\":|..., bigger context ...|eSpans\":[{\"scopeSpans\":[{\"spans\":[{\"traceId\":\"xyz\",\"spanId\":\"0102030405060708\",\"name\":\"a\"}]}]}]}|..."
+      }
+    }
+  }
+}

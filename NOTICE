@@ -59,3 +59,37 @@ copyright and licence.
 
   CODE_OF_CONDUCT.md is adapted from the Contributor Covenant, version 2.1,
   https://www.contributor-covenant.org, licensed under CC BY 4.0.
+
+  OTLP messages (all five packages). OTLP requests and responses are built
+  and read with the official OpenTelemetry SDKs, OTLP exporters and protocol
+  bindings of each language (opentelemetry-proto, Copyright The OpenTelemetry
+  Authors, Apache-2.0): @opentelemetry/exporter-*-otlp-proto, -otlp-http,
+  -otlp-grpc, @opentelemetry/otlp-transformer and @grpc/grpc-js (Apache-2.0)
+  for TypeScript; opentelemetry-otlp, opentelemetry-proto and tonic (MIT) for
+  Rust; go.opentelemetry.io/otel/exporters/otlp and go.opentelemetry.io/proto/otlp
+  for Go; opentelemetry-exporter-otlp-proto-http (and the optional -proto-grpc)
+  and opentelemetry-proto for Python; io.opentelemetry:opentelemetry-exporter-otlp
+  for Java. All five packages decode the google.rpc.Status error bodies of the
+  collector (and TypeScript, Rust and Java also OTLP partial-success
+  responses) with a small hand-written reader that uses the field numbers of
+  opentelemetry-proto and of the Google APIs common protos
+  (google/rpc/status.proto, Copyright Google LLC, Apache-2.0). No .proto files
+  or generated code from these projects are copied into this repository.
+
+  Test fixtures (typescript/test/fixtures, go/testdata/fixtures,
+  python/tests/fixtures, java/src/test/resources/fixtures) contain responses
+  recorded from the OpenTelemetry Collector Contrib 0.165.0 container (zpages
+  and health_check pages, internal telemetry, OTLP responses) and from the
+  Jaeger 2.23.0 query API. OpenTelemetry Collector:
+  Copyright The OpenTelemetry Authors,
+  https://github.com/open-telemetry/opentelemetry-collector-contrib, Apache-2.0.
+  Jaeger: Copyright The Jaeger Authors, https://github.com/jaegertracing/jaeger,
+  Apache-2.0.
+
+  docker/config/stock-config.reference.yaml is a copy of the default
+  configuration shipped in the otel/opentelemetry-collector-contrib image
+  (Copyright The OpenTelemetry Authors, Apache-2.0); docker/config/collector.yaml
+  is derived from it. The container images used by the Docker test harness
+  (otel/opentelemetry-collector-contrib, jaegertracing/jaeger, busybox,
+  curlimages/curl) are used for testing only and are not part of any
+  published package.

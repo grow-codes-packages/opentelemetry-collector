@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4318/v1/traces",
+    "headers": {
+      "Content-Type": "text/plain"
+    },
+    "body": "x"
+  },
+  "response": {
+    "status": 415,
+    "headers": {
+      "Content-Type": "text/plain",
+      "Content-Length": "81",
+      "Connection": "close"
+    },
+    "body": {
+      "text": "415 unsupported media type, supported: [application/json, application/x-protobuf]"
+    }
+  }
+}

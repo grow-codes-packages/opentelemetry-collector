@@ -117,7 +117,14 @@ nav:
   - Quickstart: quickstart.md
   - Configuration: configuration.md
   - Client: client.md
-  - Functions: functions.md
+  - Functions:
+      - functions.md
+      - Client and health: functions/client.md
+      - One-call telemetry: functions/telemetry.md
+      - Tracing setup: functions/tracing-setup.md
+      - Logs: functions/logs.md
+      - Metrics: functions/metrics.md
+      - Trace and log queries: functions/query.md
   - Logging: logging.md
   - Tracing: tracing.md
   - Error handling: errors.md

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "protocol": "gRPC (h2c)",
+    "target": "opentelemetry-collector:4317",
+    "method": "/opentelemetry.proto.collector.logs.v1.LogsService/Export",
+    "body": "frame declaring 3 bytes 'abc' (invalid protobuf)"
+  },
+  "response": {
+    "httpStatus": 200,
+    "grpcStatus": 13,
+    "grpcMessage": "grpc: failed to unmarshal the received message: unexpected EOF",
+    "messageHex": ""
+  }
+}
