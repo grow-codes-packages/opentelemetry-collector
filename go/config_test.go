@@ -39,8 +39,11 @@ func TestConfigDefaults(t *testing.T) {
 	if h.SignalEndpoint(SignalTraces) != "https://gw.example:443/base/v1/traces" {
 		t.Fatalf("base path: %s", h.SignalEndpoint(SignalTraces))
 	}
-	if d := (Config{CommonConfig: CommonConfig{URL: "https://col.internal:4318"}}).WithDefaults(); d.HealthURL != "https://col.internal:13133/" || d.ZPagesURL != "https://col.internal:55679" {
-		t.Fatalf("derived: %s %s", d.HealthURL, d.ZPagesURL)
+	if d := (Config{CommonConfig: CommonConfig{URL: "https://col.internal:4318"}}).WithDefaults(); d.HealthURL != "https://col.internal:13133/" || d.ZPagesURL != "https://col.internal:55679" || d.GRPCURL != "https://col.internal:4317" {
+		t.Fatalf("derived: %s %s %s", d.HealthURL, d.ZPagesURL, d.GRPCURL)
+	}
+	if d := (Config{CommonConfig: CommonConfig{URL: "otel:4318"}}).WithDefaults(); d.GRPCURL != DefaultGRPCURL {
+		t.Fatalf("non-http URL keeps the default gRPC target: %s", d.GRPCURL)
 	}
 	if derivedURL("::bad", "1", "/") != "" {
 		t.Fatal("derivedURL invalid")

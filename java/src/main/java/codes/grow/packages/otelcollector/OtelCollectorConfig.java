@@ -1212,9 +1212,6 @@ public final class OtelCollectorConfig {
       if (proxy == null) {
         proxy = e.str("PROXY").orElse(null);
       }
-      if (userAgentSuffix == null) {
-        userAgentSuffix = e.str("USER_AGENT_SUFFIX").orElse(null);
-      }
     }
 
     private void applyResource(Env e) {

@@ -204,8 +204,8 @@ pub fn grpc_error_code(code: i32) -> ErrorCode {
         8 => ErrorCode::RateLimited,
         4 => ErrorCode::Timeout,
         1 => ErrorCode::Cancelled,
-        14 | 10 | 2 => ErrorCode::Unavailable,
-        _ => ErrorCode::Validation,
+        3 | 9 | 11 | 13 => ErrorCode::Validation,
+        _ => ErrorCode::Unavailable,
     }
 }
 
@@ -594,7 +594,7 @@ mod tests {
     #[test]
     fn grpc_codes() {
         let cases = [
-            (0, ErrorCode::Validation),
+            (0, ErrorCode::Unavailable),
             (1, ErrorCode::Cancelled),
             (2, ErrorCode::Unavailable),
             (3, ErrorCode::Validation),
@@ -609,8 +609,9 @@ mod tests {
             (12, ErrorCode::NotFound),
             (13, ErrorCode::Validation),
             (14, ErrorCode::Unavailable),
-            (15, ErrorCode::Validation),
+            (15, ErrorCode::Unavailable),
             (16, ErrorCode::Authentication),
+            (99, ErrorCode::Unavailable),
         ];
         for (code, want) in cases {
             assert_eq!(grpc_error_code(code), want, "{code}");

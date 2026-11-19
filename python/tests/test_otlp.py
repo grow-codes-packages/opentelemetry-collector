@@ -80,6 +80,8 @@ def test_error_for_http_response() -> None:
         (14, sdk.UnavailableError),
         (16, sdk.AuthenticationError),
         (2, sdk.UnavailableError),
+        (10, sdk.UnavailableError),
+        (15, sdk.UnavailableError),
     ],
 )
 def test_error_for_grpc_status(status: int, cls: type[Exception]) -> None:

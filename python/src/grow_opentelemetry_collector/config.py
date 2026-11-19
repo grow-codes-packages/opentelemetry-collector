@@ -458,11 +458,12 @@ class OtelCollectorConfig(BaseConfig):
     grpc_url: str | None = None
     #: Export protocol. ``native`` is rejected by :meth:`validate`.
     protocol: str = "http/protobuf"
-    #: Full OTLP/HTTP traces URL, used as-is (overrides ``url`` + ``/v1/traces``).
+    #: Full traces endpoint, used as-is (overrides ``url`` + ``/v1/traces`` for HTTP and
+    #: ``grpc_url`` for gRPC).
     traces_url: str | None = None
-    #: Full OTLP/HTTP logs URL, used as-is.
+    #: Full logs endpoint, used as-is (same rules as ``traces_url``).
     logs_url: str | None = None
-    #: Full OTLP/HTTP metrics URL, used as-is.
+    #: Full metrics endpoint, used as-is (same rules as ``traces_url``).
     metrics_url: str | None = None
     #: Extra headers of trace exports (merged over ``headers``). Redacted.
     traces_headers: Mapping[str, str] = dataclasses.field(default_factory=dict)
@@ -591,9 +592,12 @@ class OtelCollectorConfig(BaseConfig):
         return f"{self.url.rstrip('/')}/v1/{signal}"
 
     def endpoint_for(self, signal: Signal) -> str:
-        """Export endpoint of a signal for the configured protocol (``grpc_url`` for gRPC)."""
+        """Export endpoint of a signal for the configured protocol: the explicit
+        ``<signal>_url`` when set (in both protocols), else ``grpc_url`` for gRPC and ``url`` +
+        ``/v1/<signal>`` for HTTP."""
         if self.protocol == "grpc":
-            return str(self.grpc_url)
+            explicit: str | None = getattr(self, f"{signal}_url")
+            return explicit or str(self.grpc_url)
         return self.signal_url(signal)
 
     def headers_for(self, signal: Signal) -> dict[str, str]:

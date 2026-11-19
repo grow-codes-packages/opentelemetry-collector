@@ -280,8 +280,9 @@ impl OtelCollectorClient {
     }
 
     /// A new OTLP log exporter for the client's configuration. [`close`](Self::close) shuts
-    /// it down.
+    /// it down; `CANCELLED` after `close`.
     pub fn log_exporter(&self) -> Result<Arc<OtlpLogExporter>> {
+        self.check_open("log_exporter")?;
         let e = Arc::new(OtlpLogExporter::new(&self.inner.config)?);
         let closer = Arc::clone(&e);
         self.on_close(move || {
@@ -295,6 +296,7 @@ impl OtelCollectorClient {
     /// A [`BatchingLogClient`] that exports OTLP logs to the collector (see
     /// [`create_log_client`]). [`close`](Self::close) flushes and closes it.
     pub fn log_client(&self, opts: LogClientOptions) -> Result<Arc<BatchingLogClient>> {
+        self.check_open("log_client")?;
         let lc = Arc::new(create_log_client(&self.inner.config, opts)?);
         let closer = Arc::clone(&lc);
         self.on_close(move || {
@@ -308,6 +310,7 @@ impl OtelCollectorClient {
     /// Starts traces, metrics and logs with the client's configuration (see
     /// [`init_telemetry_with`]). [`close`](Self::close) shuts the handle down.
     pub fn init_telemetry(&self, opts: TelemetryOptions) -> Result<TelemetryHandle> {
+        self.check_open("init_telemetry")?;
         let h = init_telemetry_with(&self.inner.config, opts)?;
         let closer = h.clone();
         self.on_close(move || {
@@ -322,6 +325,7 @@ impl OtelCollectorClient {
     /// [`tracing_config_from`](crate::tracing_config_from)). [`close`](Self::close) shuts the
     /// handle down.
     pub fn init_tracing(&self, config: TracingConfig) -> Result<TracingHandle> {
+        self.check_open("init_tracing")?;
         let h = init_tracing_with_collector(config, &self.inner.config)?;
         let closer = h.clone();
         self.on_close(move || {
@@ -338,6 +342,14 @@ impl OtelCollectorClient {
         self.inner.on_close.close().await;
         self.inner.transport.close();
         self.inner.probe.close();
+    }
+
+    /// `CANCELLED` once [`close`](Self::close) was called (same rule in every language).
+    fn check_open(&self, operation: &str) -> Result<()> {
+        if self.is_closed() || self.inner.on_close.is_closed() {
+            return Err(Error::cancelled(format!("{operation}: client is closed")));
+        }
+        Ok(())
     }
 
     /// Whether [`OtelCollectorClient::close`] was called.

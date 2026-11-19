@@ -6,7 +6,7 @@ and runs the integration and conformance tests with `node --test` against a real
 ```sh
 cd typescript && make pack            # writes dist/grow-codes-opentelemetry-collector-<version>.tgz
 cd integration && npm run install-package
-GROW_OPENTELEMETRY_COLLECTOR_URL=http://127.0.0.1:<port> GROW_OPENTELEMETRY_COLLECTOR_TOKEN=... npm test
+GROW_OPENTELEMETRY_COLLECTOR_URL=http://127.0.0.1:<port> npm test
 ```
 
 In CI and locally with Docker this runs inside `docker/Dockerfile.typescript`

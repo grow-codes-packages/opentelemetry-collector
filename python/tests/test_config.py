@@ -38,6 +38,11 @@ def test_defaults() -> None:
     assert cfg.endpoint_for("metrics") == "http://127.0.0.1:4318/v1/metrics"
     grpc = sdk.OtelCollectorConfig(protocol="grpc", export_timeout=dt.timedelta(seconds=3))
     assert grpc.endpoint_for("traces") == "http://127.0.0.1:4317"
+    signal = sdk.OtelCollectorConfig(
+        protocol="grpc", url="http://otel:4318", traces_url="http://traces-gw:4317"
+    )
+    assert signal.endpoint_for("traces") == "http://traces-gw:4317"
+    assert signal.endpoint_for("logs") == "http://otel:4317"
     assert grpc.export_timeout == 3.0
     with pytest.raises(TypeError):
         cfg.resource_attributes["x"] = 1  # type: ignore[index]

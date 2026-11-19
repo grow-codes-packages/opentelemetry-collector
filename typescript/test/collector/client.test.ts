@@ -3,7 +3,6 @@ import {
   AuthenticationError,
   CancelledError,
   CollectorHealthClient,
-  ConfigError,
   NotFoundError,
   OtelCollectorClient,
   OtelCollectorConfig,
@@ -389,6 +388,13 @@ describe("client lifecycle", () => {
     await telemetry.shutdown();
     expect(() => c.logClient()).toThrow(OtelCollectorError);
     expect(() => c.logClient()).toThrow(/closed/);
-    await expect(c.ping()).rejects.toBeInstanceOf(ConfigError);
+    expect(() => c.logClient()).toThrow(CancelledError);
+    await expect(c.ping()).rejects.toBeInstanceOf(CancelledError);
+    await expect(c.health()).rejects.toBeInstanceOf(CancelledError);
+    await expect(c.serverVersion()).rejects.toBeInstanceOf(CancelledError);
+    await expect(c.waitUntilReady(10)).rejects.toBeInstanceOf(CancelledError);
+    const hc = c.healthClient;
+    await expect(hc.health()).rejects.toBeInstanceOf(CancelledError);
+    await expect(hc.serverVersion()).rejects.toBeInstanceOf(CancelledError);
   });
 });

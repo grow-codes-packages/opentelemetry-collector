@@ -23,7 +23,6 @@ from ._core import (
     AsyncHttpTransport,
     CancelledError,
     CancelToken,
-    ConfigError,
     HealthStatus,
     HttpTransport,
     Request,
@@ -84,8 +83,8 @@ def _ping_request(cfg: OtelCollectorConfig, path: str) -> Request:
     )
 
 
-def _closed_error(operation: str) -> ConfigError:
-    return ConfigError(f"{operation}: client is closed")
+def _closed_error(operation: str) -> CancelledError:
+    return CancelledError(f"{operation}: client is closed")
 
 
 class _ClientBase:
@@ -197,7 +196,7 @@ class OtelCollectorClient(_ClientBase):
     def _grpc_channel(self) -> grpc.Channel:
         with self._lock:
             if self._channel is None:
-                self._channel = open_channel(str(self.config.grpc_url), self.config.tls)
+                self._channel = open_channel(self.config.endpoint_for("traces"), self.config.tls)
             return self._channel
 
     def server_version(self, *, cancel: CancelToken | None = None) -> str:
@@ -340,7 +339,9 @@ class AsyncOtelCollectorClient(_ClientBase):
         started = time.monotonic()
         if self.config.protocol == "grpc":
             if self._channel is None:
-                self._channel = open_aio_channel(str(self.config.grpc_url), self.config.tls)
+                self._channel = open_aio_channel(
+                    self.config.endpoint_for("traces"), self.config.tls
+                )
             await grpc_call_async(
                 self._channel,
                 "ping",

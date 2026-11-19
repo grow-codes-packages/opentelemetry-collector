@@ -24,8 +24,11 @@ use crate::tracing::{
 
 /// OTLP/HTTP base URL used when neither the builder nor the environment sets one (port 4318).
 pub const DEFAULT_URL: &str = "http://127.0.0.1:4318";
-/// OTLP/gRPC target used when neither the builder nor the environment sets one (port 4317).
+/// OTLP/gRPC target of the default configuration (port 4317). Without an explicit gRPC URL
+/// the target is derived from the scheme and host of `url` on [`DEFAULT_GRPC_PORT`].
 pub const DEFAULT_GRPC_URL: &str = "http://127.0.0.1:4317";
+/// Port the default OTLP/gRPC target is derived with (scheme and host of `url`).
+pub const DEFAULT_GRPC_PORT: u16 = 4317;
 /// Port of the collector's `health_check` extension.
 pub const DEFAULT_HEALTH_PORT: u16 = 13133;
 /// Port of the collector's `zpages` extension.
@@ -547,7 +550,7 @@ impl OtelCollectorConfigBuilder {
         self.common = self.common.url(url);
         self
     }
-    /// OTLP/gRPC target (default [`DEFAULT_GRPC_URL`]; `https://` means TLS).
+    /// OTLP/gRPC target (default: scheme and host of `url`, port 4317; `https://` means TLS).
     pub fn grpc_url(mut self, url: impl Into<String>) -> Self {
         self.grpc_url = Some(url.into());
         self
@@ -760,10 +763,10 @@ impl OtelCollectorConfigBuilder {
         if protocol == Protocol::Native {
             return Err(native_error());
         }
-        let grpc_url = parse_url(
-            "grpcUrl",
-            self.grpc_url.as_deref().unwrap_or(DEFAULT_GRPC_URL),
-        )?;
+        let grpc_url = match self.grpc_url.as_deref() {
+            Some(u) => parse_url("grpcUrl", u)?,
+            None => derived_url(common.url(), DEFAULT_GRPC_PORT)?,
+        };
         let optional = |name: &str, v: Option<String>| -> Result<Option<Url>> {
             v.filter(|s| !s.is_empty())
                 .map(|s| parse_url(name, &s))

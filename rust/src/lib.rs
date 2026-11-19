@@ -67,8 +67,9 @@ pub use crate::core::{Error, ErrorCode, HealthStatus, Result, RetryPolicy, Secre
 pub use crate::client::{parse_servicez_version, parse_target_info_version, OtelCollectorClient};
 pub use crate::config::{
     default_service_name, parse_key_values, OtelCollectorConfig, OtelCollectorConfigBuilder,
-    Signal, ALIAS_ENV_PREFIX, DEFAULT_EXPORT_TIMEOUT, DEFAULT_GRPC_URL, DEFAULT_HEALTH_PORT,
-    DEFAULT_METRIC_EXPORT_INTERVAL, DEFAULT_PROTOCOL, DEFAULT_URL, DEFAULT_ZPAGES_PORT,
+    Signal, ALIAS_ENV_PREFIX, DEFAULT_EXPORT_TIMEOUT, DEFAULT_GRPC_PORT, DEFAULT_GRPC_URL,
+    DEFAULT_HEALTH_PORT, DEFAULT_METRIC_EXPORT_INTERVAL, DEFAULT_PROTOCOL, DEFAULT_URL,
+    DEFAULT_ZPAGES_PORT,
 };
 pub use crate::health::{CollectorHealthClient, DEFAULT_READY_INTERVAL, DEFAULT_READY_TIMEOUT};
 pub use crate::logs::{

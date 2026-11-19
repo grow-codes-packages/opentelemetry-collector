@@ -222,7 +222,6 @@ export function codeForGrpcStatus(status: number): ErrorCode {
     case 12:
       return ErrorCode.NotFound;
     case 6:
-    case 10:
       return ErrorCode.Conflict;
     case 7:
       return ErrorCode.PermissionDenied;
@@ -252,9 +251,9 @@ export function errorForGrpcStatus(
 }
 
 /**
- * Converts an error reported by an official OTLP exporter into an SDK error. The exporters
- * already retried (OTLP rules), so the result is never marked retryable: callers must not wrap
- * the export in a second retry loop.
+ * Converts an error reported by an official OTLP exporter into an SDK error. The error keeps the
+ * natural `retryable` flag of its code/status (same in all five languages); the exporters already
+ * retried by the OTLP rules, so callers should not wrap the export in a second retry loop.
  */
 export function mapExportError(
   operation: string,
@@ -271,10 +270,7 @@ export function mapExportError(
   const isGrpc = typeof e.details === "string" && typeof e.code === "number";
   if (typeof e.code === "number" && e.code >= 100) {
     const reason = otlpErrorText(typeof e.data === "string" ? e.data : undefined, knownSecrets);
-    return errorForStatus(operation, e.code, {
-      ...(reason === undefined ? {} : { reason }),
-      retryable: false,
-    });
+    return errorForStatus(operation, e.code, reason === undefined ? {} : { reason });
   }
   if (isGrpc && typeof e.code === "number") {
     return errorForGrpcStatus(
@@ -282,14 +278,13 @@ export function mapExportError(
       e.code,
       typeof e.details === "string" ? e.details : undefined,
       knownSecrets,
-      false,
     );
   }
   const raw = typeof e.message === "string" ? e.message : String(error);
   const reason = redactSecretsInText(redactText(raw, knownSecrets)).slice(0, 300);
   if (/timed? ?out|deadline/i.test(reason))
-    return errorForCode(ErrorCode.Timeout, `${operation}: ${reason}`, { retryable: false });
-  return new UnavailableError(`${operation}: ${reason}`, { retryable: false });
+    return errorForCode(ErrorCode.Timeout, `${operation}: ${reason}`);
+  return new UnavailableError(`${operation}: ${reason}`);
 }
 
 /**

@@ -499,6 +499,22 @@ async fn core_close_idempotent() {
         ErrorCode::Cancelled
     );
     assert!(c.transport().is_closed());
+    // Factories on a closed client fail with CANCELLED, like every other call.
+    assert_eq!(c.log_exporter().unwrap_err().code(), ErrorCode::Cancelled);
+    assert_eq!(
+        c.log_client(Default::default()).unwrap_err().code(),
+        ErrorCode::Cancelled
+    );
+    assert_eq!(
+        c.init_telemetry(Default::default()).unwrap_err().code(),
+        ErrorCode::Cancelled
+    );
+    assert_eq!(
+        c.init_tracing(sdk::tracing::TracingConfig::new("svc"))
+            .unwrap_err()
+            .code(),
+        ErrorCode::Cancelled
+    );
     // The exporter and log client were shut down by close().
     use sdk::logging::{ExportOptions, LogClient, LogExporter, LogRecord, Severity};
     let err = exporter

@@ -16,12 +16,15 @@ import (
 const (
 	// DefaultURL is the default OTLP/HTTP base URL (port 4318).
 	DefaultURL = "http://127.0.0.1:4318"
-	// DefaultGRPCURL is the default OTLP/gRPC target (port 4317).
+	// DefaultGRPCURL is the OTLP/gRPC target used when URL is not an http(s) URL; normally
+	// GRPCURL defaults to the scheme and host of URL on port 4317.
 	DefaultGRPCURL = "http://127.0.0.1:4317"
 	// DefaultHealthPort is the health_check extension port.
 	DefaultHealthPort = "13133"
 	// DefaultZPagesPort is the zpages extension port.
 	DefaultZPagesPort = "55679"
+	// defaultGRPCPort is the OTLP/gRPC port GRPCURL is derived with.
+	defaultGRPCPort = "4317"
 	// DefaultProtocol is the default export protocol (OTLP over HTTP/protobuf).
 	DefaultProtocol = ProtocolHTTPProtobuf
 	// DefaultOTLPExportTimeout bounds one OTLP export (OpenTelemetry default 10 s).
@@ -86,6 +89,7 @@ type Config struct {
 	CommonConfig
 
 	// GRPCURL is the OTLP/gRPC target, for example http://collector:4317 (https:// = TLS).
+	// Default: scheme and host of URL, port 4317.
 	GRPCURL string
 	// Protocol is the export protocol: ProtocolHTTPProtobuf (default) or ProtocolGRPC.
 	// ProtocolNative is not supported by the collector (CONFIG error).
@@ -592,6 +596,9 @@ func (c Config) WithDefaults() Config {
 	c.CommonConfig = c.withDefaults(DefaultURL)
 	if c.Protocol == "" {
 		c.Protocol = DefaultProtocol
+	}
+	if c.GRPCURL == "" && isHTTPURL(c.URL) {
+		c.GRPCURL = derivedURL(c.URL, defaultGRPCPort, "")
 	}
 	if c.GRPCURL == "" {
 		c.GRPCURL = DefaultGRPCURL

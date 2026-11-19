@@ -72,7 +72,7 @@ describe("gRPC status mapping", () => {
       7: "PERMISSION_DENIED",
       8: "RATE_LIMITED",
       9: "VALIDATION",
-      10: "CONFLICT",
+      10: "UNAVAILABLE",
       11: "VALIDATION",
       12: "NOT_FOUND",
       13: "VALIDATION",
@@ -93,18 +93,21 @@ describe("gRPC status mapping", () => {
 });
 
 describe("mapExportError", () => {
-  it("maps HTTP, gRPC, timeout and generic exporter errors (never retryable)", () => {
+  it("maps HTTP, gRPC, timeout and generic exporter errors (natural retryable flag)", () => {
     const http = mapExportError("x", { code: 403, data: '{"message":"denied"}' });
     expect(http.code).toBe(ErrorCode.PermissionDenied);
     expect(http.message).toBe("x: denied (HTTP 403)");
     expect(http.retryable).toBe(false);
     expect(mapExportError("x", { code: 500 }).message).toBe("x: service unavailable (HTTP 500)");
+    expect(mapExportError("x", { code: 503 }).retryable).toBe(true);
+    expect(mapExportError("x", { code: 14, details: "down" }).retryable).toBe(true);
     const grpc = mapExportError("x", { code: 7, details: "nope" });
     expect(grpc.code).toBe(ErrorCode.PermissionDenied);
     expect(grpc.retryable).toBe(false);
     expect(mapExportError("x", new Error("Request timed out")).code).toBe(ErrorCode.Timeout);
     const generic = mapExportError("x", new Error("Bearer abc.def leaked"));
     expect(generic.code).toBe(ErrorCode.Unavailable);
+    expect(generic.retryable).toBe(true);
     expect(generic.message).not.toContain("abc.def");
     expect(mapExportError("x", undefined).code).toBe(ErrorCode.Unavailable);
     expect(mapExportError("x", "plain").message).toBe("x: plain");

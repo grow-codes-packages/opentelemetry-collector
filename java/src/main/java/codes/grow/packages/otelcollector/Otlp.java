@@ -275,7 +275,6 @@ public final class Otlp {
       case 12:
         return ErrorCode.NOT_FOUND;
       case 6:
-      case 10:
         return ErrorCode.CONFLICT;
       case 7:
         return ErrorCode.PERMISSION_DENIED;

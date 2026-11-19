@@ -30,6 +30,11 @@ fn defaults() {
     let c = Config::builder().build().unwrap();
     assert_eq!(c.url().as_str(), "http://127.0.0.1:4318/");
     assert_eq!(c.grpc_url().as_str(), "http://127.0.0.1:4317/");
+    let derived = Config::builder()
+        .url("https://col.internal:4318/base")
+        .build()
+        .unwrap();
+    assert_eq!(derived.grpc_url().as_str(), "https://col.internal:4317/");
     assert_eq!(c.protocol(), Protocol::HttpProtobuf);
     assert_eq!(c.health_url().as_str(), "http://127.0.0.1:13133/");
     assert_eq!(c.zpages_url().as_str(), "http://127.0.0.1:55679/");

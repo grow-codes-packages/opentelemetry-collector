@@ -41,6 +41,11 @@ import type { TraceQueryClient } from "./tracing/index.js";
 
 export type { CallOptions, ClientInternals, WaitUntilReadyOptions } from "./health.js";
 
+/** Every call on a closed client fails with `CANCELLED` (same in all five languages). */
+function closedError(operation: string): CancelledError {
+  return new CancelledError(`${operation}: client is closed`);
+}
+
 interface Closeable {
   close?(): Promise<void>;
   shutdown?(): Promise<void>;
@@ -93,21 +98,24 @@ export class OtelCollectorClient {
    * health endpoint is unreachable. Never throws for an unhealthy or unreachable collector.
    */
   health(options: CallOptions = {}): Promise<HealthStatus> {
+    if (this.#closing !== null) return Promise.reject(closedError("health"));
     return this.#health.health(options);
   }
 
   /** Polls {@link health} until healthy; `TimeoutError` after `timeoutMs` (default 30 000). */
   waitUntilReady(timeoutMs?: number, options: WaitUntilReadyOptions = {}): Promise<HealthStatus> {
+    if (this.#closing !== null) return Promise.reject(closedError("waitUntilReady"));
     return this.#health.waitUntilReady(timeoutMs, options);
   }
 
   /**
    * Authenticated round trip: an empty OTLP trace export (creates no telemetry) with the
    * configured headers — `POST {tracesUrl}` with `{}` (HTTP) or `TraceService/Export` with an
-   * empty message (gRPC). Returns the latency in ms. `AuthenticationError` on 401 / gRPC
+   * empty message to `endpointFor("traces")` (gRPC). Returns the latency in ms. `AuthenticationError` on 401 / gRPC
    * UNAUTHENTICATED, `PermissionDeniedError` on 403, `NotFoundError` for a wrong path.
    */
   async ping(options: CallOptions = {}): Promise<number> {
+    if (this.#closing !== null) throw closedError("ping");
     const start = performance.now();
     if (this.config.protocol === "grpc") await this.#grpcPing(options);
     else
@@ -125,9 +133,10 @@ export class OtelCollectorClient {
   async #grpcPing(options: CallOptions): Promise<void> {
     const cfg = this.config;
     const secrets = cfg.knownSecrets();
+    const target = cfg.endpointFor("traces");
     const client = new GrpcClient(
-      grpcTarget(cfg.grpcUrl),
-      grpcChannelCredentials(cfg.grpcUrl, loadTls(cfg.tls)),
+      grpcTarget(target),
+      grpcChannelCredentials(target, loadTls(cfg.tls)),
       { "grpc.primary_user_agent": USER_AGENT },
     );
     const sleepFn = this.#internals.sleep ?? refSleep;
@@ -172,13 +181,14 @@ export class OtelCollectorClient {
    * at `telemetryUrl`; `UnsupportedError` when neither is reachable.
    */
   serverVersion(options: CallOptions = {}): Promise<string> {
+    if (this.#closing !== null) return Promise.reject(closedError("serverVersion"));
     return this.#health.serverVersion(options);
   }
 
   #own<T extends Closeable>(resource: T): T {
     if (this.#closing !== null) {
       void (resource.shutdown?.() ?? resource.close?.());
-      throw new OtelCollectorError("CONFIG", "client is closed");
+      throw closedError("client");
     }
     this.#owned.add(resource);
     return resource;

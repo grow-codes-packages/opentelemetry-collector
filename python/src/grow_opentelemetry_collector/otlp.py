@@ -202,7 +202,7 @@ def code_for_grpc_status(status: int) -> ErrorCode:
         return ErrorCode.TIMEOUT
     if status in (5, 12):
         return ErrorCode.NOT_FOUND
-    if status in (6, 10):
+    if status == 6:
         return ErrorCode.CONFLICT
     if status == 7:
         return ErrorCode.PERMISSION_DENIED

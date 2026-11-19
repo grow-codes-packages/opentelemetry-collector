@@ -105,7 +105,7 @@ class OtlpTest {
       ErrorCode.PERMISSION_DENIED,
       ErrorCode.RATE_LIMITED,
       ErrorCode.VALIDATION,
-      ErrorCode.CONFLICT,
+      ErrorCode.UNAVAILABLE,
       ErrorCode.VALIDATION,
       ErrorCode.NOT_FOUND,
       ErrorCode.VALIDATION,

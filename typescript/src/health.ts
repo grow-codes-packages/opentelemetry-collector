@@ -2,6 +2,7 @@
 // and the admin reads used by serverVersion (zpages servicez, internal telemetry target_info).
 
 import {
+  CancelledError,
   type HealthStatus,
   HttpTransport,
   type TransportOptions,
@@ -51,6 +52,7 @@ export class CollectorHealthClient {
   readonly config: OtelCollectorConfig;
   readonly #transport: HttpTransport;
   readonly #sleep: (ms: number, signal?: AbortSignal) => Promise<void>;
+  #closed = false;
 
   /** Accepts a {@link OtelCollectorConfig} or plain options. */
   constructor(config: OtelCollectorConfigOptions = {}, internals: ClientInternals = {}) {
@@ -89,6 +91,7 @@ export class CollectorHealthClient {
    * for an unhealthy or unreachable collector (only `CANCELLED` and `CONFIG`).
    */
   async health(options: CallOptions = {}): Promise<HealthStatus> {
+    if (this.#closed) throw new CancelledError("health: client is closed");
     const primary = await probeHealth(async () => {
       const res = await this.#transport.get<Record<string, unknown> | undefined>(
         this.config.healthUrl,
@@ -145,6 +148,7 @@ export class CollectorHealthClient {
    * answers with a version.
    */
   async serverVersion(options: CallOptions = {}): Promise<string> {
+    if (this.#closed) throw new CancelledError("serverVersion: client is closed");
     let cause: unknown;
     try {
       const res = await this.#transport.get<string>(
@@ -178,8 +182,9 @@ export class CollectorHealthClient {
     );
   }
 
-  /** Releases connections. Idempotent. */
+  /** Releases connections. Idempotent; later calls fail with `CancelledError`. */
   close(): Promise<void> {
+    this.#closed = true;
     return this.#transport.close();
   }
 }

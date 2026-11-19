@@ -145,7 +145,7 @@ describe("OtlpLogExporter (HTTP)", () => {
       { gzip: false },
     );
     expect(r.error).toBeInstanceOf(UnavailableError);
-    expect(r.error?.retryable).toBe(false);
+    expect(r.error?.retryable).toBe(true);
   });
 
   it("maps network errors and honours cancellation", async () => {

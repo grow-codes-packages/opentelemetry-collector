@@ -94,13 +94,14 @@ export function toReadableLogRecord(record: LogRecord, resource: Resource): Read
 /**
  * {@link LogExporter} that sends records to the collector over OTLP: `POST {logsUrl}`
  * (`application/x-protobuf`) or gRPC `LogsService/Export`. Retries (HTTP 429/502/503/504) are
- * done by the official OTLP export delegate within `exportTimeoutMs`; errors in the result are
- * therefore never `retryable`. A partial success reports `rejected` and a `ValidationError`.
+ * done by the official OTLP export delegate within `exportTimeoutMs`; errors in the result keep
+ * the natural `retryable` flag of their code. A partial success reports `rejected` and a
+ * `ValidationError`.
  */
 export class OtlpLogExporter implements LogExporter {
   /** The configuration in use. */
   readonly config: OtelCollectorConfig;
-  /** Endpoint records are sent to (`logsUrl` for HTTP, `grpcUrl` for gRPC). */
+  /** Endpoint records are sent to (`logsUrl` when set, else `url` + `/v1/logs` for HTTP or `grpcUrl` for gRPC). */
   readonly endpoint: string;
   readonly #delegates = new Map<boolean, Delegate>();
   readonly #resources = new Map<string, Resource>();

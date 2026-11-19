@@ -18,19 +18,23 @@ has the same functions, options, defaults, error codes and behaviour, tested aga
 
 ## What you get
 
-- **Client** with health, authenticated ping and server version ([Client](client.md)).
-- **Configuration** from code or `GROW_OPENTELEMETRY_COLLECTOR_*` / vendor environment variables, immutable
-  and validated ([Configuration](configuration.md)).
-- **Retries** with full-jitter backoff and `Retry-After`, connect/request/total timeouts and
-  cancellation in every language.
-- **Typed errors** with one set of codes across languages ([Error handling](errors.md)).
-- **Redaction everywhere**: credentials never appear in errors, logs, hooks or `toString`
-  ([Redaction](redaction.md)).
-- **Logging**: batching log client, logger facade, redaction processor, framework adapters and
-  log search ([Logging](logging.md)).
-- **Tracing**: OpenTelemetry setup, span helpers, propagation, framework adapters and trace
-  queries ([Tracing](tracing.md)).
-- **Service functions** for the OpenTelemetry Collector API ([Functions](functions.md)).
+- **One-call telemetry**: `initTelemetry` sets up traces, logs and metrics over OTLP (gRPC or
+  HTTP/protobuf) on the official OpenTelemetry SDK, with one resource (host, process, container,
+  Kubernetes) — the generic package for every Grow stack, since the platform deploys the collector
+  with each one ([One-call telemetry](functions/telemetry.md)).
+- **Standard configuration**: the `OTEL_*` variables work unchanged; `GROW_OPENTELEMETRY_COLLECTOR_*`
+  (alias `GROW_OTEL_*`) and explicit values take precedence ([Configuration](configuration.md)).
+- **Collector health**: `health_check` with a zpages fallback for stock collectors, `waitUntilReady`,
+  an authenticated `ping` and the collector version ([Client and health](functions/client.md)).
+- **Logs** through a batching OTLP log client with a logger facade, redaction and framework adapters
+  ([Logs](functions/logs.md), [Logging](logging.md)).
+- **Metrics** helpers (`meter`, `counter`, `upDownCounter`, `histogram`, `gauge`) and runtime
+  metrics ([Metrics](functions/metrics.md)).
+- **Tracing** setup with collector defaults, span helpers, propagation and framework adapters
+  ([Tracing setup](functions/tracing-setup.md), [Tracing](tracing.md)).
+- **Typed errors** with one set of codes across languages, OTLP and gRPC statuses mapped
+  ([Error handling](errors.md)); **redaction everywhere**: header credentials never appear in errors,
+  logs, hooks or `toString` ([Redaction](redaction.md)).
 
 Start with [Install](install.md) and the [Quickstart](quickstart.md).
 

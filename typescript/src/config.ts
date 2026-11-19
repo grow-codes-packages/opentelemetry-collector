@@ -71,11 +71,17 @@ export interface OtelCollectorConfigOptions extends CommonConfigOptions {
   grpcUrl?: string;
   /** Export protocol. Default `http/protobuf`. `native` is rejected with `ConfigError`. */
   protocol?: OtlpProtocol;
-  /** Full OTLP/HTTP traces URL, used as-is (overrides `url` + `/v1/traces`). */
+  /**
+   * Full traces endpoint, used as-is: overrides `url` + `/v1/traces` for HTTP and `grpcUrl` for gRPC.
+   */
   tracesUrl?: string;
-  /** Full OTLP/HTTP logs URL, used as-is (overrides `url` + `/v1/logs`). */
+  /**
+   * Full logs endpoint, used as-is: overrides `url` + `/v1/logs` for HTTP and `grpcUrl` for gRPC.
+   */
   logsUrl?: string;
-  /** Full OTLP/HTTP metrics URL, used as-is (overrides `url` + `/v1/metrics`). */
+  /**
+   * Full metrics endpoint, used as-is: overrides `url` + `/v1/metrics` for HTTP and `grpcUrl` for gRPC.
+   */
   metricsUrl?: string;
   /** Extra headers for trace exports only (merged over `headers`). Redacted. */
   tracesHeaders?: Record<string, string>;
@@ -598,9 +604,13 @@ export class OtelCollectorConfig implements CommonConfig {
     return `${this.url.replace(/\/+$/, "")}/v1/${signal}`;
   }
 
-  /** The export endpoint of a signal for the configured protocol (`grpcUrl` for gRPC). */
+  /**
+   * The export endpoint of a signal for the configured protocol: the explicit `<signal>Url`
+   * when set (in both protocols), else `grpcUrl` for gRPC and `url` + `/v1/<signal>` for HTTP.
+   */
   endpointFor(signal: Signal): string {
-    return this.protocol === "grpc" ? this.grpcUrl : this.signalUrl(signal);
+    if (this.protocol !== "grpc") return this.signalUrl(signal);
+    return this[`${signal}Url`] ?? this.grpcUrl;
   }
 
   /** Export headers of a signal: `headers` with the per-signal headers on top. */

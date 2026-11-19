@@ -159,7 +159,7 @@ class OtelCollectorConfigTest {
             P + "PROXY",
             "http://proxy:3128",
             P + "USER_AGENT_SUFFIX",
-            "app/2");
+            "app/2"); // not an environment setting in any language (SPEC common table)
     OtelCollectorConfig c = OtelCollectorConfig.fromEnv(e);
     assertThat(c.url()).isEqualTo("http://grow:4318");
     assertThat(c.protocol()).isEqualTo(Protocol.HTTP_PROTOBUF);
@@ -212,7 +212,7 @@ class OtelCollectorConfigTest {
     assertThat(c.totalTimeout()).isEqualTo(Duration.ofSeconds(3));
     assertThat(c.retry().maxRetries()).isEqualTo(1);
     assertThat(c.proxy()).contains("http://proxy:3128");
-    assertThat(c.userAgentSuffix()).contains("app/2");
+    assertThat(c.userAgentSuffix()).isEmpty();
     String text = c.toString();
     assertThat(text).doesNotContain("Bearer grow").contains("from-attrs");
   }

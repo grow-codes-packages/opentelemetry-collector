@@ -289,7 +289,7 @@ def test_close_owned_resources_and_closed_client(server: MockServer) -> None:
     for call in (c.health, c.ping, c.server_version, c.wait_until_ready):
         with pytest.raises(sdk.CancelledError):
             call()
-    with pytest.raises(sdk.ConfigError):
+    with pytest.raises(sdk.CancelledError):
         c.log_exporter()
     with pytest.raises(sdk.CancelledError):
         c.request(sdk.Request("GET", "/"))
@@ -436,7 +436,7 @@ async def test_async_owned_resources_and_close(server: MockServer) -> None:
     assert logs.stats().queued == 0
     assert (await exporter.export([sdk.LogRecord("x")])).error is not None
     for factory in (c.init_telemetry, c.init_tracing, c.log_client, c.log_exporter):
-        with pytest.raises(sdk.ConfigError):
+        with pytest.raises(sdk.CancelledError):
             factory()
     with pytest.raises(sdk.CancelledError):
         await c.ping()

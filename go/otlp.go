@@ -248,10 +248,10 @@ func grpcError(ctx context.Context, op string, err error, secrets []string) *Err
 		code = ErrorCodeTimeout
 	case codes.Canceled:
 		code = ErrorCodeCancelled
-	case codes.Unavailable, codes.Aborted, codes.Unknown:
-		code = ErrorCodeUnavailable
-	default: // InvalidArgument, Internal, FailedPrecondition, OutOfRange, DataLoss
+	case codes.InvalidArgument, codes.Internal, codes.FailedPrecondition, codes.OutOfRange:
 		code = ErrorCodeValidation
+	default: // Unavailable, Aborted, Unknown, DataLoss and unknown codes
+		code = ErrorCodeUnavailable
 	}
 	msg := strings.TrimSpace(RedactText(st.Message(), secrets))
 	reason := strings.ToLower(st.Code().String())

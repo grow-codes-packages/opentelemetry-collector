@@ -55,6 +55,13 @@ describe("OtelCollectorConfig defaults", () => {
     expect(c.grpcUrl).toBe("https://otel.example.com:4317");
     const g = new OtelCollectorConfig({ protocol: "grpc", grpcUrl: "http://c:4317" });
     expect(g.endpointFor("traces")).toBe("http://c:4317");
+    const gs = new OtelCollectorConfig({
+      protocol: "grpc",
+      url: "http://otel:4318",
+      tracesUrl: "http://traces-gw:4317",
+    });
+    expect(gs.endpointFor("traces")).toBe("http://traces-gw:4317");
+    expect(gs.endpointFor("logs")).toBe("http://otel:4317");
     const v6 = new OtelCollectorConfig({ url: "http://[::1]:4318" });
     expect(v6.zpagesUrl).toBe("http://[::1]:55679");
   });

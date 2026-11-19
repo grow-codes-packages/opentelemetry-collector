@@ -10,13 +10,16 @@ npm install @grow-codes/opentelemetry-collector
 ```ts
 import { OtelCollectorClient } from "@grow-codes/opentelemetry-collector";
 
-// Reads GROW_OPENTELEMETRY_COLLECTOR_URL, GROW_OPENTELEMETRY_COLLECTOR_TOKEN, timeouts, TLS and proxy settings.
+// Reads GROW_OPENTELEMETRY_COLLECTOR_*, GROW_OTEL_* and the standard OTEL_* variables.
 const client = OtelCollectorClient.fromEnv();
 try {
-  console.log(await client.health()); // { healthy: true, status: "ok", details: {} }
-  console.log(`ping: ${(await client.ping()).toFixed(1)} ms`);
+  console.log(await client.waitUntilReady(10_000)); // health_check :13133, zpages fallback
+  console.log(`ping: ${(await client.ping()).toFixed(1)} ms`); // empty OTLP export
+  const telemetry = client.initTelemetry(); // traces + logs + metrics over OTLP
+  telemetry.counter("orders").add(1);
+  telemetry.logger("app").info("ready");
 } finally {
-  await client.close();
+  await client.close(); // flushes and shuts down the telemetry it created
 }
 ```
 
