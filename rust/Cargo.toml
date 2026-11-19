@@ -62,7 +62,7 @@ log = { version = "0.4.22", optional = true, features = ["std", "kv"] }
 flate2 = "1.0.30"
 regex = "1.10"
 humantime = "2.1"
-opentelemetry_sdk = { version = "0.31", default-features = false, features = ["trace", "metrics", "logs", "rt-tokio", "experimental_trace_batch_span_processor_with_async_runtime", "experimental_metrics_periodicreader_with_async_runtime"] }
+opentelemetry_sdk = { version = "0.32", default-features = false, features = ["trace", "metrics", "logs", "rt-tokio", "experimental_trace_batch_span_processor_with_async_runtime", "experimental_metrics_periodicreader_with_async_runtime"] }
 opentelemetry-otlp = { version = "0.31", default-features = false, features = ["trace", "metrics", "logs", "http-proto", "grpc-tonic", "reqwest-client", "gzip-tonic", "gzip-http"] }
 opentelemetry-proto = { version = "0.31", default-features = false, features = ["gen-tonic", "trace"] }
 opentelemetry-http = { version = "0.31", default-features = false }
