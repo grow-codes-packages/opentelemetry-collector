@@ -1,51 +1,121 @@
-// Skeleton created by sdk-kit 0.1.0; owned by this repository (edit freely).
-//! `OtelCollectorClient`: entry point of the SDK (SPEC §2.4).
+// Service code (OpenTelemetry Collector): the client entry point.
+//! `OtelCollectorClient`: entry point of the SDK (SPEC §2.4): health (health_check with a
+//! zpages fallback), ping (an empty OTLP export), server version (zpages, then the collector's
+//! own `target_info` metric), the OTLP log exporter and log client, `init_telemetry`,
+//! `init_tracing` and the (unsupported) query clients.
 
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 use std::time::{Duration, Instant};
 
 use futures::future::BoxFuture;
-use serde::Deserialize;
+use opentelemetry_proto::tonic::collector::trace::v1::trace_service_client::TraceServiceClient;
+use opentelemetry_proto::tonic::collector::trace::v1::ExportTraceServiceRequest;
+use regex::Regex;
+use tonic::codec::CompressionEncoding;
+use tonic::transport::{Channel, Endpoint};
 
-use crate::config::OtelCollectorConfig;
+use crate::config::{OtelCollectorConfig, Signal};
 use crate::core::lifecycle::CloseGroup;
-use crate::core::{Error, HealthStatus, HttpTransport, Result};
+use crate::core::transport::default_user_agent;
+use crate::core::{Error, ErrorCode, HealthStatus, HttpTransport, Result};
+use crate::health::{servicez_url, CollectorHealthClient};
+use crate::logging::{BatchingLogClient, LogClient as _};
+use crate::logs::{create_log_client, LogClientOptions, OtlpLogExporter};
+use crate::otlp::{grpc_metadata, http_status_error, tonic_error, tonic_tls};
+use crate::query::{CollectorLogQueryClient, CollectorTraceQueryClient};
+use crate::setup::init_tracing_with_collector;
+use crate::telemetry::{init_telemetry_with, TelemetryHandle, TelemetryOptions};
+use crate::tracing::{Protocol, TracingConfig, TracingHandle};
 
-/// Async client for OpenTelemetry Collector. Cheap to clone (clones share one connection pool).
-#[derive(Debug, Clone)]
+/// Async client for the OpenTelemetry Collector. Cheap to clone (clones share one connection
+/// pool). `Debug` output redacts every credential.
+#[derive(Clone)]
 pub struct OtelCollectorClient {
     inner: Arc<Inner>,
 }
 
-#[derive(Debug)]
+impl std::fmt::Debug for OtelCollectorClient {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("OtelCollectorClient")
+            .field("config", &self.inner.config)
+            .field("grpc", &self.inner.grpc.is_some())
+            .field("closed", &self.is_closed())
+            .finish()
+    }
+}
+
 struct Inner {
     config: OtelCollectorConfig,
     transport: HttpTransport,
+    probe: Arc<HttpTransport>,
+    health: CollectorHealthClient,
+    grpc: Option<GrpcPing>,
+    secrets: Vec<String>,
     on_close: CloseGroup,
 }
 
-#[derive(Deserialize)]
-struct StatusBody {
-    status: Option<String>,
+/// The lazily connecting gRPC channel of `ping()` over OTLP/gRPC.
+#[derive(Debug)]
+struct GrpcPing {
+    channel: Channel,
 }
 
-#[derive(Deserialize)]
-struct VersionBody {
-    version: Option<String>,
+fn servicez_version(html: &str) -> Option<String> {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    let re = RE.get_or_init(|| {
+        Regex::new(r"<b>Version</b></td>\s*<td>[^<]*</td>\s*<td[^>]*>([^<]+)</td>").expect("regex")
+    });
+    re.captures(html)
+        .map(|c| c[1].trim().trim_start_matches('v').to_owned())
+        .filter(|v| !v.is_empty())
+}
+
+fn target_info_version(metrics: &str) -> Option<String> {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    let re = RE.get_or_init(|| {
+        Regex::new(r#"target_info\{[^}]*service_version="([^"]+)""#).expect("regex")
+    });
+    re.captures(metrics)
+        .map(|c| c[1].trim_start_matches('v').to_owned())
+}
+
+/// Parses the collector version from the zpages `/debug/servicez` page (`None` when absent).
+pub fn parse_servicez_version(html: &str) -> Option<String> {
+    servicez_version(html)
+}
+
+/// Parses `service_version` of the `target_info` metric in a Prometheus exposition.
+pub fn parse_target_info_version(metrics: &str) -> Option<String> {
+    target_info_version(metrics)
 }
 
 impl OtelCollectorClient {
-    /// Creates a client from a configuration.
+    /// Creates a client from a configuration. It makes no network call; the gRPC channel of
+    /// `ping()` (protocol `grpc`) connects lazily, so this must run inside a tokio runtime
+    /// for that protocol.
     pub fn new(config: OtelCollectorConfig) -> Result<Self> {
         config.validate()?;
         let transport = HttpTransport::new(config.common())?;
-        if let Some(token) = config.token() {
-            transport.add_known_secret(token);
+        let probe = Arc::new(HttpTransport::new(config.probe())?);
+        let known = config.known_secrets();
+        for s in &known {
+            transport.add_known_secret(s);
+            probe.add_known_secret(s);
         }
+        let secrets = known.iter().map(|s| s.expose_secret().to_owned()).collect();
+        let grpc = match config.protocol() {
+            Protocol::Grpc => Some(GrpcPing::new(&config)?),
+            _ => None,
+        };
+        let health = CollectorHealthClient::from_parts(Arc::clone(&probe), &config, false);
         Ok(OtelCollectorClient {
             inner: Arc::new(Inner {
                 config,
                 transport,
+                probe,
+                health,
+                grpc,
+                secrets,
                 on_close: CloseGroup::new(),
             }),
         })
@@ -61,12 +131,12 @@ impl OtelCollectorClient {
         &self.inner.config
     }
 
-    /// The HTTP transport (for service modules).
+    /// The HTTP transport of `ping()` (common settings, retries).
     pub fn transport(&self) -> &HttpTransport {
         &self.inner.transport
     }
 
-    /// Registers work that [`OtelCollectorClient::close`] runs (flush, stop watchers, …).
+    /// Registers work that [`OtelCollectorClient::close`] runs (flush, shutdown, …).
     pub fn on_close<F>(&self, f: F)
     where
         F: FnOnce() -> BoxFuture<'static, ()> + Send + 'static,
@@ -74,66 +144,269 @@ impl OtelCollectorClient {
         self.inner.on_close.register(f);
     }
 
-    /// Unauthenticated liveness check. Never fails for an unhealthy or unreachable service;
-    /// only `CANCELLED` and `CONFIG` are returned as errors.
-    pub async fn health(&self) -> Result<HealthStatus> {
-        let resp = self
-            .transport()
-            .get("/health")
-            .operation("health")
-            .ok_status(500)
-            .ok_status(503)
-            .send()
-            .await;
-        let resp = match resp {
-            Ok(resp) => resp,
-            Err(err) => return HealthStatus::from_error(err),
-        };
-        let word = resp.json::<StatusBody>().ok().and_then(|b| b.status);
-        Ok(if resp.status() < 300 {
-            HealthStatus::healthy(word.unwrap_or_else(|| "ok".to_owned()))
-        } else {
-            HealthStatus::unhealthy(word.unwrap_or_else(|| "unhealthy".to_owned()))
-                .with_detail("httpStatus", resp.status().to_string())
-        })
+    /// The health client of this collector (shares the client's connections).
+    pub fn collector_health(&self) -> CollectorHealthClient {
+        self.inner.health.clone()
     }
 
-    /// Authenticated round trip; returns the latency. `AUTHENTICATION` on bad credentials.
+    /// Unauthenticated liveness check, see [`CollectorHealthClient::health`]. Never fails for
+    /// an unhealthy or unreachable collector; only `CANCELLED` and `CONFIG` are returned as
+    /// errors.
+    pub async fn health(&self) -> Result<HealthStatus> {
+        self.inner.health.health().await
+    }
+
+    /// Polls `health()` until the collector is healthy, see
+    /// [`CollectorHealthClient::wait_until_ready`].
+    pub async fn wait_until_ready(&self, timeout: Duration) -> Result<HealthStatus> {
+        self.inner.health.wait_until_ready(timeout).await
+    }
+
+    /// Authenticated round trip; returns the latency. It sends an empty OTLP trace export
+    /// (`POST <traces endpoint>` with an empty protobuf body, or `TraceService/Export` with an
+    /// empty message over gRPC); the collector stores nothing for it. `AUTHENTICATION` /
+    /// `PERMISSION_DENIED` when an authenticator or gateway rejects the headers, `NOT_FOUND`
+    /// for a wrong path.
     pub async fn ping(&self) -> Result<Duration> {
-        let started = Instant::now();
-        let mut req = self.transport().get("/v1/ping").operation("ping");
-        if let Some(token) = self.config().token() {
-            req = req.bearer(token);
+        const OP: &str = "ping";
+        if self.is_closed() {
+            return Err(Error::cancelled(format!("{OP}: client is closed")));
         }
-        req.send().await?;
+        let started = Instant::now();
+        if let Some(g) = &self.inner.grpc {
+            g.ping(&self.inner.config, &self.inner.secrets).await?;
+            return Ok(started.elapsed());
+        }
+        let endpoint = self.inner.config.signal_endpoint(Signal::Traces);
+        let mut req = self
+            .transport()
+            .post(&endpoint)
+            .operation(OP)
+            .body(bytes::Bytes::new(), "application/x-protobuf")
+            .header("accept", "application/x-protobuf");
+        for (k, v) in self.inner.config.signal_only_headers(Signal::Traces) {
+            req = req.header(k.clone(), v.clone());
+        }
+        // 429 stays with the transport (it retries POST on 429); other statuses are mapped
+        // here because OTLP error bodies are protobuf.
+        for status in (400..600).filter(|s| *s != 429) {
+            req = req.ok_status(status);
+        }
+        let resp = req.send().await?;
+        if resp.status() >= 400 {
+            return Err(http_status_error(
+                OP,
+                resp.status(),
+                resp.header("content-type"),
+                resp.header("retry-after"),
+                resp.bytes(),
+                &self.inner.secrets,
+            ));
+        }
         Ok(started.elapsed())
     }
 
-    /// Server version string; `UNSUPPORTED` when the service exposes none.
+    /// Collector version (for example `0.165.0`, without a leading `v`). It parses the
+    /// `Version` row of the zpages page `{zpages_url}/debug/servicez` (reachable on stock
+    /// stacks) and falls back to the `target_info` metric of `telemetry_url`. `UNSUPPORTED`
+    /// when neither is reachable or carries a version. The version is never derived from OTLP
+    /// responses or the image tag.
     pub async fn server_version(&self) -> Result<String> {
-        let resp = self
-            .transport()
-            .get("/version")
-            .operation("serverVersion")
+        const OP: &str = "serverVersion";
+        let fatal = |e: Error| {
+            matches!(
+                e.code(),
+                ErrorCode::Cancelled | ErrorCode::Authentication | ErrorCode::PermissionDenied
+            )
+            .then_some(e)
+        };
+        let page = self
+            .inner
+            .probe
+            .get(&servicez_url(&self.inner.config))
+            .operation(OP)
+            .header("accept", "text/html")
             .send()
-            .await
-            .map_err(|e| match e.http_status() {
-                Some(404) => Error::unsupported("serverVersion: the service exposes no version"),
-                _ => e,
-            })?;
-        resp.json::<VersionBody>()?
-            .version
-            .ok_or_else(|| Error::unsupported("serverVersion: the service exposes no version"))
+            .await;
+        match page {
+            Ok(resp) => {
+                if let Some(v) = servicez_version(&String::from_utf8_lossy(resp.bytes())) {
+                    return Ok(v);
+                }
+            }
+            Err(e) => {
+                if let Some(e) = fatal(e) {
+                    return Err(e);
+                }
+            }
+        }
+        if let Some(url) = self.inner.config.telemetry_url() {
+            let metrics = self
+                .inner
+                .probe
+                .get(url.as_str())
+                .operation(OP)
+                .header("accept", "text/plain")
+                .send()
+                .await;
+            match metrics {
+                Ok(resp) => {
+                    if let Some(v) = target_info_version(&String::from_utf8_lossy(resp.bytes())) {
+                        return Ok(v);
+                    }
+                }
+                Err(e) => {
+                    if let Some(e) = fatal(e) {
+                        return Err(e);
+                    }
+                }
+            }
+        }
+        Err(Error::unsupported(format!(
+            "{OP}: neither zpages nor the telemetry endpoint exposes a version"
+        )))
     }
 
-    /// Flushes and stops background work, then closes the transport. Idempotent.
+    /// The trace query client. The collector stores nothing, so every method returns
+    /// `UNSUPPORTED` (read traces from the backend the collector exports to).
+    pub fn trace_query(&self) -> CollectorTraceQueryClient {
+        CollectorTraceQueryClient
+    }
+
+    /// The log query client. The collector stores nothing, so every method returns
+    /// `UNSUPPORTED`.
+    pub fn log_query(&self) -> CollectorLogQueryClient {
+        CollectorLogQueryClient
+    }
+
+    /// A new OTLP log exporter for the client's configuration. [`close`](Self::close) shuts
+    /// it down.
+    pub fn log_exporter(&self) -> Result<Arc<OtlpLogExporter>> {
+        let e = Arc::new(OtlpLogExporter::new(&self.inner.config)?);
+        let closer = Arc::clone(&e);
+        self.on_close(move || {
+            Box::pin(async move {
+                let _ = crate::logging::LogExporter::shutdown(&*closer).await;
+            })
+        });
+        Ok(e)
+    }
+
+    /// A [`BatchingLogClient`] that exports OTLP logs to the collector (see
+    /// [`create_log_client`]). [`close`](Self::close) flushes and closes it.
+    pub fn log_client(&self, opts: LogClientOptions) -> Result<Arc<BatchingLogClient>> {
+        let lc = Arc::new(create_log_client(&self.inner.config, opts)?);
+        let closer = Arc::clone(&lc);
+        self.on_close(move || {
+            Box::pin(async move {
+                let _ = closer.close().await;
+            })
+        });
+        Ok(lc)
+    }
+
+    /// Starts traces, metrics and logs with the client's configuration (see
+    /// [`init_telemetry_with`]). [`close`](Self::close) shuts the handle down.
+    pub fn init_telemetry(&self, opts: TelemetryOptions) -> Result<TelemetryHandle> {
+        let h = init_telemetry_with(&self.inner.config, opts)?;
+        let closer = h.clone();
+        self.on_close(move || {
+            Box::pin(async move {
+                let _ = closer.shutdown().await;
+            })
+        });
+        Ok(h)
+    }
+
+    /// Starts tracing with the client's configuration as the defaults of `config` (see
+    /// [`tracing_config_from`](crate::tracing_config_from)). [`close`](Self::close) shuts the
+    /// handle down.
+    pub fn init_tracing(&self, config: TracingConfig) -> Result<TracingHandle> {
+        let h = init_tracing_with_collector(config, &self.inner.config)?;
+        let closer = h.clone();
+        self.on_close(move || {
+            Box::pin(async move {
+                let _ = closer.shutdown().await;
+            })
+        });
+        Ok(h)
+    }
+
+    /// Flushes and shuts down every log client, exporter and telemetry handle created through
+    /// the client, then closes its connections. Idempotent.
     pub async fn close(&self) {
         self.inner.on_close.close().await;
         self.inner.transport.close();
+        self.inner.probe.close();
     }
 
     /// Whether [`OtelCollectorClient::close`] was called.
     pub fn is_closed(&self) -> bool {
         self.inner.transport.is_closed()
+    }
+}
+
+impl GrpcPing {
+    fn new(config: &OtelCollectorConfig) -> Result<Self> {
+        let target = config.signal_endpoint(Signal::Traces);
+        let mut endpoint = Endpoint::from_shared(target.clone())
+            .map_err(|_| Error::config("grpc endpoint is not a valid URL"))?
+            .connect_timeout(config.common().connect_timeout())
+            .timeout(config.common().request_timeout());
+        let ua = match config.common().user_agent_suffix() {
+            Some(s) if !s.is_empty() => format!("{} {s}", default_user_agent()),
+            _ => default_user_agent(),
+        };
+        endpoint = endpoint
+            .user_agent(ua)
+            .map_err(|_| Error::config("user agent is not a valid header value"))?;
+        if let Some(tls) = tonic_tls(&target, config.common().tls())? {
+            endpoint = endpoint
+                .tls_config(tls)
+                .map_err(|e| Error::config("invalid gRPC TLS settings").with_source(e))?;
+        }
+        tokio::runtime::Handle::try_current()
+            .map_err(|_| Error::config("a gRPC client must be created inside a tokio runtime"))?;
+        Ok(GrpcPing {
+            channel: endpoint.connect_lazy(),
+        })
+    }
+
+    async fn ping(&self, config: &OtelCollectorConfig, secrets: &[String]) -> Result<()> {
+        const OP: &str = "ping";
+        let metadata = grpc_metadata(&config.signal_headers(Signal::Traces))?;
+        let mut client = TraceServiceClient::new(self.channel.clone());
+        if config.compression() == crate::tracing::Compression::Gzip {
+            client = client.send_compressed(CompressionEncoding::Gzip);
+        }
+        client = client.accept_compressed(CompressionEncoding::Gzip);
+        let policy = config.common().retry().clone();
+        let call = async {
+            let mut attempt = 0u32;
+            loop {
+                let mut req = tonic::Request::new(ExportTraceServiceRequest::default());
+                *req.metadata_mut() = metadata.clone();
+                match client.export(req).await {
+                    Ok(_) => return Ok(()),
+                    Err(status) => {
+                        let err = tonic_error(OP, &status, secrets);
+                        if status.code() != tonic::Code::Unavailable
+                            || attempt >= policy.max_retries
+                        {
+                            return Err(err);
+                        }
+                        tokio::time::sleep(policy.backoff(attempt)).await;
+                        attempt += 1;
+                    }
+                }
+            }
+        };
+        match tokio::time::timeout(config.common().total_timeout(), call).await {
+            Ok(r) => r,
+            Err(_) => Err(Error::timeout(format!(
+                "{OP}: total timeout of {} ms exceeded",
+                config.common().total_timeout().as_millis()
+            ))),
+        }
     }
 }

@@ -9,7 +9,9 @@ use std::time::Duration;
 use crate::core::{Error, HealthStatus, Result};
 use crate::{OtelCollectorClient as AsyncClient, OtelCollectorConfig};
 
-/// Blocking client for OpenTelemetry Collector with the same methods as the async client.
+/// Blocking client for the OpenTelemetry Collector with the same methods as the async client
+/// (health, wait_until_ready, ping, server_version, close). Run other async APIs (telemetry,
+/// log clients) with [`block_on`](Self::block_on).
 #[derive(Debug)]
 pub struct OtelCollectorClient {
     inner: AsyncClient,
@@ -48,6 +50,11 @@ impl OtelCollectorClient {
     /// See [`AsyncClient::health`].
     pub fn health(&self) -> Result<HealthStatus> {
         self.block_on(self.inner.health())
+    }
+
+    /// See [`AsyncClient::wait_until_ready`].
+    pub fn wait_until_ready(&self, timeout: Duration) -> Result<HealthStatus> {
+        self.block_on(self.inner.wait_until_ready(timeout))
     }
 
     /// See [`AsyncClient::ping`].
