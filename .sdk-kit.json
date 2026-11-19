@@ -84,7 +84,7 @@
     },
     {
       "path": ".github/workflows/release.yml",
-      "sha256": "4509ce14c61792f5e792f917ddd4b9990e38add5180379eef7c53097ea2f191a",
+      "sha256": "de2d129c5502cdd28764085cc80c9d65775b80a398813977d5e6f5f88f58367c",
       "generated": true
     },
     {
@@ -94,7 +94,7 @@
     },
     {
       "path": ".release-please-manifest.json",
-      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "sha256": "8bb8eecb8fb9f763e2a20886e5ed9cc77e6c8f2ead86f3ef0291e54d9ae75250",
       "generated": false
     },
     {
@@ -783,7 +783,7 @@
     },
     {
       "path": "java/Makefile",
-      "sha256": "82b2c788849fd009767f3cf3babf1bdab462c23023409b519a6b2b24b552f9f7",
+      "sha256": "6adb1374c605650cb90501971d32c75d0278ce3cc50dbe00b2aa5f86d4fc0113",
       "generated": false
     },
     {
@@ -1508,7 +1508,7 @@
     },
     {
       "path": "python/Makefile",
-      "sha256": "408371088d2b2ee867228418fbf2e82af9cbe40af3171ced841b1d4f7f2ff900",
+      "sha256": "4872dd94e0ba9a8f0692ad1cee0fc4a3eaf32126adaf836e0b33b5f64f14df51",
       "generated": false
     },
     {
@@ -1698,7 +1698,7 @@
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_version.py",
-      "sha256": "326553d84c140a43dd807c7e7ffd9a77a0b48f004b8de216cf29e7959ca2ed0e",
+      "sha256": "a77fa54f51fdf50ebdb72c3a3172a1bc4dbc18af2125c9b46a337b7947d33a8e",
       "generated": false
     },
     {
@@ -2288,7 +2288,7 @@
     },
     {
       "path": "typescript/Makefile",
-      "sha256": "3acbd624308ad8b4e5e7cf9b5671204bc5aafae54b5a8147bd5718445ef7ecad",
+      "sha256": "ac9f9db3d77f169dd64d7ba8b13fbcba75e2ccf7fba2d45b67899b64f40f549e",
       "generated": false
     },
     {
@@ -2613,7 +2613,7 @@
     },
     {
       "path": "typescript/test/core/transport.test.ts",
-      "sha256": "7666c559b37cda1a1a534cabc0780b84d393cc7b921a67a777ae1f80ca687859",
+      "sha256": "329702a0af2d515d813768541f4a5e4d50b8deaa6e488aadcf8c6eb18d08740d",
       "generated": false
     },
     {
@@ -2723,12 +2723,12 @@
     },
     {
       "path": "typescript/tsup.config.ts",
-      "sha256": "9a086b7b970de220f1604f52c2ecd1b5a9ee66d053fff28a5b734d50f43dfd2a",
+      "sha256": "22da20e1e6d1362ee67803b6529c36b903587d5489d63d207207963653b6bdc0",
       "generated": false
     },
     {
       "path": "typescript/typedoc.json",
-      "sha256": "ea86937d46578005535be8986a25055b271af7365e72faadd93348dece8abbdb",
+      "sha256": "1267f0199d1b06d7316be5b5b3738e651ca57474916282775a587a49287410bf",
       "generated": false
     },
     {
