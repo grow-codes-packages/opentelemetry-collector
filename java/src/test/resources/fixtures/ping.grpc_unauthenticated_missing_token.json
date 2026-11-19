@@ -1,0 +1,18 @@
+{
+  "request": {
+    "protocol": "gRPC (h2c)",
+    "target": "opentelemetry-collector:4319 (otlp/auth, bearertokenauth)",
+    "method": "/opentelemetry.proto.collector.trace.v1.TraceService/Export",
+    "metadata": {
+      "content-type": "application/grpc",
+      "te": "trailers"
+    },
+    "body": "frame with 0-byte message"
+  },
+  "response": {
+    "httpStatus": 200,
+    "grpcStatus": 16,
+    "grpcMessage": "missing or empty authorization header: Authorization",
+    "messageHex": ""
+  }
+}

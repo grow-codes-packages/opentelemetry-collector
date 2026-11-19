@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://opentelemetry-collector:8888/metrics"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "text/plain; version=0.0.4; charset=utf-8; escaping=underscores",
+      "Vary": "Accept",
+      "Connection": "close",
+      "Transfer-Encoding": "chunked"
+    },
+    "bodyExcerpt": [
+      "otelcol_exporter_sent_log_records{exporter=\"file/logs\"} 3",
+      "otelcol_exporter_sent_metric_points{exporter=\"file/metrics\"} 5",
+      "otelcol_exporter_sent_metric_points{exporter=\"prometheus\"} 5",
+      "otelcol_exporter_sent_spans{exporter=\"file/traces\"} 4",
+      "otelcol_exporter_sent_spans{exporter=\"otlp_grpc/jaeger\",server_address=\"jaeger\",server_port=\"4317\"} 4",
+      "otelcol_process_uptime 8.855057552",
+      "otelcol_receiver_accepted_log_records{receiver=\"otlp\",transport=\"grpc\"} 1",
+      "otelcol_receiver_accepted_log_records{receiver=\"otlp\",transport=\"http\"} 2",
+      "otelcol_receiver_accepted_metric_points{receiver=\"otlp\",transport=\"grpc\"} 3",
+      "otelcol_receiver_accepted_metric_points{receiver=\"otlp\",transport=\"http\"} 2",
+      "otelcol_receiver_accepted_spans{receiver=\"otlp\",transport=\"grpc\"} 2",
+      "otelcol_receiver_accepted_spans{receiver=\"otlp\",transport=\"http\"} 2",
+      "target_info{service_instance_id=\"839a90a1-8442-4a3d-bfe6-07892cb041f5\",service_name=\"otelcol-contrib\",service_version=\"0.165.0\"} 1"
+    ]
+  },
+  "parsed": {
+    "version": "0.165.0"
+  }
+}

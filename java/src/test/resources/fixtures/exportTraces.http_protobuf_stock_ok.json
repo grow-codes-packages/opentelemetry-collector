@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector-stock:4318/v1/traces",
+    "headers": {
+      "Content-Type": "application/x-protobuf"
+    },
+    "body": "protobuf ExportTraceServiceRequest (616 bytes) marker verify-abc5abcf-stock"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/x-protobuf",
+      "Content-Length": "2",
+      "Connection": "close"
+    },
+    "body": {
+      "base64": "CgA=",
+      "hex": "0a00"
+    }
+  },
+  "decoded": {
+    "partialSuccess": {
+      "present": true,
+      "rejected": 0,
+      "errorMessage": ""
+    }
+  }
+}

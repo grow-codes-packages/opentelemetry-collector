@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://opentelemetry-collector:55679/debug/servicez",
+    "headers": {},
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8",
+      "Connection": "close",
+      "Transfer-Encoding": "chunked"
+    },
+    "body": {
+      "text": "<!DOCTYPE html>\n<html lang=\"en\"><head>\n    <meta charset=\"utf-8\">\n    <title>Service otelcol-contrib</title>\n    <link rel=\"shortcut icon\" href=\"https://opentelemetry.io/favicons/favicon.ico\"/>\n    <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/icon?family=Material+Icons\">\n    <link rel=\"stylesheet\" href=\"https://code.getmdl.io/1.3.0/material.indigo-pink.min.css\">\n    <script defer src=\"https://code.getmdl.io/1.3.0/material.min.js\"></script>\n</head>\n<body>\n<h2>Service otelcol-contrib</h2><b>Build Info:</b>\n<table style=\"border-spacing: 0\">\n    \n    \n            <tr style=\"background: #eee\">\n        <td style=\"text-align: center\"><b>Command</b></td>\n        <td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>\n        <td style=\"text-align: center\">otelcol-contrib</td>\n        </tr>\n    \n            <tr><td style=\"text-align: center\"><b>Description</b></td>\n        <td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>\n        <td style=\"text-align: center\">OpenTelemetry Collector Contrib</td>\n        </tr>\n    \n            <tr style=\"background: #eee\">\n        <td style=\"text-align: center\"><b>Version</b></td>\n        <td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>\n        <td style=\"text-align: center\">0.165.0</td>\n        </tr>\n    \n</table><b>Runtime Info:</b>\n<table style=\"border-spacing: 0\">\n    \n    \n            <tr style=\"background: #eee\">\n        <td style=\"text-align: center\"><b>StartTimestamp</b></td>\n        <td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>\n        <td style=\"text-align: center\">2026-11-18 20:53:24.699504199 &#43;0000 UTC m=&#43;0.074244157</td>\n        </tr>\n    \n            <tr><td style=\"text-align: center\"><b>Go</b></td>\n        <td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>\n        <td style=\"text-align: center\">go1.27.3</td>\n        </tr>\n    \n            <tr style=\"background: #eee\">\n        <td style=\"text-align: center\"><b>OS</b></td>\n        <td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>\n        <td style=\"text-align: center\">linux</td>\n        </tr>\n    \n            <tr><td style=\"text-align: center\"><b>Arch</b></td>\n        <td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>\n        <td style=\"text-align: center\">amd64</td>\n        </tr>\n    \n</table><h6><a href=\"pipelinez\">Pipelines</a></h6><h6><a href=\"extensionz\">Extensions</a></h6><h6><a href=\"featurez\">Features</a></h6></body>\n</html>"
+    }
+  },
+  "parsed": {
+    "version": "0.165.0"
+  }
+}
