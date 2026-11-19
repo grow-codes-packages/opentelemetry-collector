@@ -1,0 +1,14 @@
+{
+  "request": {
+    "protocol": "gRPC (h2c)",
+    "target": "opentelemetry-collector:4317",
+    "method": "/opentelemetry.proto.collector.trace.v1.TraceService/Export",
+    "body": "frame with 0-byte message"
+  },
+  "response": {
+    "httpStatus": 200,
+    "grpcStatus": 0,
+    "grpcMessage": "",
+    "messageHex": "0a00"
+  }
+}

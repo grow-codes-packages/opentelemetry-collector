@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import base64
 import dataclasses
 import json
 import socket
@@ -11,6 +12,7 @@ import time
 from collections import defaultdict, deque
 from collections.abc import Awaitable
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 from typing import Any
 
 import grow_opentelemetry_collector as sdk
@@ -65,7 +67,8 @@ class MockServer:
                     ctype = "application/json"
                 try:
                     self.send_response(reply.status)
-                    self.send_header("Content-Type", ctype)
+                    if not any(k.lower() == "content-type" for k in reply.headers):
+                        self.send_header("Content-Type", ctype)
                     for k, v in reply.headers.items():
                         self.send_header(k, v)
                     self.send_header("Content-Length", str(len(payload)))
@@ -111,7 +114,12 @@ def fast_retry(**kw: Any) -> sdk.RetryPolicy:
 
 
 def make_config(url: str, **kw: Any) -> sdk.OtelCollectorConfig:
+    """Config for tests. The collector has no token of its own: ``token=`` becomes an
+    ``Authorization: Bearer`` header (what a gateway or ``bearertokenauth`` expects)."""
     kw.setdefault("retry", fast_retry())
+    token = kw.pop("token", None)
+    if token is not None:
+        kw["headers"] = {**kw.get("headers", {}), "Authorization": f"Bearer {token}"}
     return sdk.OtelCollectorConfig(url=url, **kw)
 
 
@@ -138,3 +146,29 @@ def spawn_capturing(awaitable: Awaitable[Any], sink: list[BaseException]) -> asy
             raise
 
     return asyncio.ensure_future(run())
+
+
+FIXTURES = Path(__file__).parent / "fixtures"
+
+
+def fixture(name: str) -> dict[str, Any]:
+    """A recorded exchange from ``tests/fixtures`` (real collector 0.165.0 responses)."""
+    doc: dict[str, Any] = json.loads((FIXTURES / f"{name}.json").read_text(encoding="utf-8"))
+    return doc
+
+
+def fixture_reply(name: str) -> Reply:
+    """A :class:`Reply` replaying the recorded HTTP response of fixture ``name``."""
+    resp = fixture(name)["response"]
+    body = resp.get("body") or {}
+    payload: bytes
+    if "base64" in body:
+        payload = base64.b64decode(body["base64"])
+    elif "json" in body:
+        payload = json.dumps(body["json"]).encode()
+    elif "text" in body:
+        payload = body["text"].encode()
+    else:
+        payload = "\n".join(resp.get("bodyExcerpt", [])).encode()
+    ctype = resp.get("headers", {}).get("Content-Type", "application/octet-stream")
+    return Reply(resp["status"], payload, {"Content-Type": ctype})

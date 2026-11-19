@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4320/v1/logs",
+    "headers": {
+      "Content-Type": "application/x-protobuf",
+      "Authorization": "Bearer [REDACTED]"
+    },
+    "body": "protobuf ExportLogsServiceRequest (100098 bytes > max_request_body_size 65536)"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/x-protobuf",
+      "Content-Length": "32",
+      "Connection": "close"
+    },
+    "body": {
+      "base64": "CAMSHGh0dHA6IHJlcXVlc3QgYm9keSB0b28gbGFyZ2U=",
+      "hex": "0803121c687474703a207265717565737420626f647920746f6f206c61726765"
+    }
+  },
+  "decoded": {
+    "googleRpcStatus": {
+      "code": 3,
+      "message": "http: request body too large"
+    }
+  }
+}

@@ -12,7 +12,7 @@ from typing import Any
 import pytest
 
 import grow_opentelemetry_collector as sdk
-from _support import MockServer, Reply, make_config
+from _support import MockServer, fixture_reply, make_config
 from grow_opentelemetry_collector.testing import runner as r
 
 
@@ -360,16 +360,20 @@ def test_context_resolve_and_close() -> None:
 
 
 def demo_server(server: MockServer) -> None:
-    server.defaults["/health"] = Reply(200, {"status": "ok"})
-    server.defaults["/v1/ping"] = Reply(200, {"pong": True})
-    server.defaults["/version"] = Reply(200, {"version": "1.0.0"})
+    server.defaults["/"] = fixture_reply("health.ok")
+    server.defaults["/v1/traces"] = fixture_reply("ping.http_empty_export")
+    server.defaults["/debug/servicez"] = fixture_reply("serverVersion.zpages")
+
+
+def demo_config(server: MockServer, **kw: Any) -> sdk.OtelCollectorConfig:
+    return make_config(server.url, health_url=server.url + "/", zpages_url=server.url, **kw)
 
 
 @pytest.mark.parametrize("scenario_doc", r.pytest_params(categories=["core"]))
 def test_core_scenarios_sync(server: MockServer, scenario_doc: dict[str, Any]) -> None:
     demo_server(server)
     runner = r.ConformanceRunner(
-        {"core": lambda c: sdk.OtelCollectorClient(make_config(server.url, token="t-1234"))},
+        {"core": lambda c: sdk.OtelCollectorClient(demo_config(server, token="t-1234"))},
         capabilities={"version"},
     )
     result = r.assert_scenario(runner, scenario_doc)
@@ -379,7 +383,7 @@ def test_core_scenarios_sync(server: MockServer, scenario_doc: dict[str, Any]) -
 def test_core_scenario_async_client(server: MockServer) -> None:
     demo_server(server)
     runner = r.ConformanceRunner(
-        {"core": lambda c: sdk.AsyncOtelCollectorClient(make_config(server.url))},
+        {"core": lambda c: sdk.AsyncOtelCollectorClient(demo_config(server))},
     )
     report = runner.run()
     assert report.ok, report.summary()

@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://opentelemetry-collector:13133/",
+    "headers": {},
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Content-Length": "96",
+      "Connection": "close"
+    },
+    "body": {
+      "json": {
+        "status": "Server available",
+        "upSince": "2026-11-18T20:53:24.720766521Z",
+        "uptime": "8.849963868s"
+      }
+    }
+  }
+}

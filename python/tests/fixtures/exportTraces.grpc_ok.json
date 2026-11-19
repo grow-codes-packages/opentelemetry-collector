@@ -1,0 +1,25 @@
+{
+  "request": {
+    "protocol": "gRPC (h2c)",
+    "target": "opentelemetry-collector:4317",
+    "method": "/opentelemetry.proto.collector.trace.v1.TraceService/Export",
+    "metadata": {
+      "content-type": "application/grpc",
+      "te": "trailers"
+    },
+    "body": "length-prefixed protobuf ExportTraceServiceRequest"
+  },
+  "response": {
+    "httpStatus": 200,
+    "grpcStatus": 0,
+    "grpcMessage": "",
+    "messageHex": "0a00",
+    "decoded": {
+      "partialSuccess": {
+        "present": true,
+        "rejected": 0,
+        "errorMessage": ""
+      }
+    }
+  }
+}

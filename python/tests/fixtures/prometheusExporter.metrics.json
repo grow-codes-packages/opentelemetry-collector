@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://opentelemetry-collector:8889/metrics"
+  },
+  "bodyExcerpt": [
+    "# TYPE grow_verify_json_gauge gauge",
+    "# TYPE grow_verify_latency histogram",
+    "grow_verify_latency_bucket{deployment_environment_name=\"test\",grow_run=\"verify-abc5abcf-http\",job=\"grow-verify-http\",otel_scope_name=\"grow-verify\",otel_scope_schema_url=\"\",otel_scope_version=\"\",service_name=\"grow-verify-http\",service_version=\"1.2.3\",le=\"10\"} 1",
+    "grow_verify_latency_bucket{deployment_environment_name=\"test\",grow_run=\"verify-abc5abcf-http\",job=\"grow-verify-http\",otel_scope_name=\"grow-verify\",otel_scope_schema_url=\"\",otel_scope_version=\"\",service_name=\"grow-verify-http\",service_version=\"1.2.3\",le=\"100\"} 3",
+    "grow_verify_latency_bucket{deployment_environment_name=\"test\",grow_run=\"verify-abc5abcf-http\",job=\"grow-verify-http\",otel_scope_name=\"grow-verify\",otel_scope_schema_url=\"\",otel_scope_version=\"\",service_name=\"grow-verify-http\",service_version=\"1.2.3\",le=\"+Inf\"} 3",
+    "grow_verify_latency_sum{deployment_environment_name=\"test\",grow_run=\"verify-abc5abcf-http\",job=\"grow-verify-http\",otel_scope_name=\"grow-verify\",otel_scope_schema_url=\"\",otel_scope_version=\"\",service_name=\"grow-verify-http\",service_version=\"1.2.3\"} 150",
+    "grow_verify_latency_count{deployment_environment_name=\"test\",grow_run=\"verify-abc5abcf-http\",job=\"grow-verify-http\",otel_scope_name=\"grow-verify\",otel_scope_schema_url=\"\",otel_scope_version=\"\",service_name=\"grow-verify-http\",service_version=\"1.2.3\"} 3",
+    "# TYPE grow_verify_requests_total counter",
+    "grow_verify_requests_total{deployment_environment_name=\"test\",grow_run=\"verify-abc5abcf-http\",job=\"grow-verify-http\",otel_scope_name=\"grow-verify\",otel_scope_schema_url=\"\",otel_scope_version=\"\",service_name=\"grow-verify-http\",service_version=\"1.2.3\"} 3",
+    "# TYPE grow_verify_temperature gauge",
+    "grow_verify_temperature{deployment_environment_name=\"test\",grow_run=\"verify-abc5abcf-http\",job=\"grow-verify-http\",otel_scope_name=\"grow-verify\",otel_scope_schema_url=\"\",otel_scope_version=\"\",service_name=\"grow-verify-http\",service_version=\"1.2.3\"} 42.5"
+  ]
+}

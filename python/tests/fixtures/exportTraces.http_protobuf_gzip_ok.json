@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4318/v1/traces",
+    "headers": {
+      "Content-Type": "application/x-protobuf",
+      "Content-Encoding": "gzip"
+    },
+    "body": "protobuf ExportTraceServiceRequest (612 bytes, gzip) marker verify-abc5abcf-http"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/x-protobuf",
+      "Content-Length": "2",
+      "Connection": "close"
+    },
+    "body": {
+      "base64": "CgA=",
+      "hex": "0a00"
+    }
+  },
+  "decoded": {
+    "partialSuccess": {
+      "present": true,
+      "rejected": 0,
+      "errorMessage": ""
+    }
+  }
+}

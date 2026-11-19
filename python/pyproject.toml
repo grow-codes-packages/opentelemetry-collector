@@ -30,6 +30,7 @@ dependencies = [
   "opentelemetry-api>=1.27,<2",
   "opentelemetry-sdk>=1.27,<2",
   "opentelemetry-exporter-otlp-proto-http>=1.27,<2",
+  "opentelemetry-proto>=1.27,<2",
 ]
 
 [project.optional-dependencies]
@@ -112,7 +113,7 @@ mypy_path = "src"
 files = ["src/grow_opentelemetry_collector", "tools"]
 
 [[tool.mypy.overrides]]
-module = ["respx.*"]
+module = ["respx.*", "grpc", "grpc.*"]
 ignore_missing_imports = true
 
 # --------------------------------------------------------------------------- pytest

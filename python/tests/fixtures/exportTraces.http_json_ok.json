@@ -1,0 +1,63 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4318/v1/traces",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "resourceSpans": [
+        {
+          "resource": {
+            "attributes": [
+              {
+                "key": "service.name",
+                "value": {
+                  "stringValue": "grow-verify-json"
+                }
+              }
+            ]
+          },
+          "scopeSpans": [
+            {
+              "scope": {
+                "name": "grow-verify"
+              },
+              "spans": [
+                {
+                  "traceId": "7cf898225614ac04d80229fae1cc8c71",
+                  "spanId": "7b55dc03e78c6d74",
+                  "name": "verify-json",
+                  "kind": 2,
+                  "startTimeUnixNano": "1795035213598486028",
+                  "endTimeUnixNano": "1795035213598487028",
+                  "attributes": [
+                    {
+                      "key": "grow.run",
+                      "value": {
+                        "stringValue": "verify-abc5abcf-json"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Content-Length": "21",
+      "Connection": "close"
+    },
+    "body": {
+      "json": {
+        "partialSuccess": {}
+      }
+    }
+  }
+}
