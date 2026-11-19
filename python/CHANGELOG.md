@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/grow-codes-packages/opentelemetry-collector/compare/python-v0.1.0...python-v0.1.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* sync opentelemetry-collector to sdk-kit 0.3.0 (GRO-1382) ([#12](https://github.com/grow-codes-packages/opentelemetry-collector/issues/12)) ([a401b1f](https://github.com/grow-codes-packages/opentelemetry-collector/commit/a401b1fe271267f093dcc97f846e02aecb4cd1d3))
+
 ## 0.1.0 (2026-11-19)
 
 
