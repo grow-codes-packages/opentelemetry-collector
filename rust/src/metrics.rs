@@ -21,7 +21,7 @@ use crate::config::{OtelCollectorConfig, Signal};
 use crate::core::transport::SDK_VERSION;
 use crate::core::{Error, Result};
 use crate::logs::INSTRUMENTATION_SCOPE;
-use crate::otlp::{grpc_metadata, reqwest_client, tonic_tls, ClientSettings};
+use crate::otlp::{grpc_metadata, reqwest_client, tonic_tls, with_tonic_tls, ClientSettings};
 use crate::tracing::{Compression, Protocol};
 
 /// Meter of the instrument helpers when [`InstrumentOptions::meter`] is unset.
@@ -214,9 +214,7 @@ pub fn metric_exporter(config: &OtelCollectorConfig) -> Result<opentelemetry_otl
             if gzip {
                 b = b.with_compression(opentelemetry_otlp::Compression::Gzip);
             }
-            if let Some(tls) = tonic_tls(&endpoint, config.common().tls())? {
-                b = b.with_tls_config(tls);
-            }
+            b = with_tonic_tls(b, tonic_tls(&endpoint, config.common().tls())?);
             b.build()
         }
         _ => {

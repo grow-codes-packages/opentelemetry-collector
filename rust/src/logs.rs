@@ -26,8 +26,8 @@ use crate::logging::{
 };
 use crate::otlp::{
     decode_partial_success, grpc_metadata, grpc_status_error, http_status_error, parse_tonic_debug,
-    reqwest_client, tonic_tls, CaptureClient, CaptureSlot, Captured, ClientSettings,
-    PartialSuccess,
+    reqwest_client, tonic_tls, with_tonic_tls, CaptureClient, CaptureSlot, Captured,
+    ClientSettings, PartialSuccess,
 };
 use crate::resource::resource_from_attributes;
 use crate::tracing::{Compression, Protocol};
@@ -131,9 +131,7 @@ impl OtlpLogExporter {
                 if gzip {
                     b = b.with_compression(opentelemetry_otlp::Compression::Gzip);
                 }
-                if let Some(tls) = tonic_tls(&endpoint, self.config.common().tls())? {
-                    b = b.with_tls_config(tls);
-                }
+                b = with_tonic_tls(b, tonic_tls(&endpoint, self.config.common().tls())?);
                 b.build()
             }
             _ => {

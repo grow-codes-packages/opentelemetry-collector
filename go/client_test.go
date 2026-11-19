@@ -176,7 +176,7 @@ func TestClientCore(t *testing.T) {
 		}).ServerVersion(t.Context()); !errors.Is(err, ErrUnsupported) {
 			t.Fatalf("unreachable: %v", err)
 		}
-		authSrv := newTestServer(t, status(http.StatusUnauthorized))
+		authSrv := newTestServer(t, statusHandler(http.StatusUnauthorized))
 		if _, err := newTestClient(t, authSrv.URL, nil).ServerVersion(t.Context()); !errors.Is(err, ErrAuthentication) {
 			t.Fatalf("auth: %v", err)
 		}
@@ -330,7 +330,7 @@ func TestClientHealth(t *testing.T) {
 		if err != nil || hs.Healthy || hs.Status != "unreachable" {
 			t.Fatalf("hs=%+v err=%v", hs, err)
 		}
-		zp := newTestServer(t, status(http.StatusNotFound))
+		zp := newTestServer(t, statusHandler(http.StatusNotFound))
 		c = newTestClient(t, addr, func(cfg *Config) { cfg.ZPagesURL = zp.URL })
 		if hs, err := c.Health(t.Context()); err != nil || hs.Status != "unreachable" {
 			t.Fatalf("zpages 404: %+v %v", hs, err)
@@ -369,7 +369,7 @@ func TestClientHealth(t *testing.T) {
 		if err != nil || !hs.Healthy || srv.calls.Load() != 3 {
 			t.Fatalf("ready: %+v %v calls=%d", hs, err, srv.calls.Load())
 		}
-		down := newTestServer(t, status(http.StatusServiceUnavailable))
+		down := newTestServer(t, statusHandler(http.StatusServiceUnavailable))
 		_, err = newTestClient(t, down.URL, nil).WaitUntilReady(t.Context(), 50*time.Millisecond)
 		if !errors.Is(err, ErrTimeout) {
 			t.Fatalf("timeout: %v", err)

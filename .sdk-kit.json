@@ -1,5 +1,5 @@
 {
-  "sdkKitVersion": "0.1.0",
+  "sdkKitVersion": "0.2.0",
   "key": "opentelemetry-collector",
   "categories": [
     "logging",
@@ -34,57 +34,62 @@
   "generatedFiles": [
     {
       "path": ".dockerignore",
-      "sha256": "31e05840ca1235a5e3b39d311ee323e57bb28fdefce97d08fceb7ffdc97318ec",
+      "sha256": "748fd3f5adbd8ca760b92639cea0d78fbd89bcbfd7b7b8ef304517c3691f1637",
       "generated": true
     },
     {
       "path": ".editorconfig",
-      "sha256": "6ff5b8311cfcac2aa9e612f269eff648fbd01580f8d91ca1db5ece645aaa538e",
+      "sha256": "64af94226e9e4629130487ca5b4a46c7fc3031c17e1ed500641566c688b9d30b",
       "generated": true
     },
     {
       "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
-      "sha256": "9927d2f6b41c7705c02570e9015a92e1480deac71c63bf45098ad4085fa3c637",
+      "sha256": "6808c7c22ea26f2bca75a0411151fe173adcab4c5872694bbde6d7108ef06024",
       "generated": true
     },
     {
       "path": ".github/ISSUE_TEMPLATE/config.yml",
-      "sha256": "f2b584cff180186e96f4f1669f3aeef14caf48555ac15fef0344a62d37b2b1e6",
+      "sha256": "f8cc39112c9c48ea75a5da229abfa8d659d8476406c5e08916281f685c7ad437",
       "generated": true
     },
     {
       "path": ".github/ISSUE_TEMPLATE/feature_request.yml",
-      "sha256": "ff7e4c02507a5b33135e4e1a3248aa3f37e523be48d39bc799943e90bcca6909",
+      "sha256": "5cf5f28993fc21447690da5c41f69d8ad0ba212b6bd61f52e9574ac22186d730",
       "generated": true
     },
     {
       "path": ".github/PULL_REQUEST_TEMPLATE.md",
-      "sha256": "fd60e061e770a2670b2cf47ea947da2a28799f33f3f99f59c6b3fca1aeaa538a",
+      "sha256": "39805b8d6dffa2c956ff253cf15a3bcce5e32fda58d6dd1bdba27ea301c97d34",
       "generated": true
     },
     {
       "path": ".github/dependabot.yml",
-      "sha256": "4e43efba6a51273b4f53b1d742b5f3aa5466188b81032223271e76fb55ef3064",
+      "sha256": "8721203988d2d332326acce1f4e4d0da07c7753ac20912de7d8daff4be3eadab",
+      "generated": true
+    },
+    {
+      "path": ".github/scripts/release-check.py",
+      "sha256": "442230434f2db1c3a80e9407e10a9dbd639bc3a3e640dbb5652c6893cba84a0f",
       "generated": true
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256": "b7b4882cdf0e92f9d296eb03bc0e4506752559966122ca22d4a155294be5767e",
+      "sha256": "7d2da738c42ca0053368090be0aec60df0cc2d194ba7d3c635e1628e7f4b7e60",
       "generated": true
     },
     {
       "path": ".github/workflows/docs.yml",
-      "sha256": "550d801e5af86b72101e628b028e1da823c19879b0625d57e8363e932c056156",
+      "sha256": "55f087970dbb2af8f4ddc86d1d56d4d1e628242308f8b4639d0b016b2b65e641",
       "generated": true
     },
     {
       "path": ".github/workflows/release.yml",
-      "sha256": "219e733ee36d210ac832c1192f1ca8370740828f11a9addde65d0fabcd4abf0e",
+      "sha256": "4509ce14c61792f5e792f917ddd4b9990e38add5180379eef7c53097ea2f191a",
       "generated": true
     },
     {
       "path": ".gitignore",
-      "sha256": "37d893bf5366e79798b62de4010b6ddd2147bd0936248e247355dc1ee521d67a",
+      "sha256": "8f2573335ada6425031d1d6598d090ec2fbffa3c3f22a82eb18a60fbe1697ad9",
       "generated": true
     },
     {
@@ -103,12 +108,12 @@
     },
     {
       "path": "CODE_OF_CONDUCT.md",
-      "sha256": "f395f78a160e38d408d8a58eb4ae7afab2dd6d5d72e6812bb7d6c0d69686b92b",
+      "sha256": "aa110336ee281fcc4d8e6713fedaeaee6e7f2f8ca6861e52d2cfcf40d882508e",
       "generated": true
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "9e0c8f8a679bc27a007402037167f5c9f8d9e16031e1b1f530dc4565764c58dd",
+      "sha256": "18b5b1cb2eafcca2119948596d7e91dd2bdb330565ce03da8da2c0ab0e02de4c",
       "generated": true
     },
     {
@@ -118,7 +123,7 @@
     },
     {
       "path": "Makefile",
-      "sha256": "13cd63eaf1a0d63baa6b292c237b7a28126d4cefbbdafbe86091f7a9284deb99",
+      "sha256": "42beb584f689779763d1e092d1c1f216edbe4c04f2880d7ad4f65826bdd12ab0",
       "generated": true
     },
     {
@@ -133,7 +138,7 @@
     },
     {
       "path": "SECURITY.md",
-      "sha256": "68641202cf410bc3e6de1c4c789e255a9401c1c7b6314ad600762a7af72807b8",
+      "sha256": "6b3c00b174ad259c9375c7a72564b303c3ae0cfdd250680bef408a1993bc007e",
       "generated": true
     },
     {
@@ -193,27 +198,27 @@
     },
     {
       "path": "docker/Dockerfile.go",
-      "sha256": "50fbcd4f7cc84ddf3205404d78d2c3931c6c40de2bfb0c9ed9e2a0a0cd89227d",
+      "sha256": "6cb4f730543d47b67d4eabb2cbaeb7f735f772e0898c3254ca28842305de7d7f",
       "generated": true
     },
     {
       "path": "docker/Dockerfile.java",
-      "sha256": "ee60c6f4dcdaf21edb5a34ea127fc0277a2be664cbf5ea86c6043e2f7e301900",
+      "sha256": "60372f7840ecb73b4f3486109021fa3565f68326c68e384009052038d75967f2",
       "generated": true
     },
     {
       "path": "docker/Dockerfile.python",
-      "sha256": "32df99e7f21f0015a663525203a185cf3173bf418f3867ab0947c11e4225bd66",
+      "sha256": "19c533462266caf076de2d7b08425f4ea7f1a50da15e4bbaaa68425ceb797125",
       "generated": true
     },
     {
       "path": "docker/Dockerfile.rust",
-      "sha256": "de09d6a60ad9d6993e826cf230e2382aa691827f02a3f58288dfd800614f652d",
+      "sha256": "808b3a11934a528231f0e98a9d6e66aac2515bd344d3bd35ef113901f7c66367",
       "generated": true
     },
     {
       "path": "docker/Dockerfile.typescript",
-      "sha256": "27ef3b86beceec52acd8442e327e67ace2ee11e54508a1f0c26c3d070f787987",
+      "sha256": "53770a99ec7f6e37858dec8906307b395b3dfa4cdc22cb0ad4a848bcba645358",
       "generated": true
     },
     {
@@ -228,7 +233,7 @@
     },
     {
       "path": "docker/bootstrap/lib.sh",
-      "sha256": "ef9a634fef57959faf4aa189c5c264f00e30ce911e2cd50234206cc819ca1909",
+      "sha256": "5c2407a76b333c5d8622bb19597271641057ed394c691de87f54af0b6cb8effb",
       "generated": true
     },
     {
@@ -238,57 +243,57 @@
     },
     {
       "path": "docker/compose.yml",
-      "sha256": "6ee308a8bcc00a8a976415513b5d958adb76e9e5d8910b79c6e05b99832776c6",
+      "sha256": "de4bdc70c88f014caa385060dccf469a03fa499374287ad7b4b98c22b823f33d",
       "generated": true
     },
     {
       "path": "docker/harness/compose-run.sh",
-      "sha256": "b90bc6be3181cee7e869bd06a3de32ece3d423fbeb46134d15acd2e98b9aae75",
+      "sha256": "644917e8124906198084b8efac618b412854b9a68a520e4db8d822374c7536a3",
       "generated": true
     },
     {
       "path": "docker/harness/wait-for-http.sh",
-      "sha256": "5387e6dedfed547b5287c5aa99db352882b9a449c1fc699ab45202ab4b0b4cfb",
+      "sha256": "b90134c2b2d556b4ea3e6dfe26e42778d48c06c0299275c844f5195cfe63d48c",
       "generated": true
     },
     {
       "path": "docker/harness/wait-for-tcp.sh",
-      "sha256": "a3df77444ca0987940b1fd055d477e0c3a5dfdf07739a729d913f2a789427c2a",
+      "sha256": "c73f73c8b4799ce71d10d42f7252d9ed3152778ea27cd0d476c5ea01a5c9e646",
       "generated": true
     },
     {
       "path": "docs/.overrides/.icons/grow/logo.svg",
-      "sha256": "00f50edb0ed5447303f6587370365553d62b193db07587c8468bbe762f50e69e",
+      "sha256": "f92b9ab3978b5a6a2c1dff733ca72de70737cabc6a30ee09e5d5bf94bfd87c68",
       "generated": true
     },
     {
       "path": "docs/.overrides/assets/favicon.svg",
-      "sha256": "6948bc6e2614467d1fcbde590e7a5b624f8cc0e2371021ae0cb79d864915d15a",
+      "sha256": "5e819b7d5f5302ada392dd5a531486658829a491979cd81236f4347063fdae98",
       "generated": true
     },
     {
       "path": "docs/.overrides/grow.css",
-      "sha256": "869d7dcf5bdb233de79e55f3c4cf224ed5b921b1dbb9a0dc776fac958c110623",
+      "sha256": "6691bd8c517025cc21b2d90d7f8711f6cce3a2510bc033ed872793415ee4687e",
       "generated": true
     },
     {
       "path": "docs/.overrides/main.html",
-      "sha256": "74cd6a18230be87edfb191299a5cfd24cf47ae69101454bb27da81877f4d31ca",
+      "sha256": "372015dbda6a93b55f7d5478d393227d960973dee9d258dc7b5b57407b29b0a9",
       "generated": true
     },
     {
       "path": "docs/.overrides/partials/copyright.html",
-      "sha256": "2eb4a3571d6423a294414b621a4c6869bf7773af1dcd11ea7becd66b6fb7ef87",
+      "sha256": "5f2ce22cdd2d3f9f89629bf4257d94ac8199a2a4b098969bff8f818aafd8b792",
       "generated": true
     },
     {
       "path": "docs/api.md",
-      "sha256": "8f293787711c8522ead1b8180be55657f5a87ef5662ff0619e4c0ab2e2ea386a",
+      "sha256": "f0d218eedaba1cf67aced568181929b9df98babb607d864beadcdb455ce99943",
       "generated": true
     },
     {
       "path": "docs/client.md",
-      "sha256": "dcf0b63bdadc876ee300c394e4fbf1b5543b39a88c44903796ea2332ef670c06",
+      "sha256": "25e3394d1817bc77753ac4594c933e90b81603d3f4c167d42eecb195cd8db072",
       "generated": true
     },
     {
@@ -303,12 +308,12 @@
     },
     {
       "path": "docs/docker-testing.md",
-      "sha256": "520f827631bbda8338aad41d342e2a95e290810b645dca4cec843e0fba7cddeb",
+      "sha256": "2a975de61209397fe9a789f540860a0eac657012c485adc4a9633e2c0f88ff21",
       "generated": true
     },
     {
       "path": "docs/errors.md",
-      "sha256": "311c083248f49086c3ed05668d77782fbd70cfcd306c8e7449c9d1e446f6eecb",
+      "sha256": "9033cf971032c7982731cbbde4a6edd675902fd613e6dbf262600e8849061343",
       "generated": true
     },
     {
@@ -318,7 +323,7 @@
     },
     {
       "path": "docs/hooks.md",
-      "sha256": "fe77025479909fac0e15379d426477fc7e1c2014b3b07d92f2952c8a4bc90718",
+      "sha256": "cc3f1d7f870faff99acfbc9a1f55083de74bebf1f8888c82b8ed086eea7d3634",
       "generated": true
     },
     {
@@ -328,17 +333,17 @@
     },
     {
       "path": "docs/install.md",
-      "sha256": "b6ad0343c50b84c7a2fdcbbcf4d4b1e8ee9ffec34c4f51501958e5761282687b",
+      "sha256": "8fad44fc0e75fde1c3cbf15425008a23bff21123d0c687487f8822da9d5e65e6",
       "generated": true
     },
     {
       "path": "docs/license.md",
-      "sha256": "4f0f17670dfab5558489e94612b00fe6a16267e8cb0af2c5a1506bf60f2f58bb",
+      "sha256": "2a81b8e812cc62cbe7c5455f38642b2c594d39b8ca931c0603fbd0a698beef04",
       "generated": true
     },
     {
       "path": "docs/logging.md",
-      "sha256": "6a5ebea7fbfd88d59544edf9486521e16914f9b8d4f9c9a84244673f0d7e5672",
+      "sha256": "0d141b7fffb24e3cbbe3329b488cc06ef23a41e041133c1d806f0b25dd4e3d58",
       "generated": true
     },
     {
@@ -348,17 +353,17 @@
     },
     {
       "path": "docs/redaction.md",
-      "sha256": "618e8e07a5794844f284a35d73842c4943edf1f5b9d8b365710e9ec06bd046d9",
+      "sha256": "6b957cd0d7f5e023e808bde5e9fd57ac5ffb8027b5eaa09cd54246224b03661e",
       "generated": true
     },
     {
       "path": "docs/requirements.txt",
-      "sha256": "8fbc4770eae893da1185935d1d88f048ea8db8059e43f59ebc01bda79cf32eb1",
+      "sha256": "63839447be5d6a92c2b67c5f56912765cd36d7588447c51a74ab685788cd4a78",
       "generated": true
     },
     {
       "path": "docs/tracing.md",
-      "sha256": "1af3c5d40e5922be33907b2ba95a0c48f55a5d1a9b49774931ce891d3ce57cd4",
+      "sha256": "9a44050b2d6ea8527bb6494fb5dca438071138557785da075761d73dfc75342a",
       "generated": true
     },
     {
@@ -463,7 +468,7 @@
     },
     {
       "path": "go/Makefile",
-      "sha256": "c6607a3222478a671965894b35be33301b4267bacd4bc13793f2e330f3d719c7",
+      "sha256": "8a82280b5575bb98853cdb5cbb794f3897aa7b3c0f61bc806b44a407e71da205",
       "generated": true
     },
     {
@@ -483,72 +488,72 @@
     },
     {
       "path": "go/core_config.go",
-      "sha256": "1bd8909830e6f61c05c0703d579503822d4609b6bba32d252d054ba74a4163f1",
+      "sha256": "8ce40e30697a2628721ad4f9d9fb126cd55d7d0aec4cec0fb85bddbceb159923",
       "generated": true
     },
     {
       "path": "go/core_env.go",
-      "sha256": "fb4ea29d608ebeeb54081c37c3db2d0fdfc4771dc6e1730ed5c7b78f5b2c93b5",
+      "sha256": "599f774d7ed9097bf10f28d70bb1b76c5352297a25d32aa21f7c661c2b6c8637",
       "generated": true
     },
     {
       "path": "go/core_errors.go",
-      "sha256": "cf3b94499e5f482599bcb9ad44dc54d39888b740d53a1ec3e917fcd78a44307b",
+      "sha256": "a273a151067c6b45db595d9dc8ea37c4a543ac05863bdc8f41bd2464f3269640",
       "generated": true
     },
     {
       "path": "go/core_health.go",
-      "sha256": "82828c96bc2d2a7729353eabd63b04c89bc8a818f5e429d9f44472b7c369b041",
+      "sha256": "6aaf22de8a07b9afe64a1e4194fd2fba49ea5e122c04c54d1a9d147b968d584b",
       "generated": true
     },
     {
       "path": "go/core_hooks.go",
-      "sha256": "7008f860941a0a1bd67fcf8163e74835402d097a9cc29d35c5957a10bbf3deb9",
+      "sha256": "57f5bdcd27b25e193f96403dba2358b24f19bc36cb770b4393550b530a9757c5",
       "generated": true
     },
     {
       "path": "go/core_poll.go",
-      "sha256": "31911060ac4339b077ee7819fb1572bdbb166ea3e66fe26fffe0d4b847a0fd1a",
+      "sha256": "88027a0eefce231c4ff97d8621063ee59fbe81869a4ab90c6ebec72180114630",
       "generated": true
     },
     {
       "path": "go/core_redact.go",
-      "sha256": "04d31d9c746fe7a4ccab10271fd7037fbe5284b4c736f52b046d31627e34a8fe",
+      "sha256": "9e93f991de53dcd6c8a24b271586ffc5fa0d99b750df990f66520b6be699a630",
       "generated": true
     },
     {
       "path": "go/core_retry.go",
-      "sha256": "df369753fee8137bc30ba1e6fac463fb18d373d6472dab465be59dc37e285d39",
+      "sha256": "07ca6590c13d7fbc13936c924d964fcef104c659d2e8ef6a34e09e6ee3f4bc05",
       "generated": true
     },
     {
       "path": "go/core_secret.go",
-      "sha256": "6f306d45eef0e878823bf09fb7c53dfb0b7c98d614a40ab92f53a05d95787624",
+      "sha256": "951d4ca961f9506b75af1100554b940a61dc627ddfc7a2e775f6bb21ac94e4af",
       "generated": true
     },
     {
       "path": "go/core_testutil_test.go",
-      "sha256": "3283f9260a481ef34a86666c95b2a012479667abec165f2cd217f10d2cc7073b",
+      "sha256": "4b0e6e6bb96d0e7c7d8c3513846a0100ec6ace6f5221ece3eb0514df56af47f5",
       "generated": true
     },
     {
       "path": "go/core_tls_test.go",
-      "sha256": "d481a533506f4194d645203cd5ab09f7c6730f248a02f0098aea9596fa206473",
+      "sha256": "665eebd4cc6d986902292e09ae99e489d22a4686b16d7057f51c2ae0591990bb",
       "generated": true
     },
     {
       "path": "go/core_transport.go",
-      "sha256": "51cf4838e4582675ca095ccc43601ce32891a5494e2bc94f85aff798182a737c",
+      "sha256": "0c899b2a2771f7fe18e96574199cdd820e8cacea9193d77ac224ea878aa39bce",
       "generated": true
     },
     {
       "path": "go/core_transport_test.go",
-      "sha256": "3c90815a10f12049f59468f2c98120905803cb5cddbdfaf95d208d726d9b5f31",
+      "sha256": "8ecdf7deba7e6fde7abcaf062f6602ffa84f0c0dda3b02c51234b284f6e3ba97",
       "generated": true
     },
     {
       "path": "go/core_units_test.go",
-      "sha256": "4fcddb9c1593efb7f766fb3b69bfba986de0b79fc598a597f26b4bb34470df12",
+      "sha256": "b0cae2792fc3fc11da6ba393c0d47a88c14aaa4212575b90c037e3a4272dcafe",
       "generated": true
     },
     {
@@ -563,17 +568,17 @@
     },
     {
       "path": "go/grpcadapter/grpcadapter.go",
-      "sha256": "6483d1fcbcf35ae5b8b22985e707291601d14081da517d05cacb90fdc656f135",
+      "sha256": "69e18f9f992c271631157ee9c961be32431f4822bf147fb76f3cd5502bea0d4e",
       "generated": true
     },
     {
       "path": "go/grpcadapter/grpcadapter_test.go",
-      "sha256": "0bc791f6e546aea31825a16e8ce261a8450719eea3cb5be68a98dc86296e2f53",
+      "sha256": "671294f17b345089eb703fd264a8723373c481b0e3504212118db33c3a2077a0",
       "generated": true
     },
     {
       "path": "go/integration/conformance_test.go",
-      "sha256": "ed30abfa8d65b4062689fee98767416015a59b1a3201f45dbbf7b39fc621ec4f",
+      "sha256": "bcde15cb982092c75b532eca2f92ba147a58a843e5cb15e359780a4f504ccca4",
       "generated": true
     },
     {
@@ -588,167 +593,167 @@
     },
     {
       "path": "go/internal/tools/covergate/main.go",
-      "sha256": "88c6121c53672eed1075f0c9f2e546f1bd4f260abcff8b31fc8a5682f30aa838",
+      "sha256": "f86e9f3df5f9dff6e5993dcd08f507b066ef0e99ea45dbaa44caa80a3d031d44",
       "generated": true
     },
     {
       "path": "go/internal/tools/covergate/main_test.go",
-      "sha256": "11c6884a723ef339caa94d49c2e2c24ff142f1ca84cf9439cea1253eddf19eef",
+      "sha256": "f29e32134b7f2cb297056a028a7629ea1d8615879c1fddd31d37d3db513cd358",
       "generated": true
     },
     {
       "path": "go/logging_batch.go",
-      "sha256": "8b3e95371d524b0330f254bfc1c658f825a2277074533900eaf6b0dd01cdc1da",
+      "sha256": "37c0cefb9bb6d56d2046b47921fb1d8466213adc308f7f23353d3b088563df66",
       "generated": true
     },
     {
       "path": "go/logging_batch_test.go",
-      "sha256": "0baa50e32b3a5cbbf12065232070ba5d1dd3600921b38e332bf8ac475bd38f9f",
+      "sha256": "38985db9471f2791425b8882d91298f9b184f584b3c3b37671571c1397d5c1a9",
       "generated": true
     },
     {
       "path": "go/logging_client.go",
-      "sha256": "98125c8f30bac5c2a5fbcea6d612c4ccf0edded940bf87916c778e68cc266131",
+      "sha256": "dce6bccb30f09f55c1ab280cc4f22a997ae318265ca6b9837ef3badd5160c9c7",
       "generated": true
     },
     {
       "path": "go/logging_client_test.go",
-      "sha256": "ca567b801dfa357d143a7065d441f8be23b2813fcda42eea2d9a63749662c810",
+      "sha256": "4978a33939c847008b3589b21d2324f1cd92094297d3e45a7ede30265a7d7b97",
       "generated": true
     },
     {
       "path": "go/logging_json.go",
-      "sha256": "2d13e7ba2775597e27f532b2d19652cefa2f7dafb38fd306c46fef867cecd14b",
+      "sha256": "af08bfdc2c804f68168007462f2232e7680e91209171755e7ec00110acf40f36",
       "generated": true
     },
     {
       "path": "go/logging_logger.go",
-      "sha256": "af9633fae0cb82f1a865385d666dff8fd0ee0bc4dad13cb64fb138bcac45465d",
+      "sha256": "2d96b4b1c073132c8895de0ba617d0b8e27730f7498e2fc5055d834756c9d645",
       "generated": true
     },
     {
       "path": "go/logging_query.go",
-      "sha256": "7542199279e38527f82df091acb29af8e7f5012a4e114001eb75cc3612e01957",
+      "sha256": "54d25a9764df335be8d8b43549ae6470a9329afb07f1b5e0fe85fb5934f0c601",
       "generated": true
     },
     {
       "path": "go/logging_query_test.go",
-      "sha256": "a13ab0abbebfc25e64d652645a26f69c7b133d483459d6cd7832c51856cdc42d",
+      "sha256": "c61e5832c56d6e14b666cc0c554104bfeae7c8a1d9ba811f7b1dd6b1b799816f",
       "generated": true
     },
     {
       "path": "go/logging_redaction.go",
-      "sha256": "5f48bb57d4b93e52c638198206748b214959dd6378836c1576f2aa47508ed216",
+      "sha256": "5a32a1b828d3bbaad631528fbfbcfa9698ce8d7b135ba4322900b723b007d8d1",
       "generated": true
     },
     {
       "path": "go/logging_slog.go",
-      "sha256": "d9a07512ea29f3ed68cc5bfa5396d9f3a93a29cbf1089fb21314ab3afb0f0384",
+      "sha256": "be47f61bfcca883785d5d445d6d75412ea4b2cbcc36d75ded928290a272e5d4c",
       "generated": true
     },
     {
       "path": "go/logging_types.go",
-      "sha256": "9152495ee31389bab1c642813da44bc9caf2026472be4de42ff24d7b00d42fef",
+      "sha256": "713eb991de7503c1bb5d15881821682f0856e2b6bc9775482fc240e9c2ad4598",
       "generated": true
     },
     {
       "path": "go/logging_types_test.go",
-      "sha256": "d83c9de870fa38fbf6f8b15c80ebb6286f0520e90554aac517c9bbb98ef29f6b",
+      "sha256": "3b181d7ea61cb0555096c027ebd0ac91d2146c9dc96420468ae581e4b8cdcb26",
       "generated": true
     },
     {
       "path": "go/testkit/core_ops.go",
-      "sha256": "03afa606966ed307039b6c4558c1c205ad46f2e60daaa506e608558f31bed2b5",
+      "sha256": "6513725d042b31c064fb1a59f69e93c1a9134754645cdee9973cf4a014cecc93",
       "generated": true
     },
     {
       "path": "go/testkit/logging_memory.go",
-      "sha256": "3d4f75fabb15fc9e2683df936a60a47b7e915435300e1e57dcd40bdc03673b4b",
+      "sha256": "3672e3c31d07e6b673b30ac89886ba10e23334c28a1d6d501fcec8afe91cd29a",
       "generated": true
     },
     {
       "path": "go/testkit/logging_ops.go",
-      "sha256": "0e1fa7617cfa14546e781557f76869a7b3a4db2f08e87a3c014896e7e7ee7f45",
+      "sha256": "373c269895c285e6c2dacea8c8c68b2fae3d47fa5524300da65479ae79d51997",
       "generated": true
     },
     {
       "path": "go/testkit/logging_test.go",
-      "sha256": "7e9f9aff95956abc118cc245a4e442ae8eea8a7d4f8c437279c9f6354390863f",
+      "sha256": "1ae5949ec95b312da0678a6487d89110dfa8478f54864abd7606bb90f7cdca5b",
       "generated": true
     },
     {
       "path": "go/testkit/runner.go",
-      "sha256": "df8db351176090052218e957691c10dce0393b4d683835d48a9d76aea164aea5",
+      "sha256": "d23c6d9c6c1458bb4a4e075904bd0a3eed650b4eab000f58f1c34e7444324074",
       "generated": true
     },
     {
       "path": "go/testkit/runner_test.go",
-      "sha256": "c1c10763c1fcf97e59b827f562c6cba2fd4dcd4c65aa72c6484016bf672bc362",
+      "sha256": "40d9cd0716df5ef928ff0b057439c957d746fa27ca26bc15ed659b8c848831a8",
       "generated": true
     },
     {
       "path": "go/testkit/tracing_memory.go",
-      "sha256": "e20a56d58566b1cb78134132099623fd9d680478302ec44d828f9cd21ff38ba4",
+      "sha256": "561c2e797749a041eb3d4f8ee94f31de5328dd2dfde545dbf35ca55210cbc6d5",
       "generated": true
     },
     {
       "path": "go/testkit/tracing_ops.go",
-      "sha256": "e372ab46e5f1d03b4a48feafaf59e7af7c0637dc9c00b92971c4451833f7c1ef",
+      "sha256": "3097889cdb91f18045de8bdaff448285c60ca396eb7c75c6cdac8a795777b42d",
       "generated": true
     },
     {
       "path": "go/testkit/tracing_test.go",
-      "sha256": "6f9375cf412cd03cc7fe966645c56fd60b5977a03e2435dfa05dc656e5daae92",
+      "sha256": "3f5f27b171a44b1fae486061d91efdda6b7b84154d3ead2d7867ef57f5d513c1",
       "generated": true
     },
     {
       "path": "go/tracing_config.go",
-      "sha256": "43bd90acd260cf1c593bc7c2a925b452335db70b2f49f28250d671b4f0d83a50",
+      "sha256": "6fe220412f814f4fd2728ba4a8270c0303b5aa9d0080453454013c72609d2849",
       "generated": true
     },
     {
       "path": "go/tracing_config_test.go",
-      "sha256": "41524e73ebdd4037b983f1a52b5a60c6904d59fdbc1e828b43301fd6bdbd5039",
+      "sha256": "c41754a3988287e08fe3660a92a327e9725310cddcdd64f203bfbda3ee65468f",
       "generated": true
     },
     {
       "path": "go/tracing_helpers.go",
-      "sha256": "4f3ae258a8b3997e06f42785e7c57de98550531677a8a56324100525f5691b6c",
+      "sha256": "11ff1ee97470b1c74e60e513fdc508ca613b335c47d4a64803f1fbd3c3669f44",
       "generated": true
     },
     {
       "path": "go/tracing_helpers_test.go",
-      "sha256": "023aed52746d8cde9e017ac46db41bf13e44078d2e6a800481424a54ccf98e19",
+      "sha256": "d1b5bc9d8f28718a90cf4141a1152a16d5c3dc52552ad7a1ba885b453d933e8f",
       "generated": true
     },
     {
       "path": "go/tracing_http.go",
-      "sha256": "626d3d1b60136d0bffde848dd7a7ef0cb7aaa65863d06c950b8c61cc24dfb5d3",
+      "sha256": "39f543593781ffcca7adaa89ef52b532e4508fd13b69ac299068ec8d73c1b36d",
       "generated": true
     },
     {
       "path": "go/tracing_init.go",
-      "sha256": "ff7b6abd9905821de7a32dd34b0c9cefee818f718fed455bdc38ed390e98a635",
+      "sha256": "a3f102e2369bb0aa0d19e997067c76026cf98544fa573e01ae47dabbccd1ff92",
       "generated": true
     },
     {
       "path": "go/tracing_init_test.go",
-      "sha256": "672366d43cd6db60ea0df098165c82499fe727598a699c71f056b6b76efc9d76",
+      "sha256": "d5311b391b80f2558d11f20c8ca8eecbf544d875fadaf657e0525e2e4e063fe7",
       "generated": true
     },
     {
       "path": "go/tracing_model.go",
-      "sha256": "ce99faa30569ca6da0e6c5f43f7790b72f8c84d6dfa1414301a2a4a662724708",
+      "sha256": "02d17cf57e6db8e480722d5f81f84c2939440a4f32432a7f5190dd35f4d98b17",
       "generated": true
     },
     {
       "path": "go/tracing_model_test.go",
-      "sha256": "39262b85d09fa5b1dcd83626a4caa1de82282091c15016d2e7700a7a15d7b0c7",
+      "sha256": "547e8f36bad6697a1ba630299a9c9b900f7e6f8535d36e1bac2f4719f53a870d",
       "generated": true
     },
     {
       "path": "go/tracing_query.go",
-      "sha256": "9f1e1bfb65df0790dc2044af1cf220b8b9a7a93e9b1b6afee930e33202ae0203",
+      "sha256": "e5a57884e2c3bb84030b3e18d73d1940269d84d4dada2152adea37d9521c09d4",
       "generated": true
     },
     {
@@ -758,12 +763,12 @@
     },
     {
       "path": "go/zapadapter/zapadapter.go",
-      "sha256": "b7ac0978a2e8dc00309b17e3132b9e0e34b85da0d4fc13eb441e924a18f748cc",
+      "sha256": "7ccc6188efa35fa43857ee51eccbd1cd3ec0e788e750ab48e0860a3e56da5ad0",
       "generated": true
     },
     {
       "path": "go/zapadapter/zapadapter_test.go",
-      "sha256": "87e5ad3ca4e5e8a579a059d3a8a9399f0ade0669af39e59ec245a3cdf67bd9d2",
+      "sha256": "5537d893d260f1813fdb9c7ba3c8d3cf036c0d51b1b781f4800af08129adbe1f",
       "generated": true
     },
     {
@@ -788,12 +793,12 @@
     },
     {
       "path": "java/integration/pom.xml",
-      "sha256": "0728a614b50124ddc0dc44b5860263ee0b5a84403e78168600c4b27fa9994a84",
+      "sha256": "fd7503eea2580eee5b4ef9b068aeb4ce088d14e6bdc6299629664a5523b89213",
       "generated": true
     },
     {
       "path": "java/integration/src/test/java/codes/grow/packages/otelcollector/integration/ConformanceTest.java",
-      "sha256": "6ff5c77d450b45f43bf4a08d21c64fa733f53a878a0b17cb740fdd95c971d420",
+      "sha256": "ae5820059d47a150e9f065eee980cc1c1e363a5061de72f6b9abb766599cdf50",
       "generated": true
     },
     {
@@ -828,302 +833,307 @@
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/AuthenticationException.java",
-      "sha256": "778bf955a5620bb98252472bccb70f12c8b549ad58b1a1961952df634b9ccb75",
+      "sha256": "66d058b5c4ebb6bbe6b0f0c898dea75949d56e38a2637fa794b8a9202a292847",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/CancelledException.java",
-      "sha256": "c046c2325958506b177070d1cf3af383c8b5cd412196673179a9c792ce8f4824",
+      "sha256": "2180ef9ffd8e9f90ec3e2bd961863b2e4fc624c2aa5c63f7873dc9cc094de718",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/ConfigException.java",
-      "sha256": "62d747576cb5d54d4b970a89cb01ef21978f04fdb4a183079c6f3fc0e5af8392",
+      "sha256": "06c0b26b16db9eeee362334b0fe2ba5d9c75ece292caf756b1a6bc41f3d874dc",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/ConflictException.java",
-      "sha256": "f5adcb0e29c23629262c176c45441bc53e34da6c28fc55321216c8e7627767f5",
+      "sha256": "d71500af6439eba4ce014ffb002031ff37624d287fa8d93dedeea899c50891f0",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/EnvReader.java",
-      "sha256": "815d1eb81783ba4b2ccb620711c5ae8f0114452356934b03f33f0492c46b33af",
+      "sha256": "b971130b1ce68a75c0c1de90fcf41bb914e1bd444e50d762d92ac22333930511",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/ErrorCode.java",
-      "sha256": "4e7d67603d9626366c06caa823ce7560121827cc40e3d666c4ffdc2249a73569",
+      "sha256": "537a8ade8e579a7a4f78a1af66a2cb47eee7e0ac6d85879a0bb4fabb41e8c747",
+      "generated": true
+    },
+    {
+      "path": "java/src/main/java/codes/grow/packages/otelcollector/core/ErrorMapper.java",
+      "sha256": "d828426552d059075bd534efcec0ca8a9dfb5855692c80463c2d9e4b6b534f13",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/HealthCheck.java",
-      "sha256": "d766403aa2d494a6feb5f44208d80548cf5f8faf0e59ef86152a565567f830a0",
+      "sha256": "9a2933d2c762d52d7db713ea7c84b4000c17036f5935e920d1a8fe64ef9db151",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/HealthStatus.java",
-      "sha256": "cd3ac1ea476ddaf201c8e155918b195b6ff55c3787cd214d51be398c865ecc43",
+      "sha256": "cbaa86c37e660b6bc12e8fe37cc33f1ed34cc47a8905af1753e88f44f3720b6c",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/Hooks.java",
-      "sha256": "cddbef9f2792f138a19a4135d724aad12c4b44750a6623b0875b359eace64ebd",
+      "sha256": "f20517ab0f7385b8cd5555facc8c3b6fe9ac264817f9dece511a3210ff2cf064",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/HttpTransport.java",
-      "sha256": "c334c415147a794f44cc7ad18be521fada8f5208417507b7c11b53bd53d964f4",
+      "sha256": "405aaa68ad91d47f60ae51ee790e2dbdbab9ae6af823c7d9f219987bcefcf10b",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/Json.java",
-      "sha256": "3b84020629f70331036a0be71d112600d99129a4b974c5fe7e3950ee341f2032",
+      "sha256": "727d91611a1e3dbd506f2a78d8a24a4dd9e99b41895ab91f5981e1895bf2d7b4",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/Logger.java",
-      "sha256": "7aba87e25b7e185ebce6c9e0c69b2a09ade016ed8340d077d440314aab73c8fc",
+      "sha256": "51ca80d118db5ff4c44520be42e687d36ba3eacbf546cbe68dc18ae523902d63",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/NotFoundException.java",
-      "sha256": "106db2cfa6c31122948264176f8b1b371e9f221219cef6516b7a2a9264d063d0",
+      "sha256": "bf8f8df4cc45c38eadbd4ae74266f2dcb7dce2eaabde2a156b1ebd2609491a55",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/OtelCollectorException.java",
-      "sha256": "de95044e48aa4f88a85bbfc7145d65c9b13655fbd6c9cabc452ba4123fa960ba",
+      "sha256": "0cbfe7f1217626e170c928105f11199e89815ea1c08a79a1471b5f209b4d57df",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/PermissionDeniedException.java",
-      "sha256": "d470b81a8ea8f9779cf2304dd985ae4d99e0f5ed795a112873c8162017f2de95",
+      "sha256": "32a5090aa2c177297c846184bbbf893f27be8ccce5fc1bdd1161d0887bf89746",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/Poll.java",
-      "sha256": "31dcbefda9d624d319961180160e44c9ec3370d474efb7932fd6050efff5d6ad",
+      "sha256": "0898e905b9cd4e020d43663b944eee5e6a1e572023bdcf26f52617340b307662",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/RateLimitException.java",
-      "sha256": "b8b13b0e011749ab05a19461ae3156ab1e176837f522cf9b90e91e0bba5ef654",
+      "sha256": "d52ba4d6a79ce139c7c5fc8677bf9b1dc1ddc295fffa221afe1d59ea1cf8b563",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/Redaction.java",
-      "sha256": "429d2c086c83cb0ddb21f0f965282a4c3d45a1f092dc8000efbc5634b736b14f",
+      "sha256": "3438a7d1002bfe8795828b7650be716451af7ab7ca52ae0db50c68582c2a8a56",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/RetryPolicy.java",
-      "sha256": "de9cc1511c4935f885d1d214bfcb56537893bbcaae680d66cc7ac895c6a8586a",
+      "sha256": "6f2ef7ea7e6d3c1c30786a17f954864f7c9d9d75e0c659f0ba916f2e6c6b2b23",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/SdkInfo.java",
-      "sha256": "d2897e7f12213eb82d22d0789e67744acdf6e0e65d7b8e0cb99807d634b05bbf",
+      "sha256": "5d346e7291a71b4f6fcdb4dc5d27af94cf6cd10c981f63aef159a3eb0f33a297",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/Secret.java",
-      "sha256": "bdba265556f5d6e77704da1ebc67d9724e23960b76c598073b557308a9bd19c3",
+      "sha256": "06765264304314a302b03da14475c61c6f37f009dfa6aa60532308cbf5a1be91",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/TimeoutException.java",
-      "sha256": "43f0170f26256f29ddade88441ba7d6e39bd02c93f5ce3d800c25e508b5307a1",
+      "sha256": "20f1e5fce427612f17db4c092095a68e33dbd17ce2b324fc2e5f0e4be757d20c",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/TlsOptions.java",
-      "sha256": "10a797b8c61784478acbc1cdcf4bf0a80af2fff88db093645f66e70ba746f3d9",
+      "sha256": "cdc78527d6722305587c85330b2093976fb22edf25d0a29f724d0588e3fe1837",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/TransportConfig.java",
-      "sha256": "7ee8b307ec0e580a42b4f1a93d8160bcdab5f4ea2b17eab708845b085d21cda4",
+      "sha256": "1742b01ef244490bd57bae5599f383efb60609698f78aa362bf0a2edadf1b35f",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/TransportRequest.java",
-      "sha256": "ebe98b9e709adc6a36136db2509c610aab7837e4b80c129e7a42da885d8cc987",
+      "sha256": "d4d4a9c19bb7c5aaf22d1bd1a5c67f2d0662a4a60f3539089d219d916a29d381",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/TransportResponse.java",
-      "sha256": "a420c9d034e0af93d0bb2f11977de49b66aaf448ec27d0833ac64791fb6a78ec",
+      "sha256": "be2587e6a2e70bf013e910348f8c310a6c426cf24d58a280a411280eeb8de80b",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/UnavailableException.java",
-      "sha256": "2a2cdc84cf4c349b0577cd02e3181fec113d38d217332a1ddd86c59c6cb7dbbf",
+      "sha256": "ca4b687bc35f7026bd045c0c3155b2ef947c6eff36db7a12eee47f96b7465491",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/UnsupportedException.java",
-      "sha256": "e6d1adb8b41208a5d9c03192cc4eeb80fdf609157e688f5de9941b92742a171a",
+      "sha256": "65e4256b599403326653be0b1201cf6056863d281bb9e7a96a2dae69a5512c99",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/core/ValidationException.java",
-      "sha256": "0be4dc174cddf90dbcd790a9df3494e528e6a0dfcf3218b6a4b634d6e8548672",
+      "sha256": "a8cbc71e8f579c4c53a597079195f352bece36b79c35c2c61b72e6adc8d4cfd0",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/AdapterSupport.java",
-      "sha256": "48923f6d97051e3b26bc555805f0d1817125d526735dbceac6a7dc4b580a4fe0",
+      "sha256": "ede5a9678640fca876770543e513915aa6651cea0311449acd1bf61430100e56",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/AttrValues.java",
-      "sha256": "3deeaa5d5a5f6405fc1df304bd1ff3802bdbb56acd60ae366e55759a3b8d3ea9",
+      "sha256": "8cb570f697842c4638a4d1481fe73b2a7a3f59c50827f07e3961316204d5d001",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/BatchOptions.java",
-      "sha256": "97674c76fc2937880a0833d43813259ba8c1a73b068a93b6c80c5664067393ee",
+      "sha256": "f4df149a85d16f06509a33a6aafa4ec4363fbbc51857177816fca2ce26d836b4",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/BatchProcessor.java",
-      "sha256": "d4c135657938607981581affb33836a90159a8323fbdf2a8802ee5d36ff5d3d9",
+      "sha256": "3434e976e21f4a37407598359793e05a795d85a33272d678f8de04886d66b8d1",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/BatchStats.java",
-      "sha256": "9cdfdd12781f6ee6932cf2d455232e6325bc88c1ac15b78700db8b577839b308",
+      "sha256": "f550754ef22bdb2f4261dd64009e80dc6205537569d76f3073d4e1908a87ae2f",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/BatchingLogClient.java",
-      "sha256": "27fad89567f0596a4ef433cd28fb3f1de766f92e48a8bf03fcfce3fd6c278cfc",
+      "sha256": "8135bfee9fefdb097d45649866b6759578a2ed77d950467a162644880a1723ba",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/DropPolicy.java",
-      "sha256": "9af299794334365d5cba310357c3d827e0068cbfef0c3cd3f999dbcd0e6b1e7d",
+      "sha256": "04e29e117c7e20d2012898ff0bec52c70b71a6bac81efd5d7eca7644ee7a3da5",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/DropReason.java",
-      "sha256": "68fe1ac8cfa372a7c689ee69108750a066f0859041930ab8082a8c728435cd31",
+      "sha256": "7cd7ade2985211b31bec8a33f94b741766e91fb9e766c8fb4b382169e26c8215",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/ExportOptions.java",
-      "sha256": "3e418c0ee17b23b25b733d2fd1ea55931a8df7de8a4142d9128a33273e5e8205",
+      "sha256": "12cb1fad3164e38a854c4b38ab10ee9b0a002b5bc3727d37055ab3ce51611357",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/ExportResult.java",
-      "sha256": "2d28ecbce0558dd4375e520008676ac44e0f7adb0008c1ab208f816a96851717",
+      "sha256": "1cd75d68b9d2d8e530920349507f7b55efc4c4ae1409e0c7eaa4882bcb962d23",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/GrowJulHandler.java",
-      "sha256": "ddb620e93a8b3d18c4929376af847ed34f2719138e9a6ebf8f773a66e1bc72a8",
+      "sha256": "fdb385f6569e3db44cdc0eb393b1e1d16b05c23e11dd99ab7fd35dc52fc01618",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/GrowLog4j2Appender.java",
-      "sha256": "77828b5e83036701b1c0bd484855da46d7754966968c15cf4a569aa7bafef00e",
+      "sha256": "badc456da5eec86f7790c3e1998791d17f4b7892835c61e76e55264c574c4e23",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/GrowLogbackAppender.java",
-      "sha256": "f2e7fa42f5234f23ca3a7dc593d57f7a53c64c99510a4e43ef4a7150e29189c5",
+      "sha256": "7e83b186aa215297564d72f05b8b702dde4f3735f6c68cf72883e926fc10b713",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/LogClient.java",
-      "sha256": "60d11aafe8d346825bc1d72fad318c6eb07976b3b790a062048b7b603253c849",
+      "sha256": "28b51a4df84968dd175f87158a9f761d1af27a272f2221155dd50e1287e989ec",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/LogEntry.java",
-      "sha256": "44f883fa104bc3331ccfdef3d801052fe093910ba92285f9245382d26193136c",
+      "sha256": "1127986f3f0fb4918adf2d15b155a4ca993e64e8c894bb41bdfe2ba1ed663976",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/LogExporter.java",
-      "sha256": "64f358378f1fa56d8f46cd81c3b0553f33e1fb882b17b6707a9c8fd6fbbe6302",
+      "sha256": "1d41abb858d68b8289a51fe47cee8dd8e77754b45733667397283704f5a61304",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/LogIds.java",
-      "sha256": "35965dbdb4cf3e0fb5f064e714b887d818bd9ebeae62a3623c780056b6d954d1",
+      "sha256": "129fe80c597f58c67d2998deb666e50803ee79519f0152306ce3803ba80797f2",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/LogInput.java",
-      "sha256": "318a8e6c1a4e3a4b5287a7178a693bb3205beb5415e4b83ba8cb1f1a2a5e3f96",
+      "sha256": "10725aec35fea930c32ec661280f5862a9fa2a6365a946fb041af3b822576b0f",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/LogQueryClient.java",
-      "sha256": "0a4633b4c9aa640f971363552863e7c79fe2b7cf9fecb82eeeeef6fe9e47b024",
+      "sha256": "699aa5aba1f32d84e16dfcaa3f5bb6fe5f5ea23604d5722ef09849b35e426007",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/LogRecord.java",
-      "sha256": "993cd7ec5bb985f9348fbb5db45bcffb708850d4295d72f4386292440d163981",
+      "sha256": "ad781d64e852b1e4280ee83944d47dbf2e69bb211f0c094d98b5a05e439813dd",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/LogRecordJson.java",
-      "sha256": "6754247e81196e3207540dd2d56a4f68354e660c5d9103ba3dedea3af6c90289",
+      "sha256": "8e7681d4acd30a77aa5d6181c295dae98ca694ad668ed45cd0d2e9f5d1160f11",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/LogSearchResult.java",
-      "sha256": "d18bf246ba8af403b096fbf1e2009816de044dd63e77f692fad99bff84425874",
+      "sha256": "d3998aedfdce57692742742a6210bef12849d474520450c4cdb14a8d759e7142",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/Logger.java",
-      "sha256": "c4d09a0ca44aa4d8ac17e5f8d5f4799139855d4be38239debba9bbf1ce14dabe",
+      "sha256": "d6b2a9de3c48ff46fbb95dfad885b3c3914a6ad46f7dc91ee445071b8d9e12be",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/RedactionProcessor.java",
-      "sha256": "04f892fbacda0bb3ddc8d64a9602c7c372222941151df827d2c2423bbf47ded0",
+      "sha256": "8e5cb456b83c6f2b85f8590c5e32eb80a07fba35c1a447fa59bd1e630258c426",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/SdkErrors.java",
-      "sha256": "26c3eb355f3b5a313c34b69f3a746ee6a446b21d89248b9020639544cadf19a0",
+      "sha256": "9fbc81b2cde011a048494dfa90cafa9e368dadf39b8e180c3ed6f62929b5e15f",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/SearchOptions.java",
-      "sha256": "3974a66115520788ca3c96fd5a2683a3fef6c806283827d9ee91985ab0539a40",
+      "sha256": "adbb2aba42e5fd1c52cfbf29985f0bfc2c8a648d92f65e99e9704e00c7035c78",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/Severity.java",
-      "sha256": "3149a8cf384103b69f34d4f86a1ba96535c6c9caa61d3d03b1d92fa951e82ca0",
+      "sha256": "d01cf7d53e72b22de35c942e4f2f38481bf9be2ab4979e37e11b69be6fdbeeda",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/SortOrder.java",
-      "sha256": "da0524597a5a06ae9a822eb06e89dbfdf63a74c505fda586b4efa4baf84955c3",
+      "sha256": "a7297b8a4aa132afb943cb29dbdbdc5601297b8d704a6d466db05b9b4cccdffb",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/TailHandle.java",
-      "sha256": "6836af5db08e5b50a6c4c8a4ea65413b0c38c7d2611f77f5df0ca28bb20658e4",
+      "sha256": "0f66883f7a7e9dfa87d1c0b356f1fa9b9bdf1a5b4661abda7127a258bf7a359b",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/TailOptions.java",
-      "sha256": "fa49ddfddb1ab2087589eb4c8fe8705c174a8c4ca56ddde460951be3959925b7",
+      "sha256": "47fe399b6aefe9a375f1ce1e222c50eae2579ddce4ff5c282fa1affc2b55727a",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/logging/WaitForLogOptions.java",
-      "sha256": "521b0dbd02daf978312f24244b26855e06ab94a72704cedacd4e387990ae3e43",
+      "sha256": "eb30b5b08511c776ea84d2672c7a71039dfb958776a40fa0a9b05536a8d3c1ef",
       "generated": true
     },
     {
@@ -1133,242 +1143,247 @@
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/ConformanceOps.java",
-      "sha256": "822d93291f7a62947df56ca36e7b30258a3514ed50b2e99d3c0387d46978fa36",
+      "sha256": "7be97fb91034e980da4f21d91cd106ceb8e61d37a2d9f10bf4d3051bc5b7192e",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/ConformanceReport.java",
-      "sha256": "87b3fe6a208a9aaaa9a3da166db27f06f4f25542945a84d103f60bb6ebb57087",
+      "sha256": "2a3957574060f45e9caebfc4957e6bfc2d9e99d97cc601bebcdc5c61df7a30d0",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/ConformanceRunner.java",
-      "sha256": "5fac76d6d045d6bd013a9db5acf91d268571874e14a84258e17db15a7ea9ac8d",
+      "sha256": "54797b3f3700a344e07a6864cd7919ea318d8a06e80d2cc6d8926f58d28f4283",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/CoreOps.java",
-      "sha256": "b2c44176e48c8eb84fc8ff81354f6e03b6d2de9e8dbadedc3467faf66bb4ee8f",
+      "sha256": "44d7dcd42f5324c8f01009966ab64f2b7b569c85dcf2bee9aac2f1ce79da0706",
+      "generated": true
+    },
+    {
+      "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/CoreTarget.java",
+      "sha256": "8bbc6cbcf288008431cd4c708221847f1402b41b8c9a826dd8c19fcb99f7d165",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/Expectations.java",
-      "sha256": "5876e950b34b7560848189ada0e660798f61062e5c5e4c5a1ca3030d7756291b",
+      "sha256": "d450af1b73f99b67c3a8184c522938b764ab618b39ba16a1dddd498be7c82e59",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/JUnitConformance.java",
-      "sha256": "5cc79e2d2c553dd61de8eae2a12ecba0ae90539bcd6df5606e555d39e99bf93f",
+      "sha256": "a963383d6b7c0ffe320a88e85291249810b4766d6322e49ba3e7c17848e67689",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/OpHandler.java",
-      "sha256": "ff1261b847ec086a9dc45b163e9c692c12a69ea411378d2e4e16350787bcdee2",
+      "sha256": "a99ee1e5ebb26f5a2c6dd455ff5cd8aefeb51fc30ac4c234892d8775493be796",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/OpResult.java",
-      "sha256": "e92ea42b59a998655aa6148f84f5ded3b6cd29fde09eeba6eabe59e01b99b5e7",
+      "sha256": "87e14ed137f2a5031feda51de19645e4976e8aed15a226d3b603d938c50dee10",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/Scenario.java",
-      "sha256": "b08b6bf43b8c363404995179f9de9bc17641569b445eafeb400e1364b8791822",
+      "sha256": "62c77ba9ae4e5d9f7d5d1116819fd335080aff4c88996bd5e0f6c92d913f5f1a",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/StepContext.java",
-      "sha256": "f580df5251e18fc7bc4c4004b7dd03ee1e8a28090ad218764e68c085aa734157",
+      "sha256": "508fd1b868cb5acf307e1a81796b5d23a0fb857126e7a486e2f4ec0da6bbf7c9",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/TargetFactory.java",
-      "sha256": "3d9a6d5a1b2ed4eec52bf0dcda0914e128f15f3f5597bde2240d03be326f2ac4",
+      "sha256": "3298deb831e46d81a18d4191cd20062b48e05e9afde0e583e6ff68556867a20f",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/logging/InMemoryLogExporter.java",
-      "sha256": "6c623048ab39716c36e1c662f6703085c3d06a3f188d462db082ade63dd66197",
+      "sha256": "5df705090d0f38cb1b321e4be3717821cec50f6681037f4a4691dbd57795ade6",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/logging/InMemoryLogQueryClient.java",
-      "sha256": "1850343205514a9d44758f71fd76a52be4c42b168c7157d162f5554acfdfff88",
+      "sha256": "04a3eb56c0c7788ddc875f43e5137040197b91e16faa5a8add80dffacd61da32",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/logging/LoggingOps.java",
-      "sha256": "bba1380fa67dd5298a2174e83483df45429d2c8114b12717d1ee0a90c8e68329",
+      "sha256": "4fa62a47c15ea0a02f9c786ab1e9612a55d7a3dcfb01110abef5a6a52cdda386",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/logging/LoggingTarget.java",
-      "sha256": "cd2e5f208d74e985f719f562e6a7947cf287c71d7a2f3db3e6294c92dab377a4",
+      "sha256": "68c6193e1fb85cdaf34d39b698527311826ed4fe0037535b315319115870f201",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/tracing/InMemorySpanExporter.java",
-      "sha256": "c04d6f9113260f9d75ef79179770d7a86f1b489ab0475faeb550d29c85c7b2f4",
+      "sha256": "824aa9a4e1b31b2f04642e1d5326a79afa550ffb139b3dc7f6355b4936979c49",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/tracing/InMemoryTraceQueryClient.java",
-      "sha256": "b0b8a29aa65466bb5df2d3c0f0e93370faeb35f1637cb4851ef9677d25c1af80",
+      "sha256": "fc1ab86427ea8afb9280005c2333906f8e706dbc75052cc91585ffa3f4df15ea",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/tracing/SpanDataConverter.java",
-      "sha256": "63075dd5e98138d0f862263b7d44ee04842efb3bf9e7c65c4287d7eeea0be68f",
+      "sha256": "b7386df260036426bf6ded2b86791613b23e0a76e3dcf59b31d4ec4d43d5143c",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/tracing/TracingOps.java",
-      "sha256": "3c19222ae9f4206fa216a33371ebe2ea780ac6577956760d6564fd69254c6cf0",
+      "sha256": "e66fe89cab43de029fe62080b65c29649688b47d56e07633617cc233a3781cab",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/testing/tracing/TracingTarget.java",
-      "sha256": "3bea9cba8999fd3445ea9893f1d587cb641687e1428d5f566132d4ef856fb28c",
+      "sha256": "ece382be08de771ce4062a471d4660c8131318073db7e2e4631896ae2cb84369",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/HttpSpans.java",
-      "sha256": "6de3f9538908c57a3b0dd7fd3616bf3e2f4aad875bceaccb1117aabe37ba46cd",
+      "sha256": "2a57beaf98aff0942c0a5eefff8bf0693f64999a52c60b9a5cee18606c41bb90",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/OtelAttributes.java",
-      "sha256": "8f094409bf25bff3f1eea10e61b53a34cc7837571beec0d803fa1cf2dc1d1676",
+      "sha256": "fce10a8d1e31fcd9ab4fa047438df16478d4de430a2efa8191d75479343af5f4",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/OtlpExporters.java",
-      "sha256": "e7cd659c8ebdcead8987aaeb43f66c3f6d534b79468ce2fa51e6dffcb263149e",
+      "sha256": "cb107dbd61e99728a33d3963fd05bc4ab8214e038e028807360a94acf6382c06",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/SpanExporterFactory.java",
-      "sha256": "484054410368d92178564f88e2c469f6d499a61dcf1c8e6353c90a16360e20de",
+      "sha256": "5b559ac53d8c2c091a1246f56f9e74768b38a569c2b5f22ceafa55014e75dcee",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/SpanOptions.java",
-      "sha256": "7c673d51c0cd0d9804869493483118b2c446c510664ff0eeac32ce544548425d",
+      "sha256": "021826d605574f2255653ff3523e3b469eea308454696612fc8ab6a301167f22",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/Spans.java",
-      "sha256": "809edf79e54d138197f06d0023834bccdcbaf9d95c22f8580cb9e30f818eebaa",
+      "sha256": "a49f81b3289e20f84375804c0cbc90b6675f7acb9015e3ee76d937899e4e64af",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/ThrowingRunnable.java",
-      "sha256": "758aa81a0db753bbd7c537224973890c1c84f613f9db54ff8cb93b0c725edb16",
+      "sha256": "92da84c1dca6d765932110bdbd46dd541e7c8d882cd9b3c265098743d6aeda43",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/ThrowingSupplier.java",
-      "sha256": "8ca16d51a0fb6ee28ee095bc0955cd00cc409b24c932a1fb5883425e435d5e43",
+      "sha256": "d49eed71196728591b62143d8c8860a8ad8fbd6a203d47da02fb253bda10d46e",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/Traced.java",
-      "sha256": "0decba133658557ed8a300e05eb2016ff46aab4dead0de4b4e941712930ae94c",
+      "sha256": "adb5934d3755f9e4541342594ab05b5e7fca490520def96049dd621c804cda20",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/TracedHttpClient.java",
-      "sha256": "81bdc45679210a2cf39d89e3224ab86456f789b3baac9a5527386d45f8ada80c",
+      "sha256": "7c206ab49f56c809316b5b5829368e92a29f063b3897d047a65a5283a21f1663",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/TracedProxy.java",
-      "sha256": "10c021d59a627e20336e189895630a66eea6f49b3c857197dfb4bead8d73004a",
+      "sha256": "c70865a3b45dbe14e50e7d2936fa703dd7cb5707703b11c5c159a7b2a53483c0",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/Tracing.java",
-      "sha256": "ff487fcab7d88f832eba944fa06632d27929f89185f4568a379c69c73204e801",
+      "sha256": "1efbbc72947af5e0cf42461305f16590b9168a0a407a508ffe150c66ddb9c049",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/TracingConfig.java",
-      "sha256": "efb935f84a35f37e24f444286423d700dcd21fe36a446078c7a095b1557eece0",
+      "sha256": "00ea418b534aeaf1f889a9eb3a49b6969726f0cedb068b18ed03523ab5854716",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/TracingFilter.java",
-      "sha256": "35df03179813f161fe5eadf5bff47458f19226fe1b08fa5c9cca8364088d0d4a",
+      "sha256": "aaeed64e850f89cd0986bf4bee0ab30fadf9ded87a0dd6930d462696cc1bacbb",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/TracingHandle.java",
-      "sha256": "4ac033dc0f0c6f4f6971c80af42d9dd44737775acb3debe24ef3dcedda7dbc92",
+      "sha256": "60fc00064d7933449aa03ef0bf36e352463c34ce879ef3f21f03de5d30a7ee09",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/TracingInterceptor.java",
-      "sha256": "d5bcc4df63b86618754a4da959fb5b30cd3392f21fe65d134e000f7fe68d3cdc",
+      "sha256": "ace1db46ae2b134407e2a9aeeac895e173b95697ae8f79d6bece2006dd17da41",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/DependencyLink.java",
-      "sha256": "7b526a76a85fe663e76b8fb88878f868f1ad20c05eb950aa0ef5a7a183be3bc9",
+      "sha256": "81e698460e5f09dbaf4b024e2a62dd10e81e1b44581893a5e09c7b99eda1a704",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/Span.java",
-      "sha256": "acd0c6783c8b6e9dd5df7db806ee836e41dfcd9f0719ac68fff4393caaa94e7a",
+      "sha256": "5d1659ba8f8c9a2dd67ed5b5e882dbe4ae9a08de219dd7a2d17fa3774ee496aa",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/SpanNode.java",
-      "sha256": "991ec5050654b0051d503bcc1c13ba6bbfae6905859eddb4eb8bf6b67106bbe1",
+      "sha256": "03d4089d5d799e86ba53ecc17a53e0869b01fc21e4c5cde6612c6f0609040205",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/Trace.java",
-      "sha256": "d5446336c2c476bd7d6ae075a04a8d6e2fe20dbd02374f88cf339ec1f7cf87e7",
+      "sha256": "db9a47fbf0de8426344c13ef49bc40051be6558b4b8ff77110a44267bd6373bb",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/TraceIds.java",
-      "sha256": "c0ebf8dcdc6956314f04743a695bac95c7a33221f5127daf2e91f16d2e74fb04",
+      "sha256": "6cf9989147d9e9db9874cbec2fe87e37ee9ae6b0a787c793442f1946417c13e5",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/TraceJson.java",
-      "sha256": "7944d91bb65ae28325862ea8a6f1e42f69571b27695879ceb1751791c6ff7661",
+      "sha256": "2c65ff7dea93803c72e5c4df5e0962c03aad3910ea29d6831a50723cc9ef72c4",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/TraceQueryClient.java",
-      "sha256": "38440d306c0016732697fe9419eff20164e1f0a3330f456b0d3b5d7a898b1832",
+      "sha256": "fbfe6b0e90e79f5444219fd04ba7ffce483bbeafb4a2da0645f8c38924a5360a",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/TraceSearchQuery.java",
-      "sha256": "a0476bd60315798a4455e14ee3b7fd279525da1c8031dc435b6e5c45cda820b0",
+      "sha256": "a0c9824d2e4cda91f16566ae5c5fa8edb670dd32c553ee817e916740621e8dc6",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/TraceSummary.java",
-      "sha256": "67d19612ce0db231c08174b6bf18c29613e5736d88a7c4f87e5e1d4441bb72a6",
+      "sha256": "20cb7bef856e6997fcd68ca180a93aa7fc301cce3e0c749fe84f6240e421f609",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/Traces.java",
-      "sha256": "c310be8dcfc52b3219a0dc3b4064bbf827bf6513edcee13307614f704d553e74",
+      "sha256": "0b876dd8c548513c5c630ebceefb3facf7a796541f5509b66468bfd45785a0e8",
       "generated": true
     },
     {
       "path": "java/src/main/java/codes/grow/packages/otelcollector/tracing/query/WaitForTraceOptions.java",
-      "sha256": "c97c76b161d427f5d3333bf44b108d03db821ce4bada67653fc35f9b4cb8903c",
+      "sha256": "051564a5b9549cb6f08dfad3787a3f336510584c6455414dc849f1116fe7816b",
       "generated": true
     },
     {
       "path": "java/src/main/resources/codes/grow/packages/otelcollector/core/sdk.properties",
-      "sha256": "706c7d4f88cc993aaf64c3f90f647c0a067e293912bf2cca9e6aa6ea3b032a27",
+      "sha256": "b2de7638fea705a0cd23bc566216d1c1ccc52d6fb6d6e343e96715cb5289b9d6",
       "generated": true
     },
     {
@@ -1378,57 +1393,57 @@
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/core/CoreUnitsTest.java",
-      "sha256": "f39848a6585764b7690afc4823f23f384e4cc9ddd5b79bacb61472f4b8a6a6f0",
+      "sha256": "abf076fc0dc3d81770a45a4197ce5d4e9571080e2d6d15673d98f4e633971214",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/core/HttpTransportTest.java",
-      "sha256": "362cc88e4d11864ea482467dee1147620396af1cbf5bf1281eccd22d0036dbe9",
+      "sha256": "153193113ee0454966ac0a1d2a31d6f18470f8d78fa9f7bd921979cfa9b05e02",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/core/MockServer.java",
-      "sha256": "544d94ddbbf7e334a974480f74c61cfc83fd78d89e917e83f595c4f5f97f4fb1",
+      "sha256": "e3ad1a44d75573a2b116fbee4b21fa9827326c3b858bbbf36180f434498273e7",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/core/TestCerts.java",
-      "sha256": "28917adce51f7a4859e91ba810f19be8b3ee1707b7bafdd8f6f3a73619eb2583",
+      "sha256": "5d0eae8fbb68f621fdd1f45bf4cb2741efb19fff109dccd1dc368adde276d199",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/core/TlsOptionsTest.java",
-      "sha256": "aabfbd8c87c749f6d8b9e620234860881a7887fb5c532369fad2e06d976ea02d",
+      "sha256": "a5a4fa377da0982c0eb36234bacb7172a9b0be3dcf62a22b2f8215fb8747a872",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/logging/BatchProcessorTest.java",
-      "sha256": "3dcdd960fefbc4b8623e12e8c39f16178b6c6d1a4d142da08754620474fe206c",
+      "sha256": "ad53bb6cf73589094f149f1dbf9378a412bc02feff99546732676a0706f0dc42",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/logging/LogAdaptersTest.java",
-      "sha256": "8e0e2174015234bfa5f978e257784c3d2fff6883c7b258eb1534e06921d5f379",
+      "sha256": "ba96dc85f463013521540bb2ba41b33c926230a5435584b2389e62684e16c6d8",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/logging/LogClientTest.java",
-      "sha256": "913f2a8894b64c62304c5e924f3ec18a7f38d218313f08282ef521162b65e393",
+      "sha256": "349a848f81a97505dbe7c276d79cea41ded9789f17bfd8bfa95afc1060d384d1",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/logging/LogModelTest.java",
-      "sha256": "e950ecc35883dbb448d2f25f486274595990ba4edd5e18a5e658dd677c89b39c",
+      "sha256": "112ac9f8feb28559af0993b8129839e5f7e58516e4b141752d83202e63a6e73b",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/logging/LogQueryTest.java",
-      "sha256": "6aafea5212bc180e18aad9a11708d77ec6933911d7b83da05160f40832f5343c",
+      "sha256": "14768ab15ffc3cc944dc09fd68abb63fcd12d6238cf26fec2df6ca42b1d7f7a7",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/logging/LoggingConformanceTest.java",
-      "sha256": "0c8ddcdc843836ad47f8070a11fdbbe107d6e4af58a704d77aba1d097305fc93",
+      "sha256": "4da486e3bd1ba3ebbbcf0f574dfaceae05954d5f55c1ed6f8219b42375b1d6eb",
       "generated": true
     },
     {
@@ -1438,47 +1453,47 @@
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/testing/ExpectationsTest.java",
-      "sha256": "5659aebb38175127eb7bcb219a9ae5d70c125db02f8d7e897609f5bc3b0184fd",
+      "sha256": "0eb63b324d152ee8d94867ca21223d8d46c175318875d15ee11eeffde265a6f7",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/tracing/HttpAdaptersTest.java",
-      "sha256": "c9106bcfc69da327646199a01161db15f6e9fb7fa8b2d83e10010556f50896fb",
+      "sha256": "1156d05773deff0b74da0181db035089f4a356dbdd927518c76a45a237e4037b",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/tracing/SpansTest.java",
-      "sha256": "5cbf01ece4f427530d80318252c3e5c0422194bc9c2babba2659e91790045338",
+      "sha256": "2cff45f64c552444d3138d38b7167b52c9e5816510c7928be7ba33409b508629",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/tracing/TraceQueryTest.java",
-      "sha256": "89313623fe6b5f5b8ad01e7b237960388b0c6a9060280be6f0cb44b11ab5e3ed",
+      "sha256": "28a65e9e930820926e5b8db7dc39658f8be18c0e243fbeba89b71985d913f9be",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/tracing/TracedProxyTest.java",
-      "sha256": "71f1b467888374e500d6b99bc172ccd69a7a366c5355c9df96b61b077e475c4a",
+      "sha256": "6a06eb913782b3ab6304c09f29f04a1fe3f2cc310c382b958b6536b6246cf00b",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/tracing/TracingConformanceTest.java",
-      "sha256": "6c42e8a49faffdcc3ab654cf4a0bd3fa1bbe11b8b4135832782bd91e373e02b9",
+      "sha256": "3ab48e906ca3d4b4a7e8a4a1730d5d16fad3573f111d82771d9478e89e7491be",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/tracing/TracingFixture.java",
-      "sha256": "504aad194c689432bd5f77761abebbc031ca507bb1d7fa7a80e110140843900f",
+      "sha256": "9047b74560cc3e55d8b1fea5abf14e2318e38a4e10b6703675ee5d601d4f5a1f",
       "generated": true
     },
     {
       "path": "java/src/test/java/codes/grow/packages/otelcollector/tracing/TracingSetupTest.java",
-      "sha256": "f9eb56ada49ed3d2a623d174af43ec3dba633e1230467e7ee8e26c9288c116c0",
+      "sha256": "4c48762880cb399034c2bd5077dc73d2f0f0919ca812a8d1c5f7d78726b8e760",
       "generated": true
     },
     {
       "path": "java/src/test/resources/codes/grow/packages/otelcollector/core/unfiltered.properties",
-      "sha256": "a88a09dfe34d8e66632ba9147b2b18996e665eca259e651c8ed75bc993a29461",
+      "sha256": "3825f177e0dd04a1babe2ddec8fb1cd2d5cd09133e3bd8c2b177bafdf15dd38f",
       "generated": true
     },
     {
@@ -1548,137 +1563,137 @@
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/__init__.py",
-      "sha256": "3b0ca4d9766c60b850102cb85895712d8857220cd347a23def69086b4df505b7",
+      "sha256": "d304f6cf1ff3094334a1c0021fd065c85facddce8d2e93bebf1a8bf8a9f60c6a",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/cancel.py",
-      "sha256": "3f7cd6569a2a411109d72f9b3ea245db529546dde0fddadf2dd4bf5ab672b13a",
+      "sha256": "c4e031bbeb72358d0b8f47e0c383b34a63e62cce4984e28eed042b5de0d7e2e6",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/config.py",
-      "sha256": "c3baffcb63e8ad2cd5f9a4efcba84320a58cab344c158d60bd7bf86edaa7c599",
+      "sha256": "4cde793830ff831e3d38f5000b7ebba79c7373484fc9551b16e79b68290a8c72",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/env.py",
-      "sha256": "1c69dd5dcf366c200bb33760417d6ab7130d1e41092f1b20b4593fec097286d8",
+      "sha256": "dfe7648f9f79e82d89e9863eb46a55864a527bf0a7670d1cb5f9e571b3a8dba9",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/errors.py",
-      "sha256": "30b401d54d232fa499faebcde33c0e0097d7cbef1e940e68f2554b0c229d84c6",
+      "sha256": "cadc276664d04ebdf6ca99c935960c31f3886f56c9aa25e93ca7bb0b2db1526a",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/health.py",
-      "sha256": "3fdfa5506479435efa0c3c7d6a6ad412ed06558fe23bd8749d1a254e999adc16",
+      "sha256": "59c5ad4ab2066ea9f6697703f30046b059e404407fb4371e0fd0572dce960684",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/hooks.py",
-      "sha256": "b19f482866a18e58726d93cdbb71258dc223c5958ea62da520960d8672ab6aaf",
+      "sha256": "8b6f6da1c5f11637e1dca07520cd829e260838c38ade9f76a7d5255b59517b16",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/http.py",
-      "sha256": "bdc617f2e0c86f8d3883da81c54493252ceb7dfbb869990e58840763a748a7e8",
+      "sha256": "a5a37a9778f04d9c5b671b76ccb53ef6ebdbaf81de7ec66f9e4127ed59e0adb8",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/redaction.py",
-      "sha256": "354a48f3076ad34b136fbf12605c787bddc9a5cb2d87ff15d6af3c2152ddbe01",
+      "sha256": "5d3f10101c7bb89ca2ecddb5bae819759c5febc374d42e2d360bf5d87fab241b",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/resources.py",
-      "sha256": "eb3fac01dd54e4e732fbefce1aa7000fee023cd694ac6d1943d7984cde77fb1f",
+      "sha256": "a3437953878a133a3d1fa4de3c5ac55b90430f61dc097d5f218231f2333ecbd2",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/retry.py",
-      "sha256": "41a2a14735390a237d21a78e91e827e6f6d2b2fdb037ffdd4052675213a9c756",
+      "sha256": "66ce41fa8e76ccc9431568487d1bc42f9bd98d8ac05d4fefb08aed2f43f1b8b1",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_core/useragent.py",
-      "sha256": "8933c81d8f245f606fe087126c801431fa86033df9ffdc4a8c29396ecc3d7868",
+      "sha256": "a8d088a39163143f84770b0e051b28f93f0c4512a2b7736de56cf970778766af",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_logging/__init__.py",
-      "sha256": "a009d16392fed60a49a65e6636315bd4a37a208780aff8c8d0c15963c909f290",
+      "sha256": "415140f881c05bdbfde1ea6a5598ff6310068be99e0d55bb4b8c7311a8b13d3e",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_logging/_adapters.py",
-      "sha256": "43b51f030ff94535e47e550fcaf22ba61cd3e9c7e04fc07f82523c0cb6e7bb32",
+      "sha256": "403625d42b8ac3b84b6d0d81d8f1de85f8881094c197bde46ae259e9d9c7ab54",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_logging/_batch.py",
-      "sha256": "48a5bf7ba8a07053e03726be8b78b5cf4e0cfc05e821fc3d1cef88282decc6d5",
+      "sha256": "edf428e5aea209b9445802e353f8305cd0fb3e2b724b00bb9ef26790e13d2389",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_logging/_client.py",
-      "sha256": "2fc402a29687c0f1c275fb691df7acd017daaf020e7be575a5a94530c7fdc51c",
+      "sha256": "bdd51b892e0bb509b8aa136165364fa7c17712d551915cc888b6065883307362",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_logging/_exporter.py",
-      "sha256": "f8f68282f297a1bcebd915ac1966deea8c7923bd74d59bc2a0ba196a52ac297b",
+      "sha256": "9861c1d04f2b097f800b87ac4e96a0a270a03efde419d344e99afc790db9e38b",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_logging/_model.py",
-      "sha256": "f8480bc14c6e20b2adf77543bff7ca2b67738666f6d831fb3700dafcc72c0b93",
+      "sha256": "d856254f7c03d1cae7212ce607f80e01a3beeb1edcd68d1f82febe34e99b4a97",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_logging/_query.py",
-      "sha256": "a3b59dc578ec31723351bed62113e2d2c147757ece3037d9a824369604c66a78",
+      "sha256": "9b900f4f0dc966c8dc81aa81b36334361df2792eb06be2005084def7107191fc",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_logging/_redaction.py",
-      "sha256": "27a9b1728730314a74c2c8f7aeb8751e0ca50e2f49428816810ef909fe96a0c8",
+      "sha256": "7f97fde2e883110fda75019c583dd8e4247e10ecd5a98cea0eab7fb514081d6d",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_tracing/__init__.py",
-      "sha256": "30cf9d1d11d73fd00783ccde596ba0f024fd5f94df2bfe531d10a27b171c44d8",
+      "sha256": "92186927eb013db842bec467a0a76b632d2709233afb2cf343974075efe79fd6",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_tracing/_adapters.py",
-      "sha256": "8ad5a571cbdc37c636ff6d46c4d58c57fa9b2ed738132f45c464db441720997e",
+      "sha256": "036459f16e19ec5d8fc86fdda7f95e0e89f2225d258c93d6d6f2186baee2a2d4",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_tracing/_config.py",
-      "sha256": "456d41d43ae2141530235a82c64bd454c7edae379adbceadd274237ea2811819",
+      "sha256": "c3fd94da6dfd2ba8b7a7f84be5d69078d81309c819acb33aa61fe1b7da63e6a6",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_tracing/_helpers.py",
-      "sha256": "973c02aaac5e995acaaff514978efff0a0f294360b2faa16b7dafb24b04c3df5",
+      "sha256": "623ef6c9ce51fca09e8dae15301235cc536c4488df65fb8e9d69b2afd5ca224c",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_tracing/_model.py",
-      "sha256": "c4d0816fac840d3503f63e489576d68a322350b51e214f484224ed27c5783776",
+      "sha256": "ceef6426dd54467eb5fb7fba14feb60898f16af8e6a536a2b19a4f4da320219c",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_tracing/_query.py",
-      "sha256": "b997e4eda8c4ce306c7ba6812de4b0ddec2569dfaa9a55f212adfefef8c19d1f",
+      "sha256": "adb6d31d1e9497139844a2afba33227b99dc56b08fd4eba0cd37ae8b7ca55578",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/_tracing/_setup.py",
-      "sha256": "bb031b7e0773ab1af5cc6fe8abb73987e156023854ba456a0ca4d24c56949377",
+      "sha256": "ce6a9af77d24f21f05a4a3d8ca2305aa4fb1c501ce1b8db1ab7b7e11dd986ce6",
       "generated": true
     },
     {
@@ -1703,32 +1718,32 @@
     },
     {
       "path": "python/src/grow_opentelemetry_collector/testing/__init__.py",
-      "sha256": "328466547406bdebfe6578a7f5a887e50e5f22f0187b8089fb075f66f5869088",
+      "sha256": "cbdbe462bc641933686982a710312e65a4794d2643c3294914ee3d23eabf0bf4",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/testing/logging_conformance.py",
-      "sha256": "c2832926936541cb6246e3ea9f0ed42373663a33581096db12d9521d4c55a0de",
+      "sha256": "c423257c90f28bf0745bc78546c3c379f6d372bcc316a0baab44b8abeb19b4df",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/testing/memory_logs.py",
-      "sha256": "ddb342048a99f4e6feaa67eceaa78ba254b59e40c9aab29c78c195bd5e51ef3c",
+      "sha256": "5405fd4420373c92c9934442092bbc2ab150c3c0cba33d483d4760b3b87a08de",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/testing/memory_traces.py",
-      "sha256": "c30b18fb05cac1b7bcae8c2fc27ca5a8a58f25c24d172d183353ec724c1295fd",
+      "sha256": "9ee6c7fb3f93996dde9ed18e8907e4e35bde12f3722f718746069232b692aa57",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/testing/runner.py",
-      "sha256": "47cf1e530baa896435b21d163fa7716a32aa39ac1cc09636bce2f92186bcdde0",
+      "sha256": "553eb5bffc6e37b9abfccec49a7f98957ec74dad142ff462880ca48649928fd3",
       "generated": true
     },
     {
       "path": "python/src/grow_opentelemetry_collector/testing/tracing_conformance.py",
-      "sha256": "224d0a38cb8dfccf5c8b9ede4d94704945dee2a83f21fa776f528364f8536e46",
+      "sha256": "5bcfe74e09406fca795053dd0c6dd9a7aeecef703a1866ba2d759026416f83b6",
       "generated": true
     },
     {
@@ -1762,43 +1777,48 @@
       "generated": false
     },
     {
+      "path": "python/tests/test_core_options.py",
+      "sha256": "3a86e82f281f5de0883eb6318a80fd923a4fe0d798b3ff1bd3c6bec68bc79775",
+      "generated": true
+    },
+    {
       "path": "python/tests/test_core_transport.py",
       "sha256": "295b4a5dede01e7dc1686a96b7c7d06c3ab8249b299cdbc7fa135f818aeafa7c",
       "generated": false
     },
     {
       "path": "python/tests/test_logging_adapters.py",
-      "sha256": "415b67d1306152b553fde8a7b32924fb78d334ac9a880dfe6c7a7320dbb00680",
+      "sha256": "1977474d337e2ae5dd6ae1d89cd1aefcf994700f86d08acb1c2304a67ca54f76",
       "generated": true
     },
     {
       "path": "python/tests/test_logging_async_batch.py",
-      "sha256": "7a78f35365b3a15e17c275262f06723d2425a03d9b126026c9e2ff69e33e1d82",
+      "sha256": "07f99e1ab5aa12d40576f7972bacfff13e94a49d485db17c0d04681969a9d55e",
       "generated": true
     },
     {
       "path": "python/tests/test_logging_batch.py",
-      "sha256": "b9e96573210c91c916542c722e9e3df82a0946c34f8130e66244376e78551051",
+      "sha256": "9937aadfbd1496e98ce85fc106a9b6d5f1538e4ff7b1f1920d354bb2cc6e08c3",
       "generated": true
     },
     {
       "path": "python/tests/test_logging_client.py",
-      "sha256": "487ba99da14320b8213c3ef5866ff8e00bf299c4bfaf24b28e4f1b25bc4b2f90",
+      "sha256": "f6fcc9aa9d01fcf998449cad93cff1db5718b033257d1ec8b0cef0f3e09889a8",
       "generated": true
     },
     {
       "path": "python/tests/test_logging_conformance.py",
-      "sha256": "33440773df16acfd606b5a0b00fb135aab863decde5285c3b9648fa9e62ed8dc",
+      "sha256": "88b10e8d58f48ad17f03f9ee6a9098b50bd1b7a544a2a61a83d02090b450da35",
       "generated": true
     },
     {
       "path": "python/tests/test_logging_model.py",
-      "sha256": "1ce42304a87caf04884b04c8f71cb64611d16cc65558ac5ca4e58d4efe8bbad3",
+      "sha256": "c210e0d44f6f87f3bf00907a46265dc601febd421d5a63299407bd49ea101c4b",
       "generated": true
     },
     {
       "path": "python/tests/test_logging_query.py",
-      "sha256": "9607ee32e9a84a8b15f9dcdc66bc9cc3acd88e9e804bb9025286c20d6f83a828",
+      "sha256": "da53e1f0b5379c2dbdd69aa631b7cc96a14aa30a1af87063ad0a2fee0fadc62f",
       "generated": true
     },
     {
@@ -1808,32 +1828,32 @@
     },
     {
       "path": "python/tests/test_tracing_adapters.py",
-      "sha256": "13cb8bcb6ec9b4052fe59bbbdb714bee0eb5c7bdf3ed145ca4ad99ab221c73ef",
+      "sha256": "c1525b943656c0883ccf3b55d0aa3eacd6faa3dad321bc0114678e6a99adbcf4",
       "generated": true
     },
     {
       "path": "python/tests/test_tracing_conformance.py",
-      "sha256": "2d56e47126d208cf38a4823f5a524100778c988f57d02c9eb2155deb4c2da552",
+      "sha256": "9159d2522d091d50568c20a13ecf6a5fb661737d6248443daf154dc496c8804c",
       "generated": true
     },
     {
       "path": "python/tests/test_tracing_helpers.py",
-      "sha256": "22198d2f29ce7d7b63d81793e4ea720263fc3afec6a1803d20b8839376ca2312",
+      "sha256": "96ddee413d2d9bc9859fff21aaaf1c9eb5b08332b7032a71bab188b8a17760e8",
       "generated": true
     },
     {
       "path": "python/tests/test_tracing_model.py",
-      "sha256": "4f1ee3f3c511a36de91477b2cff3ac6cf1f79b6ff0cba1c9bd870a5b843ac5f2",
+      "sha256": "7e83a4d0d70fb0129ce23d756c5ef61701161263ddaa3be322f5591b44081564",
       "generated": true
     },
     {
       "path": "python/tests/test_tracing_query.py",
-      "sha256": "9b29455fe97b71363a3e065648b8c04bac6fc7d604194cecab6aaf8e96c5e164",
+      "sha256": "f93fc9e8ac93cf0e6e6c464ad60a138374fa0c0dd76ee29cba01bd757df8c634",
       "generated": true
     },
     {
       "path": "python/tests/test_tracing_setup.py",
-      "sha256": "83fbc781a7bd32e99968ad14b53991967268824b9883fb3e6ed292320b784667",
+      "sha256": "4e5f8256589e6203e70c4379efbee57379147ee8f8ac61c53d34ddfd17fc74d1",
       "generated": true
     },
     {
@@ -1863,7 +1883,7 @@
     },
     {
       "path": "rust/Makefile",
-      "sha256": "98b615cdf9bdbe9088e395a457c7133fa840a65adfef928d55d8350c1c0a56de",
+      "sha256": "558f76c29881a73dbe69fd3abaaff45720a5d36f5453cb6808067812c675f53e",
       "generated": true
     },
     {
@@ -1873,7 +1893,7 @@
     },
     {
       "path": "rust/deny.toml",
-      "sha256": "72a8595069abc9490478ca307e58852664d8354e91775df47ab02c89c47131e5",
+      "sha256": "8f9a2ca01759a273a5eb3e3ab3f65a94e5726b89e970401e58a4b6da81d1d3a4",
       "generated": true
     },
     {
@@ -1913,67 +1933,67 @@
     },
     {
       "path": "rust/src/core/clock.rs",
-      "sha256": "2f1229ce501feb1b7ba2061fbf712a915562fd563ad03299a806c16fc52f8008",
+      "sha256": "d72c550d14e1ab7b4d549a2969d5f396e3cf125ccadba8b5328afc728d01f93d",
       "generated": true
     },
     {
       "path": "rust/src/core/config.rs",
-      "sha256": "ef86b56dcc3997613d4b93ca1a86265398e4eb987126773d4ff1f6bda1c7acbd",
+      "sha256": "b39e545156324840422dae388984436084f89458e32659a4c445fa220786cb2d",
       "generated": true
     },
     {
       "path": "rust/src/core/env.rs",
-      "sha256": "79db54da8a77864a27ee1e4acdde0cf2cd67b3e9e3301da038eacab4df1479b0",
+      "sha256": "b22633ceba4577ebe8f71d6142b86527ef76e99cf4a17d706d9a029d54f74eba",
       "generated": true
     },
     {
       "path": "rust/src/core/error.rs",
-      "sha256": "44ecdf7a5c036f77c8f0f20cff1074cdf4bab522195141e2ef04bb203435f5f6",
+      "sha256": "4d286357ada66dfb0169ecb414183e63c6eef3786f2726ba6b1797a326785952",
       "generated": true
     },
     {
       "path": "rust/src/core/health.rs",
-      "sha256": "c57c0d6b01d553066226e6047bb434ac41d2503a615ec27b7a734e2b41b74fdd",
+      "sha256": "aaf6371e568820f4c0ec4e728bcaf9bbf04e4ce9d2bceba104a469f58fdb7aaa",
       "generated": true
     },
     {
       "path": "rust/src/core/hooks.rs",
-      "sha256": "33bc8a3f1c29c90b7ab83323318fd74b9e35ef09777788e2046bfd7b4557b42b",
+      "sha256": "c2544e4412bff38e722b521e0ed170c3808ba58ed460fd409c24a54264bb9088",
       "generated": true
     },
     {
       "path": "rust/src/core/lifecycle.rs",
-      "sha256": "4167e05a84684966cfdab2f0434aee116b5826338ef5ecc44712f26ba7a16302",
+      "sha256": "948526551a8bbe18709c89b3ac7ed048e5c3e3eb89b25f2aa7ad08b869db3369",
       "generated": true
     },
     {
       "path": "rust/src/core/mod.rs",
-      "sha256": "d67f070b9727e003ca56ce16560d7c43d5a661ec0888e1fc3e2e308f8ed2925d",
+      "sha256": "f7c21d16ff0905230a57035c6123d0be452d12738dc5104db5faa82170569303",
       "generated": true
     },
     {
       "path": "rust/src/core/poll.rs",
-      "sha256": "187f9ee5bc150336d7b5802b301a8f04ff01d32806f574225a9d7f7ca160ca4d",
+      "sha256": "a4516d40413ccf6bb0784c9d0484011358d5ae4335f05a541ebdd4148ac96dc1",
       "generated": true
     },
     {
       "path": "rust/src/core/redact.rs",
-      "sha256": "797b465f26309874128501b4397c165fa856b820111d0d74cbec73b100ce63fe",
+      "sha256": "82fcc53a0fa3ac8d69acafda8a3eec1c6688160dbdf3ecd4ef9bd7b057f59834",
       "generated": true
     },
     {
       "path": "rust/src/core/retry.rs",
-      "sha256": "d5fbedd4cdb989b92e6af66ed82b6540cccc82ca7866e4fb5a31c1159822f05b",
+      "sha256": "6d7689414b30831b2bb3081feca72011a05e02f52d33d6b6ca877ef28c65c9b1",
       "generated": true
     },
     {
       "path": "rust/src/core/secret.rs",
-      "sha256": "9e3dc5f03734cbead1114da6a74c9ab218ed342e0079c17536f956a31f7277a5",
+      "sha256": "2de9d3ed4a33b587d822eab4246f9e29ce1219f8ba847215c17da4f0e2c2710a",
       "generated": true
     },
     {
       "path": "rust/src/core/transport.rs",
-      "sha256": "cdd566d7fc8700d1f25f1661ccc9677fcfa96619e851fb20286b565fca6ceef4",
+      "sha256": "d883b9b91190d5bdead166c45b908a050a3167349b6bc16a80e85c8efa592311",
       "generated": true
     },
     {
@@ -1983,152 +2003,157 @@
     },
     {
       "path": "rust/src/logging/batch.rs",
-      "sha256": "62fbafc773a4b413b18b08e86b09ffc78c89cf8a05c7218c281b55274fd43776",
+      "sha256": "e4cd9aef1f4871f5450f392ef2c2df4c0742f33a8d83b81fe71a8dc0887dc06a",
       "generated": true
     },
     {
       "path": "rust/src/logging/bridge.rs",
-      "sha256": "66e01da1e8024d7ebd4ff3c21700427975ca8472cf0abf1ba44527f6abdedecd",
+      "sha256": "2fd4dc33366ca4f40fce28a7036178864ba62f479bf8f3fac9ec5e2c73422c6d",
       "generated": true
     },
     {
       "path": "rust/src/logging/client.rs",
-      "sha256": "2aacaf5b757f79320e95c3b297ebcf0251f3a3005889353b328fe4c590692357",
+      "sha256": "7b2f549078efd18527bc129ed3abbf7b986af3a82ef7a5af35ce0a8998bc1ce4",
       "generated": true
     },
     {
       "path": "rust/src/logging/exporter.rs",
-      "sha256": "7c830059585b9f57e446b2fe87fe7277642d575cc6253e5eec03448cf7aea61a",
+      "sha256": "435492a439d8b7f80f95b1aebe11ae81de9080129b8dabf66440a25f11d9e6aa",
       "generated": true
     },
     {
       "path": "rust/src/logging/layer.rs",
-      "sha256": "ef7e095120b6393e5c81f9a248d71a755a2364bee95a192378a5336b9fa68bfe",
+      "sha256": "96886745c906ef56112355de2e9e228c55b2efbb9768dbff8d0fe325ac87fb17",
       "generated": true
     },
     {
       "path": "rust/src/logging/mod.rs",
-      "sha256": "22753f126b350e14dc8b4a49309aac504d10bc3ed5cccf2513f2b8390c000423",
+      "sha256": "eb2f5cb01dd73f1eb2b9f26196cd2a131b1711e924afa70dbc77e8a9d6ee1672",
       "generated": true
     },
     {
       "path": "rust/src/logging/query.rs",
-      "sha256": "b5c00e667721fbc071007236282b5f8cf240bf0fc51589a2bc6c47773f06476a",
+      "sha256": "d06ce455855d09d7fa863f93287b10905b03e616fcd5a03c0aa806aafcc93e97",
       "generated": true
     },
     {
       "path": "rust/src/logging/record.rs",
-      "sha256": "5046b79c94dc560e42d46b835ae3f7b1ed5c6f4cd761bca7af2684628fb8c77c",
+      "sha256": "b2265a02f00b331bc92c3447fc5f918110e897463c4f19ed00754a4c6a5b0016",
       "generated": true
     },
     {
       "path": "rust/src/logging/redaction.rs",
-      "sha256": "3b3dbf5cebc638d648553eaf0ef73bb0cf0516d690e0dd289d2fcbb10c729600",
+      "sha256": "df6f7666cde6c0a0bd0deecfdb18ba03b7f448704f90ee22f9e2ec314e013290",
       "generated": true
     },
     {
       "path": "rust/src/testing/core_ops.rs",
-      "sha256": "9a1ed11b6125164da98e54e5e26075352068f805501543952ba8f478dd1d2dc7",
+      "sha256": "7608345b039b70a8ee073958cd19aa7421d364cf003ee389775272fc1dd0ee98",
       "generated": true
     },
     {
       "path": "rust/src/testing/expect.rs",
-      "sha256": "0b5505449b748e9e3d286bcf841568f8bf5db7194aee55629a70ed81ff6955eb",
+      "sha256": "0501407f045c3b1ee7d0a348074df145bbea6f193bf49b460513862d4e6ecbd8",
       "generated": true
     },
     {
       "path": "rust/src/testing/logging.rs",
-      "sha256": "3433b9c47a9e0db1a2dec32707f4d06e6e16650d3a5ac1783b54d2f010cb63c7",
+      "sha256": "d31401d145fe4cff6a9b787d30dcf54ca3180d948b2b30682a043f60801392e2",
       "generated": true
     },
     {
       "path": "rust/src/testing/logging_conformance.rs",
-      "sha256": "b5a263be5a5e38f9151f828eafaa33023531c46680ecfbd56fbd0563351a43eb",
+      "sha256": "9f867a5aa5bd3effc8cb85203b9f62c9c8c11ffe2ebd8ea3a0c50a22dba27a04",
       "generated": true
     },
     {
       "path": "rust/src/testing/logging_memory.rs",
-      "sha256": "e9b3b47392cb81abde65d8386373ff0af2f0b03c6723e27b7312832b504b0092",
+      "sha256": "a7d484cd25a92daa743c384cafa9a5628310644f2b3088c1e9580e9603fd29cc",
       "generated": true
     },
     {
       "path": "rust/src/testing/mod.rs",
-      "sha256": "7c13da9afd63103a75ee5ecbe3aba445d929a3c0f252d7a43c4c68537f038b2c",
+      "sha256": "a8cd0da9c6637383754229c7097f444785cf94cc74e7e1aa12c80a24fdcfebe4",
       "generated": true
     },
     {
       "path": "rust/src/testing/runner.rs",
-      "sha256": "61fa3976f7cac0bf4c8fa1e61a865816644d9053dbcc8e71e53e037ffa106655",
+      "sha256": "69d0ea9440c51bfaa1ef2446fc15bf39fde6cc9631db957e1e572a8636e0b0f4",
       "generated": true
     },
     {
+      "path": "rust/src/testing/service.rs",
+      "sha256": "98cc411a72db0c0cc977eaf57456936cdfbe3e1acc5878fab8c37c270d09a046",
+      "generated": false
+    },
+    {
       "path": "rust/src/testing/tracing.rs",
-      "sha256": "90d5b2b0ecc30314125aed25970c26f23b37dc5331c5b2e823823eb80382ede8",
+      "sha256": "a8a2f268f26b5cf5b7977b3478242219c3986c3c97e0f2522d1d3a24c8011ec7",
       "generated": true
     },
     {
       "path": "rust/src/testing/tracing_conformance.rs",
-      "sha256": "fbfb416138e34f56f97ade4fecf32f236a35a982486469765f7d273364409c73",
+      "sha256": "b1abe7840dbe0907a4bd8b241510f2bb7bee4b1a8f02a2fb807b2fefa514b59d",
       "generated": true
     },
     {
       "path": "rust/src/testing/tracing_memory.rs",
-      "sha256": "8ba841d1ea60930e7044dc85a32d2174f4c5784f07b4b49b963f80ff77c5b568",
+      "sha256": "93dc9b2bfef7c40d6e2b522aa00efe25648502c0d041ab4194b61bc02e3f903d",
       "generated": true
     },
     {
       "path": "rust/src/tracing/config.rs",
-      "sha256": "907516839b417c1473b53ea0fa87f952ae45538d202c173ac6dff47bccdef550",
+      "sha256": "060772abac922fdbf36d884c49daf5262570c35d844d4645b8d1645ef3b2aab2",
       "generated": true
     },
     {
       "path": "rust/src/tracing/helpers.rs",
-      "sha256": "34084bc91e20ba8b0dd52bc007b076d753c9dc546aea2b0c45ba610c59d26767",
+      "sha256": "34ba83d6d49c254703e7724f6df172226b9d5053c9944dfad87f764c77980421",
       "generated": true
     },
     {
       "path": "rust/src/tracing/http_client.rs",
-      "sha256": "cef6f42d371ac283e30f3bd8140634ca02ce247a42495c25482522cc13ab7ac7",
+      "sha256": "14d3d5528dbcccfb10cba3825d781d99aacc43eaaeb76e7dad90bb7fe43aaedc",
       "generated": true
     },
     {
       "path": "rust/src/tracing/http_server.rs",
-      "sha256": "76e8366af921b41e0f454c86ca738fc134af0eee342964980f3349c892be8f4d",
+      "sha256": "ef61fc450f23e0c4524253549e2f2deb97a12652269120439a16f27b185c8f97",
       "generated": true
     },
     {
       "path": "rust/src/tracing/init.rs",
-      "sha256": "63e96b7dba7edbd4f34a29cfccbf64a647addc82ad4d94c632f6e84f5c15c83b",
+      "sha256": "94520ff042c7dbbf1a9f2f03f1c85c148da51a59d8db2b23ce2e3c5039064f75",
       "generated": true
     },
     {
       "path": "rust/src/tracing/mod.rs",
-      "sha256": "86b5e1afcc586b563a9eedee5596c2bce0ea5077cfe4a4e55dadfdbe335f3ab7",
+      "sha256": "8eea458466e3a36d6d17f5b519e650b7409fbddfc78f35f5e57fd68211af8db8",
       "generated": true
     },
     {
       "path": "rust/src/tracing/model.rs",
-      "sha256": "da65b526fa18be7119ce6bf71d299ac65ae1899db11f2fc4639c4ac74910b2cc",
+      "sha256": "8a5b9e29efac85f4f460fb2b0a6d5bcd5cb70f0fce2e91542bb51a35ca3ee72d",
       "generated": true
     },
     {
       "path": "rust/src/tracing/otlp.rs",
-      "sha256": "34948afdd1efd34417b93d68b488e16ee55310f090811319a2f9335261278869",
+      "sha256": "8c41b607a5d224ca4a3bac5131d776809a62c9676cbc485a96d3cf5527d2947a",
       "generated": true
     },
     {
       "path": "rust/src/tracing/propagation.rs",
-      "sha256": "9dcd5e903035e7cdf8e1f32fb1450062fff17421d042832050b4d0774e055ff2",
+      "sha256": "a54ecfb7868bc7ba2ef640ccb7674f0c6473ca1f2c5eb94b9113ca3a905c499d",
       "generated": true
     },
     {
       "path": "rust/src/tracing/query.rs",
-      "sha256": "f0ef4890a3e3ad53929b586cbd9c60a07ed320619a55a6f9e92254f0acc9f8bc",
+      "sha256": "b6513f4eaaa26753eb0871df6bbc7aba3018f5f9724193d373ee601c6703a269",
       "generated": true
     },
     {
       "path": "rust/src/tracing/subscriber.rs",
-      "sha256": "e043e507e0ca645ac0114a81055a6f01515298188ca66f8bc568427519aa880d",
+      "sha256": "6acf4d83918fdb8cad5eede23736eb372ad44f99c39ff81eb3dde61e77e1480a",
       "generated": true
     },
     {
@@ -2143,7 +2168,7 @@
     },
     {
       "path": "rust/tests/common/mod.rs",
-      "sha256": "4c54461f793f31fcdd416c32e68653bbb45323b7d6eb8bbada6ea25fdf10df9f",
+      "sha256": "9d07be68020ab601936ad8c04956ad59ad943b8a178efe523a07914af6442c5b",
       "generated": true
     },
     {
@@ -2153,17 +2178,17 @@
     },
     {
       "path": "rust/tests/core_logging.rs",
-      "sha256": "2d06f87654265b24ac9987dea3a78cda65b6a0d79aaf715efb2c3d11759a27d6",
+      "sha256": "bc1af2aa65d719165ced8f6ebb38eac39f274d00cbed8f9856f46d76f6bb7c91",
       "generated": true
     },
     {
       "path": "rust/tests/core_transport.rs",
-      "sha256": "f34901adcce883b6c3596157a66e60bd057221f2555ec4eec63666a9cbe91baf",
+      "sha256": "13324c4672a41a0a87828557c9d83a4cc39ba10be716355ecf752a11c2ecae6e",
       "generated": true
     },
     {
       "path": "rust/tests/core_units.rs",
-      "sha256": "b1f0727806b1229e1b497f2324581154814bfb4d4516d30ae54bd299252a1e80",
+      "sha256": "61571001caee69b5fc0a13152a143fa41073b04b027086e081f329bb1312abfe",
       "generated": true
     },
     {
@@ -2183,32 +2208,32 @@
     },
     {
       "path": "rust/tests/logging_adapters.rs",
-      "sha256": "e567346c9f9d10f27f5eda8df10d12f71598eb94fc3a1e2604581d71ec902778",
+      "sha256": "1f8e4341100a5356dd707faee340cc8164a3b31cbb3f9ddecfe3ba24ff304085",
       "generated": true
     },
     {
       "path": "rust/tests/logging_batch.rs",
-      "sha256": "0df4d04643141ef3c01f15ac687870be26e45b1fc112201d3aee2cdef582a189",
+      "sha256": "64a521f10ee1f74c47410bb170aa95ba6cf29dcfa79d291a8619840d3e9198ab",
       "generated": true
     },
     {
       "path": "rust/tests/logging_client.rs",
-      "sha256": "80c0b45a86d370746f329d021e1d5b95bfae3af29e6cd4af119beabfc5d8d584",
+      "sha256": "940007c2453d00ae899cbab8862c3f14545fac267763659a259b8b35eea3e9eb",
       "generated": true
     },
     {
       "path": "rust/tests/logging_conformance.rs",
-      "sha256": "31f987c2a3ac19741c04c11e2b6104ef3ccde31e174162304cca27ee505be954",
+      "sha256": "9e33f1f99c3c2640402e0ee84809baa55cdd191fd8d90ef6fddb4e545d41cd19",
       "generated": true
     },
     {
       "path": "rust/tests/logging_query.rs",
-      "sha256": "4791a91672de024726a28a95a6d78d03b5ac68e63825f46596087f179b26698f",
+      "sha256": "3e0a10275c4a8c894afd44c55924b742dc8dc3d39f1501af9bb1f90bf9081f46",
       "generated": true
     },
     {
       "path": "rust/tests/logging_records.rs",
-      "sha256": "e255760b0fe33fb7d2bafc24c1668e31a4868c4bf6b89fbfc574648a28fd2179",
+      "sha256": "c7c0066c7827a69b263f9dac2c307d99f8ddca50613b8011e987afb6db785655",
       "generated": true
     },
     {
@@ -2218,27 +2243,27 @@
     },
     {
       "path": "rust/tests/tracing_adapters.rs",
-      "sha256": "63639096d1cea890d3ef8c37fcd3429d734c6f20024ef714071597cd05763a1e",
+      "sha256": "bef04b5c4c2b700d4439f86cb284849996376ee059297f7a4d6b785260387243",
       "generated": true
     },
     {
       "path": "rust/tests/tracing_conformance.rs",
-      "sha256": "3134c90fc6f11aa99c72eda6cc98ce1e44c99628bf50e84828734127351aa50d",
+      "sha256": "1cccc33c08113d7127d08bccaefff1206404b8d40471eeed89e6bd97ed1f3015",
       "generated": true
     },
     {
       "path": "rust/tests/tracing_local.rs",
-      "sha256": "f55cad9c4688ecb09a2790dd824529453107726f3b0425a038125939bcbda45c",
+      "sha256": "3580985a73bf340d64f37bfa599c155a6165024205d76e6905b9bb292568ecb8",
       "generated": true
     },
     {
       "path": "rust/tests/tracing_model.rs",
-      "sha256": "5055bc9e061de8b9447af6a09ef0ef683d9964a5d085be12f2e762158ae140a5",
+      "sha256": "5e331cb44ccc4f6ad239e4c2ef31130b4cff91a8219c035190b09941aa109a40",
       "generated": true
     },
     {
       "path": "rust/tests/tracing_pipeline.rs",
-      "sha256": "58de2204c9da274e2f1dc178b0d05115d5f1d62448115e5dc960185b47673d86",
+      "sha256": "abc5eb7a25e1bce26ff0f085f3a58255681d652f6ecccb516fbeb4afc17e4133",
       "generated": true
     },
     {
@@ -2328,62 +2353,62 @@
     },
     {
       "path": "typescript/src/core/abort.ts",
-      "sha256": "34f1f2093daa6c819c617b8ad9c103bdb0031e5ce4a390015518500e8b9a2c7f",
+      "sha256": "bd52044c46111923e35eab43adb10d1af8bfd6ada8b59488a98f9e0c4ce65559",
       "generated": true
     },
     {
       "path": "typescript/src/core/env.ts",
-      "sha256": "1c3a42c80b5a5baf50f2d64636444566aa3748b9d3130ba88c640b6914d2b09b",
+      "sha256": "53a00cde34aefd56ab358cf6f8b1e0ccb5fbd7401c1b585571953542c9105981",
       "generated": true
     },
     {
       "path": "typescript/src/core/errors.ts",
-      "sha256": "666fcaa3f245762a0c820119c12c32094899ce04e8fcdb26e2815fa206021bf3",
+      "sha256": "110b0dcb6003cd5a4cabceff38261633365c2cb7eca837f1b619dfcd0011fe6b",
       "generated": true
     },
     {
       "path": "typescript/src/core/health.ts",
-      "sha256": "33e78cb5b0cd26c142a79f0ad0073458a2e370a29fc20a5b9edf070a81433c37",
+      "sha256": "28de1de9ab9961e1a90423a2c68af76bc55cd53d212e40ae817660d4603e5a3d",
       "generated": true
     },
     {
       "path": "typescript/src/core/hooks.ts",
-      "sha256": "51df6f6089e0ed54e1b292557d52d11bdb424a403a69b08e6b56a87d0d943ced",
+      "sha256": "da16cc3d46c329605f353d90a68e47b1b0aeda584890de431e3572c78e676c18",
       "generated": true
     },
     {
       "path": "typescript/src/core/index.ts",
-      "sha256": "30b30001828e2258324f98bfb088b9ca04df9248bcc688f19f74f266ee73b1ce",
+      "sha256": "7e0056f1ba67fd749725bded7c9e29f357d1d7237781083598cb1f7bafe732ec",
       "generated": true
     },
     {
       "path": "typescript/src/core/options.ts",
-      "sha256": "2583818bbe16a3c3357ab5f75a88c46e5fa6c0951e701e178c41a00e2f30ca16",
+      "sha256": "1b008c3ea2ed9e6fbb8866f68d625a016a807e135f7529e13159d3faa40bb71f",
       "generated": true
     },
     {
       "path": "typescript/src/core/poll.ts",
-      "sha256": "57d00dd9588b4ebed3a7abbeafe2ad39309342a84ef6e1c770408db1180bb954",
+      "sha256": "824acbd9e851edac1ad39905022d4f4122893b133e07917c173a6ff5ae17eab4",
       "generated": true
     },
     {
       "path": "typescript/src/core/redaction.ts",
-      "sha256": "c85a186230297d7cb465d233d09dc082952ca445c1f08658f39afaf57f1348e8",
+      "sha256": "ea2514074dd7a1dbd5d58eeb22f2fd97c52f6efa416ebf6552ad0c429154134c",
       "generated": true
     },
     {
       "path": "typescript/src/core/retry.ts",
-      "sha256": "ff9836735d248ef415430d5b554008ceac9f3e95e0667eefc929c5bed87fd9f1",
+      "sha256": "50c5ff6e93a905a006611fb2b740545e2078b752914bff9f438e0df9dd67e01a",
       "generated": true
     },
     {
       "path": "typescript/src/core/transport.ts",
-      "sha256": "83cf0a7204b51045f36f7fa77749f5b0ba770ecc27128bd4eca08a9cee7120de",
+      "sha256": "5f89e9d7be3b4b812eb681f97e893aa15c807aca3899e0f690e5c167b3271fef",
       "generated": true
     },
     {
       "path": "typescript/src/core/version.ts",
-      "sha256": "86bcb123241028dc32ab83374eb9e32d002b6294fbf75f4b4de9bed4de17b72b",
+      "sha256": "b82af201cb32671974bad514a1c92d4a0d0e81682ef3545a16683d357b73d504",
       "generated": true
     },
     {
@@ -2393,157 +2418,162 @@
     },
     {
       "path": "typescript/src/logging/batch.ts",
-      "sha256": "360e8d7af84c7763f47dbcc36097bf4736ce3b4f51eb391ed271e0eb3ca5c2de",
+      "sha256": "58c1e9a87d1f5ce5e5f4d5ed6b0974cbedc3acb26814b00e0c3241ca05c9759f",
       "generated": true
     },
     {
       "path": "typescript/src/logging/client.ts",
-      "sha256": "8f540570c100a1bf44ac0052c42b6b5153973e44d4e50c8c3c93dc64ce2351fb",
+      "sha256": "cd4421968cf6f42be4432d62db711d4080c0a2399ac4ccb34683c3ebcc6761eb",
       "generated": true
     },
     {
       "path": "typescript/src/logging/index.ts",
-      "sha256": "fb9ea419497b0a1a80c58267f6d4e084dce5dbaa4639c110069089f8f5dea200",
+      "sha256": "f70f76da73c732a91d13baac3c3a45d5803286cd716fcb1decb60503522c59be",
       "generated": true
     },
     {
       "path": "typescript/src/logging/json.ts",
-      "sha256": "2c52a478bcfb0c781c4a14372edf2e9f866f808175c58b64a06e8a609db1331b",
+      "sha256": "5e4cdca1cb897d166b275e3dd50efaa95df4a2fa86ed3004de424b1295803c5b",
       "generated": true
     },
     {
       "path": "typescript/src/logging/logger.ts",
-      "sha256": "7a240355c8609028ca5d473bdf583f9a51dbaf43b3598e7c939c13f5ecbb057a",
+      "sha256": "8df988f121f48a3482741df38ac4395f2a33fd5a8bb17e9f07c5a25be5f36c13",
       "generated": true
     },
     {
       "path": "typescript/src/logging/pino.ts",
-      "sha256": "63cccb7a623b476bf9eea54965e8c0576b59f16c79a6a3b79eb71f8ba1580020",
+      "sha256": "d77779227619ec5f707fcb02cfb28fe9c4a7b31c3190916ba74c3a4c4ca7844d",
       "generated": true
     },
     {
       "path": "typescript/src/logging/query.ts",
-      "sha256": "4dfdf6282b69cfae84cc2d6f439ceccbcd2b6bee28a31d8eeeb363b0b5e52dc1",
+      "sha256": "aa433e07b93868ad3d2140404ef427c16d764423a3f3c513a0492402a3e9d64c",
       "generated": true
     },
     {
       "path": "typescript/src/logging/redaction.ts",
-      "sha256": "2a61bbf37f26feea9bb1bf79fc390894fa72c022400db149dc995b355e006477",
+      "sha256": "e3d698dc2817c8c0d351e1b640b7b9a19910155a31932c90b5d3cc17a114678e",
       "generated": true
     },
     {
       "path": "typescript/src/logging/types.ts",
-      "sha256": "a8cc77378a6b79bf82152d36c53bea4c7ded293608acf057866dd391e9b48bff",
+      "sha256": "07b4013cc3303e504d6774eb7c06cf42c8a62092118a223cfa72b720f7a89c69",
       "generated": true
     },
     {
       "path": "typescript/src/logging/winston.ts",
-      "sha256": "0bcc4cff6d167674d0afce40b4f989aaa4d45c39dec0507c31cc57e6dd413170",
+      "sha256": "b6df358d6633fec7d33f1e82a764634f3d1416b0280f231b14470838ab895168",
       "generated": true
     },
     {
+      "path": "typescript/src/testing-entry.ts",
+      "sha256": "6beb7d983e035b1f3f27788be583c11b560928bc6f326945b79ff171a8a161c2",
+      "generated": false
+    },
+    {
       "path": "typescript/src/testing/core-ops.ts",
-      "sha256": "b5dba2e8a462d60e38b8e4f615c546f3d6da52052a2a3844bb11f932aa9ae841",
+      "sha256": "000c54f226ab60b007179d52e5ad506f64a10bda5a1d8e529caf7fc57d415d6c",
       "generated": true
     },
     {
       "path": "typescript/src/testing/expect.ts",
-      "sha256": "adb25caaedb93ec5516ebb890d615073f86c8e469c7ff1c371668716aeb304ae",
+      "sha256": "29cbdcdeb462d70d790f5303c7401dd56f12cd49ae50c91ac0ff6f0eb6110298",
       "generated": true
     },
     {
       "path": "typescript/src/testing/index.ts",
-      "sha256": "f9936e41b807650ef800526673f12599aa713ba1d823ef1fe331b929de6c6951",
+      "sha256": "8c14a2b3197506303af649f185fc8c4a73bf7636116165ef3b3fda24ced0c7cf",
       "generated": true
     },
     {
       "path": "typescript/src/testing/logging-ops.ts",
-      "sha256": "c08465f2ee737bb073b9f8a4473e8e7b5d1d16e82bba006a1f0928902e074cd2",
+      "sha256": "c55027de5c4811a502fc4f909cf3fb743d4601188cf28ddd93ff2772ce111509",
       "generated": true
     },
     {
       "path": "typescript/src/testing/memory-logs.ts",
-      "sha256": "8b0cf72acd368bc91c089b4832a16f61b572b125da5c10b80c5a43fe67ac1718",
+      "sha256": "f66a3fe992f8c3928bcb363d9b64c1bc80033b3b9b2e3293d3c367d1da21ac1d",
       "generated": true
     },
     {
       "path": "typescript/src/testing/memory-traces.ts",
-      "sha256": "6c0a6a26b2b2ce068b700bc8b21c0da45efb2b7ed8369689f02bab0b230f2154",
+      "sha256": "b0ca2a79911bcd2c02aabc4d081d28c01d643e7c87dfbd05efadce50dbf1bcbf",
       "generated": true
     },
     {
       "path": "typescript/src/testing/ops.ts",
-      "sha256": "a9834ff1055de0d50dd88e3d528907ba1f2c15631de60c533583c2c1801ed2a7",
+      "sha256": "5a25b3d36c3aa19f83cd7e97ff74d05bd8bc3749a8c58539603d5eb81ed6a993",
       "generated": true
     },
     {
       "path": "typescript/src/testing/runner.ts",
-      "sha256": "05cb204fe5751e7f6e12be98ce97ecf5a035c846a9efc230c25334df86e31698",
+      "sha256": "8e5ce11fca6752f4d76b3d2054f4bd1be679d4be238ffa4a24949a10e8ba0c2b",
       "generated": true
     },
     {
       "path": "typescript/src/testing/tracing-ops.ts",
-      "sha256": "1a317ba62c222798015e104478775171acc87955fb95586ed8eff2698bc43cfb",
+      "sha256": "fa19aec89942dcd863fa9cad3248048ae27b3ff26cc180c81672af1896ecf95c",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/attributes.ts",
-      "sha256": "6b32e00765b25253593ea5484f7a8102f8b1e5e31e25870f2d577fc7289100d4",
+      "sha256": "2bbf328a266c1bb30a85dd057c6101c13649fb5dea78cd8cd1ad762664138f0e",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/config.ts",
-      "sha256": "cf599ed898067cb61eab4ae9a45ed6ae4f4d79e85e8e307ada7af7355d7117c9",
+      "sha256": "43e2d0002ae304dc36632ee3e43feacdfb237ecd7bf415def81a9dbb8556d3b5",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/express.ts",
-      "sha256": "d78e6981903feae880963086dfc5fdff1f55391d253b67983d2a284cf6a43696",
+      "sha256": "9554aee82284f82eab55cac1b7db8f26adc71603e7f886b1426771b7c31ca8c5",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/fastify.ts",
-      "sha256": "8f55d7698a9347fef84deef7b1939548d4f0b86a5c17cf148d67dcd383f5bf74",
+      "sha256": "fb948c3a30463fad873f8124fb2a4684e85471f0c61b3d8cc18b161dcc828a03",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/fetch.ts",
-      "sha256": "869bd7e1be269c0714a6c230ec4a9671f2efa015b1ae8a15a6663240cd635248",
+      "sha256": "7561e47453231e92244807929a0fb1b5b1766572ad009f4d27a2521539518695",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/helpers.ts",
-      "sha256": "69fe7991704642124c5f59fd3b1bb8a0bcd4cb37385b71e57c33e7fec92bf39c",
+      "sha256": "61f2a86e7cfea37120f5c7ec7932da9eb019de9136eca31f4ab9700b5b73f5e0",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/http.ts",
-      "sha256": "75c1748d5f6896927ef3d0c0611cda650688834b285817166695e49a915fde41",
+      "sha256": "af5cb017d52db85c57d9ac6ab49921e9ebd43fb44bd9979f0534546526c83a49",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/index.ts",
-      "sha256": "dce98fc26665dddc5a875c49c2131147c2a591ca4f66befc553eb2909b0f3fd6",
+      "sha256": "94dd617d7052f889718ba4827f160345a5967e2d3a9fa5e89f9635b10747c9ed",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/init.ts",
-      "sha256": "fc28c1b33dea41d3ca5ed5cf53f287923e71e0a8eb3a769390c086f561f9ffb9",
+      "sha256": "42129bd03fa654f6cc9704730caa25f6bd8ebfe1ac6d1824bc15188b531d1fc3",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/model.ts",
-      "sha256": "ec0d847d082275d299790c6cb3d78e4df27f601a7346f0c9b817657d798dbaf3",
+      "sha256": "c019eb72cb5e3b8c32eb0ec74fc49684e86610691b1bea4a5836b7eb2cb3a3c6",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/nest.ts",
-      "sha256": "e24ef473ad187f0eeec89e0c209ee7e79d79d43483b0e64a0b57df9e15634064",
+      "sha256": "70b97aac26764bebda1c3b44877fbb11255efe218722955138a7636e34046cc7",
       "generated": true
     },
     {
       "path": "typescript/src/tracing/query.ts",
-      "sha256": "973eb0b9ccd5984bf137be97eef4b5ac65db339aacf09602bf0bcfe3e055329e",
+      "sha256": "4a56082da73b049542282b66edffa05d8dfb070a13d30b238191a22531194150",
       "generated": true
     },
     {
@@ -2598,47 +2628,47 @@
     },
     {
       "path": "typescript/test/logging/adapters.test.ts",
-      "sha256": "ed91d8faecd180193ba4d7cc22b681ac9e7dbc0e826895c099e576831a176c27",
+      "sha256": "db73b8546bdd299b54d2ebc48d8fb0120e0293634c408ec04f78cbf393425ee7",
       "generated": true
     },
     {
       "path": "typescript/test/logging/batch.test.ts",
-      "sha256": "71155527f80b60197071cd0682a54db399626d8225b8f598af41d5c5546e4ae5",
+      "sha256": "1cd399b8001bcfbbba7ec74f325dcb17e10b184a746fba31d3dc12482bef5dda",
       "generated": true
     },
     {
       "path": "typescript/test/logging/client.test.ts",
-      "sha256": "f0713a1fcbcc627e711105dcc7c717d7fcbd3cc627ecbac2b1406468ab4b74fd",
+      "sha256": "9e9eda16693ffe606de4245fc0b428475702c078c167ea676a8526734bb22f95",
       "generated": true
     },
     {
       "path": "typescript/test/logging/conformance.test.ts",
-      "sha256": "3952f53b9843129a746e4e31ed39ada60dbf0000d7bbe84c82edbdc633b9e16b",
+      "sha256": "e540ec054a1569cfbd5635412afda3879c773fbbe0d0b3977add9b88d3c58e14",
       "generated": true
     },
     {
       "path": "typescript/test/logging/memory-logs.test.ts",
-      "sha256": "7aa31a9ff47a7a0c0d2a68995da0f69d1ae09bcef0805b8f53a19da05c02ef2e",
+      "sha256": "ee37573c6041cb37bf384e22d598438a60ae2aac9ed5eff83926e00813f00e8a",
       "generated": true
     },
     {
       "path": "typescript/test/logging/query.test.ts",
-      "sha256": "0f1e76461f3e6977b680d61cf3986bf02ea9bcf1b3142840df18e03e61659d25",
+      "sha256": "2a8c2ed9d93034b21f229d05cadb0c811dcdb863854e0c1f742e9c964c281444",
       "generated": true
     },
     {
       "path": "typescript/test/logging/redaction.test.ts",
-      "sha256": "8c44fb0ad71fb11c8d58442f424449f6f9cfc864458446c0c7119a1b861464d8",
+      "sha256": "dd34dddee3c96aa605509d2f9604c784999e128fdcd3df68ae1230efa2903ab2",
       "generated": true
     },
     {
       "path": "typescript/test/logging/schema.test.ts",
-      "sha256": "3638676d8d82a323eebbb2481b8706f098536799b0780f07a771cdc83821d5a9",
+      "sha256": "888d5dc48a43bd3a901611c25671d1b5ff58e2e2a886cf2248061f671799c8ec",
       "generated": true
     },
     {
       "path": "typescript/test/logging/types-json.test.ts",
-      "sha256": "664eb7144c99bae123551fef2db367ff82e16a6426b334253f7bb8cd280500eb",
+      "sha256": "095208175af817466d81164bf9ef3b34ff77fe0bca8cb21924cad95547a05f7d",
       "generated": true
     },
     {
@@ -2658,32 +2688,32 @@
     },
     {
       "path": "typescript/test/tracing/adapters.test.ts",
-      "sha256": "16f689ae2f3e7e33475ec25aa264cc831ff0922e71dadc740df2394afcdb7255",
+      "sha256": "c433beb4ee3afd88200e49cf7650571ce65f2874e189b129276fc80bd04d4263",
       "generated": true
     },
     {
       "path": "typescript/test/tracing/helpers.test.ts",
-      "sha256": "ca2ec3aadecc6d01d9326856ba4f884d3960ea086e8c5dd8d8446a3ed033cbbf",
+      "sha256": "2c9b2aafab6bced5a1d9b7c155a2a209b384a0efb160d440bf217dabbb640a49",
       "generated": true
     },
     {
       "path": "typescript/test/tracing/init.test.ts",
-      "sha256": "c3e345b0ece7297ba7035f22d49818a2de885bfbd2dddd5a10508bfc39f3cc3b",
+      "sha256": "e88ea7eba532e1d62e20abcd43ad95923268dff4ab56deea54ba1fad93fb19f4",
       "generated": true
     },
     {
       "path": "typescript/test/tracing/memory-conformance.test.ts",
-      "sha256": "688ff5e2adbe84bbba21be0a5795ee9d59670eadebd6b135e4ef084d8b42c538",
+      "sha256": "52f29bb5cf587a99a83f4f9ea277726471070bb9a576a825b09b7c222a5f1eca",
       "generated": true
     },
     {
       "path": "typescript/test/tracing/model.test.ts",
-      "sha256": "155648d79c9465d84b46af6dfa3426bce373899b9b31c9d365c6915e98d5332c",
+      "sha256": "4583311742a07c6cda5051eb500a2b953209dbc750e86fbffc62f55519027705",
       "generated": true
     },
     {
       "path": "typescript/test/tracing/schema.test.ts",
-      "sha256": "7f5859703275eef5bdecaf4067b9b27a4dd1de590f8a8118acdda0ac63414627",
+      "sha256": "c72ea70ac39e90fee59cc2b1f73c259361fc329651cd296acc8b35e0935dcd36",
       "generated": true
     },
     {
