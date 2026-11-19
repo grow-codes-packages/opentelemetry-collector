@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4318/v1/nope",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{}"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "text/plain; charset=utf-8",
+      "X-Content-Type-Options": "nosniff",
+      "Content-Length": "19",
+      "Connection": "close"
+    },
+    "body": {
+      "text": "404 page not found\n"
+    }
+  }
+}

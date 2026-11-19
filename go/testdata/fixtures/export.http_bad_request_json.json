@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4318/v1/traces",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{bad"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json",
+      "Content-Length": "135",
+      "Connection": "close"
+    },
+    "body": {
+      "json": {
+        "code": 3,
+        "message": "ReadObject: expect \" after {, but found b, error found in #2 byte of ...|{bad|..., bigger context ...|{bad|..."
+      }
+    }
+  }
+}

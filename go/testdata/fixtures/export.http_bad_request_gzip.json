@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4318/v1/metrics",
+    "headers": {
+      "Content-Type": "application/json",
+      "Content-Encoding": "gzip"
+    },
+    "body": "{}"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json",
+      "Content-Length": "38",
+      "Connection": "close"
+    },
+    "body": {
+      "json": {
+        "code": 3,
+        "message": "unexpected EOF"
+      }
+    }
+  }
+}

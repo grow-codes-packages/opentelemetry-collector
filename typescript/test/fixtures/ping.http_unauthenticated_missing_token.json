@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://opentelemetry-collector:4320/v1/traces",
+    "headers": {
+      "Content-Type": "application/x-protobuf"
+    },
+    "body": "empty body"
+  },
+  "response": {
+    "status": 401,
+    "headers": {
+      "Content-Type": "application/x-protobuf",
+      "Content-Length": "56",
+      "Connection": "close"
+    },
+    "body": {
+      "base64": "CBASNG1pc3Npbmcgb3IgZW1wdHkgYXV0aG9yaXphdGlvbiBoZWFkZXI6IEF1dGhvcml6YXRpb24=",
+      "hex": "081012346d697373696e67206f7220656d70747920617574686f72697a6174696f6e206865616465723a20417574686f72697a6174696f6e"
+    }
+  },
+  "decoded": {
+    "googleRpcStatus": {
+      "code": 16,
+      "message": "missing or empty authorization header: Authorization"
+    }
+  }
+}
