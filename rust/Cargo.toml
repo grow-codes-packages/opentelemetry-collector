@@ -46,32 +46,32 @@ async-trait = "0.1.80"
 bytes = "1.6"
 futures = { version = "0.3.30", default-features = false, features = ["std", "async-await"] }
 httpdate = "1.0"
-rand = { version = "0.9", default-features = false, features = ["std", "thread_rng"] }
+rand = { version = "0.10", default-features = false, features = ["std", "thread_rng"] }
 reqwest = { version = "0.12.9", default-features = false, features = ["rustls-tls-native-roots", "json", "gzip"] }
 serde = { version = "1.0.200", features = ["derive"] }
 serde_json = "1.0.120"
-sha2 = "0.10.8"
+sha2 = "0.11.1"
 tokio = { version = "1.43", features = ["rt", "rt-multi-thread", "time", "sync", "macros"] }
 tokio-util = { version = "0.7.11", default-features = false }
 tracing = { version = "0.1.40", default-features = false, features = ["std", "attributes"] }
 url = "2.5"
 zeroize = { version = "1.8", features = ["zeroize_derive"] }
 tracing-subscriber = { version = "0.3.18", default-features = false, features = ["std", "registry", "fmt"] }
-opentelemetry = { version = "0.31", default-features = false, features = ["trace", "metrics", "logs"] }
+opentelemetry = { version = "0.33", default-features = false, features = ["trace", "metrics", "logs"] }
 log = { version = "0.4.22", optional = true, features = ["std", "kv"] }
 flate2 = "1.0.30"
 regex = "1.10"
 humantime = "2.1"
-opentelemetry_sdk = { version = "0.31", default-features = false, features = ["trace", "metrics", "logs", "rt-tokio", "experimental_trace_batch_span_processor_with_async_runtime", "experimental_metrics_periodicreader_with_async_runtime"] }
-opentelemetry-otlp = { version = "0.31", default-features = false, features = ["trace", "metrics", "logs", "http-proto", "grpc-tonic", "reqwest-client", "gzip-tonic", "gzip-http"] }
-opentelemetry-proto = { version = "0.31", default-features = false, features = ["gen-tonic", "trace"] }
-opentelemetry-http = { version = "0.31", default-features = false }
+opentelemetry_sdk = { version = "0.33", default-features = false, features = ["trace", "metrics", "logs", "rt-tokio", "experimental_trace_batch_span_processor_with_async_runtime", "experimental_metrics_periodicreader_with_async_runtime"] }
+opentelemetry-otlp = { version = "0.33", default-features = false, features = ["trace", "metrics", "logs", "http-proto", "grpc-tonic", "reqwest-client", "gzip-tonic", "gzip-http"] }
+opentelemetry-proto = { version = "0.33", default-features = false, features = ["gen-tonic", "trace"] }
+opentelemetry-http = { version = "0.33", default-features = false }
 tonic = { version = "0.14", default-features = false, features = ["channel", "gzip"] }
-tracing-opentelemetry = { version = "0.32", default-features = false }
+tracing-opentelemetry = { version = "0.34", default-features = false }
 tower = { version = "0.5", optional = true, default-features = false }
 http = "1.1"
 pin-project-lite = { version = "0.2", optional = true }
-reqwest-middleware = { version = "0.4", optional = true, default-features = false }
+reqwest-middleware = { version = "0.5", optional = true, default-features = false }
 
 [dev-dependencies]
 tokio = { version = "1.43", features = ["rt-multi-thread", "macros", "time", "sync", "test-util", "net"] }
@@ -79,7 +79,7 @@ wiremock = "0.6"
 tracing-subscriber = { version = "0.3.18", default-features = false, features = ["std", "fmt", "registry"] }
 serde_json = "1.0.120"
 prost = "0.14"
-opentelemetry-proto = { version = "0.31", default-features = false, features = ["gen-tonic", "trace", "logs", "metrics"] }
+opentelemetry-proto = { version = "0.33", default-features = false, features = ["gen-tonic", "trace", "logs", "metrics"] }
 tonic = { version = "0.14", default-features = false, features = ["server", "router", "codegen", "gzip"] }
 
 [package.metadata.docs.rs]
