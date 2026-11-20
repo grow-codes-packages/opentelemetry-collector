@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/grow-codes-packages/opentelemetry-collector/compare/rust-v0.1.1...rust-v0.2.0) (2026-11-20)
+
+
+### Features
+
+* sync opentelemetry-collector to sdk-kit 0.4.0 (foundation API) ([#15](https://github.com/grow-codes-packages/opentelemetry-collector/issues/15)) ([86323d2](https://github.com/grow-codes-packages/opentelemetry-collector/commit/86323d28e6ff94358e1d222f4af4449c3c6ecde2))
+
 ## [0.1.1](https://github.com/grow-codes-packages/opentelemetry-collector/compare/rust-v0.1.0...rust-v0.1.1) (2026-11-19)
 
 
