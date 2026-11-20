@@ -15,7 +15,7 @@ documentation = "https://docs.rs/grow-opentelemetry-collector"
 readme = "README.md"
 keywords = ["grow-codes", "opentelemetry", "otlp", "collector", "telemetry"]
 categories = ["api-bindings", "asynchronous"]
-include = ["src/**/*.rs", "Cargo.toml", "README.md", "LICENSE", "NOTICE"]
+include = ["src/**/*.rs", "Cargo.toml", "README.md", "AGENTS.md", "LICENSE", "NOTICE"]
 
 [lib]
 name = "grow_opentelemetry_collector"
